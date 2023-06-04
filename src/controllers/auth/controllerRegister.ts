@@ -22,11 +22,12 @@ export const showRegister = (req, res)=>{
 
 export const register = async(req, res)=>{
     try{
-        const {username, email, id, password}: any = req.body;
+        const {identification,name,lastname,gender,email,password,studies}: any = req.body;
         let passwordHash = await encryptPassword(password);
         console.log("REGISTER CONTROLADOR")
-        connection.query('INSERT INTO user SET ?', {identification: id, username:username, email:email, password:passwordHash}, async(err, result)=>{
+        connection.query('INSERT INTO user SET ?', {user_identification: identification ,user_name: name,user_lastname: lastname,user_gender: gender,user_email: email, user_password: passwordHash,user_studies: studies}, async(err, result)=>{
             if(err){
+                console.log(err)
                 res.render('register',{
                     alert: true,
                     alertTitle: "Error",
