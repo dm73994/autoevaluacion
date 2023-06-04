@@ -12,7 +12,7 @@ export const login = async (req, res) => {
         const email = req.body.email;
         const password = req.body.password;
         const passwordHash = await encryptPassword(password);
-
+        console.log("as");
         const queryResult = await new Promise<any[]>((resolve, reject) => {
             connection.query('SELECT * FROM user WHERE user_email = ?', [email], (err, result) => {
                 if (err) {
