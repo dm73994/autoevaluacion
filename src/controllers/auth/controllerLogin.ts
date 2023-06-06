@@ -2,6 +2,7 @@ import bcryptjs from 'bcryptjs';
 import { connection } from '../../database/db';
 import { comparePassword, encryptPassword } from '../../utils/passwordHandler';
 import { tokenSign } from '../../utils/tokenManagment';
+import { Response } from 'express';
 
 export const showLogin = (req, res) => {
     res.render('login');
@@ -23,27 +24,31 @@ export const login = async (req, res) => {
             });
         });
 
-
-        if (queryResult.length > 0 && comparePassword(passwordHash, queryResult[0].password)) {
+        if (queryResult.length > 0 && comparePassword(passwordHash, queryResult[0].user_password)) {
             const token = await tokenSign(queryResult[0])
             req.session.loggedin = true;
             req.session.email = queryResult[0].email;
-
-            return res.json({
-                data: queryResult,
-                status: "SUCCESS"
+            
+            return res.status(200).json({
+                status: 200,
+                info: "user logged",
+                data: queryResult[0]
             });
-        } 
 
-        return res.json({
-            data: queryResult,
-            status: "ERROR"
+        } 
+        
+        
+        return res.status(500).json({
+            status: 500,
+            info: "Error logged in",
+            data: queryResult[0]
         });
         
     } catch (err) {
-        return res.json({
-            data: err,
-            status: "ERROR"
+        return res.status(500).json({
+            status: 500,
+            info: "Error logged in",
+            data: err
         });
     }
 };
