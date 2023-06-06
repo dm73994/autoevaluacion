@@ -4,18 +4,6 @@ import { docenteType, userRol } from '../../models/enums';
 import { User } from '../../models/User';
 import { encryptPassword } from '../../utils/passwordHandler';
 
-// USUARIO QUEMADO
-export const userEjemplo: User = {
-    username: "cadmesa",
-    password: "Abc.123",
-    name: "Carlos David",
-    lastname: "Mesa Martínez",
-    roles: [userRol.DECANO, userRol.DOCENTE],
-    id: 123,
-    gender: 'Hombre',
-    studies: ''
-};
-
 export const showRegister = (req, res)=>{
     res.render('register');
 } 
