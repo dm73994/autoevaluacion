@@ -1,6 +1,7 @@
 import express from 'express';
 import { createLabor } from '../../controllers/users/controllerLabor';
-export const authRouter = express.Router();
 
-authRouter.route('/createLabor')
+export const laborRouter = express.Router();
+
+laborRouter.route('/createLabor')
     .post(createLabor)

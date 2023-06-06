@@ -5,6 +5,7 @@ import path from 'path';
 import { authRouter } from './routes/auth/authRoute';
 import { Labor } from './observer/Labor';
 import { Publisher } from './observer/Publisher';
+import { laborRouter } from './routes/labores/laboresRoute';
 
 export const app = express();
 
@@ -24,6 +25,7 @@ app.set('views', path.join(__dirname, './views'));
 
 // Definicion de rutas
 app.use('/', authRouter);
+app.use('/', laborRouter);
 
 // redirigir al inicio a login
 app.get('*', (__, res) => res.redirect('/login') );

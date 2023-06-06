@@ -13,7 +13,7 @@ export const login = async (req, res) => {
         const email = req.body.email;
         const password = req.body.password;
         const passwordHash = await encryptPassword(password);
-        console.log("as");
+
         const queryResult = await new Promise<any[]>((resolve, reject) => {
             connection.query('SELECT * FROM user WHERE user_email = ?', [email], (err, result) => {
                 if (err) {
@@ -26,15 +26,15 @@ export const login = async (req, res) => {
 
         if (queryResult.length > 0 && comparePassword(passwordHash, queryResult[0].user_password)) {
             const token = await tokenSign(queryResult[0])
-            req.session.loggedin = true;
-            req.session.email = queryResult[0].email;
+            // req.session.loggedin = true;
+            // req.session.email = queryResult[0].email;
+            res.set('Authorization', 'Bearer <token>');
             
             return res.status(200).json({
-                status: 200,
+                status: "Inicio de sesión exitoso",
                 info: "user logged",
                 data: queryResult[0]
             });
-
         } 
         
         
