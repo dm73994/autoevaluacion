@@ -6,7 +6,7 @@ import { checkAuth } from '../../middleware/auth';
 export const authRouter = express.Router();
 
 authRouter.route('/login')
-    .post(checkAuth, login)
+    .post(login)
 
 authRouter.route('/register')
     .post(register)
