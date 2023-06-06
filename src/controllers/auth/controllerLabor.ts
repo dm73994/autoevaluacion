@@ -15,5 +15,4 @@ export const createLabor = (req, res) => {
     }catch(err){
         console.log(err);
     }
-
 }
