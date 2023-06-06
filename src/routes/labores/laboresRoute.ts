@@ -1,5 +1,5 @@
 import express from 'express';
-import { createLabor } from '../../controllers/auth/controllerLabor';
+import { createLabor } from '../../controllers/users/controllerLabor';
 export const authRouter = express.Router();
 
 authRouter.route('/createLabor')
