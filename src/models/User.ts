@@ -1,7 +1,8 @@
 import { userRol } from "./enums";
 
 export type User = {
-    id: string | number;
+    id: number;
+    identification: String;
     name: string;
     lastname: string;
     gender: string;

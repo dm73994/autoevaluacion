@@ -15,3 +15,21 @@ export enum gender {
     WOMEN = 1,
     OTHER = 2,
 }
+
+export enum activo {
+    ACTIVO = 1,
+    NOACTIVO = 0,
+}
+
+export enum labor_type {
+    DOCENCIA = 'D',
+    TRABAJOSDOCENCIA = 'TD',
+    PROYECTOSINVESTIGACION = 'PI',
+    TRABAJOSINVESTIGACION = 'TI',
+    ADMINISTRACION = 'AD',
+    ASESORIA = 'AS',
+    SERVICIOS = 'S',
+    EXTENSION = 'E',
+    CAPACITACION = 'C',
+    OTROSSERVICIOS = 'OS',
+}
