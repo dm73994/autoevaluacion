@@ -26,9 +26,8 @@ export const login = async (req, res) => {
 
         if (queryResult.length > 0 && comparePassword(passwordHash, queryResult[0].user_password)) {
             const token = await tokenSign(queryResult[0])
-            // req.session.loggedin = true;
-            // req.session.email = queryResult[0].email;
-            res.set('Authorization', 'Bearer <token>');
+            console.log(token);
+            res.set('Authorization', `Bearer <${token}>`);
             
             return res.status(200).json({
                 status: "Inicio de sesión exitoso",
