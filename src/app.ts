@@ -25,7 +25,7 @@ app.set('views', path.join(__dirname, './views'));
 
 // Definicion de rutas
 app.use('/auth', authRouter);
-app.use('/', laborRouter);
+app.use('/labor', laborRouter);
 
 // redirigir al inicio a login
 // app.get('*', (__, res) => res.redirect('auth/login') );

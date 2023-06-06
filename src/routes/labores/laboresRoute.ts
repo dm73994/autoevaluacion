@@ -3,7 +3,6 @@ import { createLabor, disableLabor, updateLabor } from '../../controllers/users/
 
 export const laborRouter = express.Router();
 
-laborRouter.route('/createLabor')
+laborRouter.route('/')
     .post(createLabor)
     .put(updateLabor)
-    .put(disableLabor)

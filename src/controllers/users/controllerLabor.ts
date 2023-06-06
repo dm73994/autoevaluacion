@@ -1,4 +1,5 @@
 import { connection } from '../../database/db';
+import { Labor } from '../../models/Labor';
 
 export const createLabor = (req, res) => {
     try{
@@ -18,11 +19,19 @@ export const createLabor = (req, res) => {
 }
 
 export const updateLabor = (req, res) => {
-
     try{
-        const {labor_code,labor_name,type_labor_code,labor_hours}: any = req.body;
+        const labor: Labor = req.body;
+        const laborId: number = labor.labor_id
+
+        console.log(labor);
+        Object.entries(labor).forEach(([key, value]) => {
+            if(!value)
+            delete labor[key];
+        });
+        console.log(labor);
         console.log('CONTROLLER UPDATE LABOR');
-        connection.query('UPDATE labor SET ? WHERE labor_code = ?',[{labor_name: labor_name,type_labor_code: type_labor_code,labor_hours: labor_hours},labor_code],(err, result)=>{
+
+        connection.query('UPDATE labor SET ? WHERE labor_id = ?',[labor, laborId],(err, result)=>{
             if(err){
                 console.log(err);
             }
@@ -30,6 +39,10 @@ export const updateLabor = (req, res) => {
                 console.log('labor actualizada');
             }
         })
+
+        res.status(200).json({
+
+        });
     }catch(err){
         console.log(err);
     }

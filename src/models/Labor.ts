@@ -1,6 +1,6 @@
 import { activo, labor_type, userRol } from "./enums";
 
-export type User = {
+export type Labor = {
     labor_id: number ;
     labor_code : String;
     labor_name: String;
