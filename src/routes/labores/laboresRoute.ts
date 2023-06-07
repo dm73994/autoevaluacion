@@ -1,5 +1,5 @@
 import express from 'express';
-import { createLabor, disableLabor, updateLabor } from '../../controllers/users/controllerLabor';
+import { createLabor, updateLabor } from '../../controllers/labor/controllerLabor';
 
 export const laborRouter = express.Router();
 
