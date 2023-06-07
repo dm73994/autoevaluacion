@@ -6,7 +6,7 @@ export type User = {
     name: string;
     lastname: string;
     gender: string;
-    roles: userRol[];
+    roles: userRol;
     studies: string;
     username: string;
     password: string;
@@ -14,5 +14,5 @@ export type User = {
 
 export type tokeInfo = {
     _id: string | number;
-    roles: string | userRol[];
+    roles: string | userRol;
 }
