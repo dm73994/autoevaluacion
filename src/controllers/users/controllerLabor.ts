@@ -1,5 +1,6 @@
 import { connection } from '../../database/db';
 import { Labor } from '../../models/Labor';
+import { activo } from '../../models/enums';
 
 export const createLabor = (req, res) => {
     try{
@@ -21,7 +22,7 @@ export const createLabor = (req, res) => {
 export const updateLabor = (req, res) => {
     try{
         const labor: Labor = req.body;
-        const laborId: number = labor.labor_id
+        const laborId: number = labor.labor_id;
 
         console.log(labor);
         Object.entries(labor).forEach(([key, value]) => {
