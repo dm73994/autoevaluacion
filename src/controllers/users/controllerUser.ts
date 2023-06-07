@@ -13,7 +13,7 @@ export const getUsers = async(req: Request, res: Response) => {
 
 export const createDocente = async(req, res) => {
     try{
-        const {identification,name,lastname,gender,email,password,studies}: any = req.body;
+        const {identification,name,lastname,gender,email,password,studies,role_id,date_init,date_final}: any = req.body;
         let passwordHash = await encryptPassword(password);
         console.log('CONTROLLER CREATE DOCENTE');
         connection.query('INSERT INTO user SET ?', {user_identification: identification ,user_name: name,user_lastname: lastname,user_gender: gender,user_email: email, user_password: passwordHash,user_studies: studies,activo: 1}, async(err, result)=>{
@@ -22,6 +22,14 @@ export const createDocente = async(req, res) => {
             }
             else{
                 console.log('docente creado');
+                connection.query('INSERT INTO user_role SET ?', {user_identification:identification , role_id:role_id,date_start:date_init , date_finish:date_final},(err, result)=>{
+                    if(err){
+                        console.log(err);
+                    }
+                    else{
+                        console.log('user rol registrado');
+                    }
+                })
             }
         })
     }catch(err){
@@ -32,7 +40,7 @@ export const createDocente = async(req, res) => {
 export const updateDocente = (req, res) => {
     try{
         const user: User = req.body;
-        const user_identification: String = user.identification
+        const user_identification: String = user.user_identification
 
         Object.keys(user).forEach((key) => {
             const value = user[key];
