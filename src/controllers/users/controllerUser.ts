@@ -40,7 +40,7 @@ export const createDocente = async(req, res) => {
 export const updateDocente = (req, res) => {
     try{
         const user: User = req.body;
-        const user_identification: String = user.identification
+        const user_identification: String = user.user_identification
 
         Object.keys(user).forEach((key) => {
             const value = user[key];

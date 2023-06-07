@@ -4,8 +4,8 @@ import jwt from "jsonwebtoken"
 export const tokenSign = async(user: User) => {
 
     const payload: tokeInfo = {
-        _id: user.id,
-        roles: user.roles
+        _id: user.user_id,
+        roles: user.rol
     };
 
     return jwt.sign(
