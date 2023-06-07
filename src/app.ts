@@ -7,6 +7,8 @@ import { Labor } from './observer/Labor';
 import { Publisher } from './observer/Publisher';
 import { laborRouter } from './routes/labores/laboresRoute';
 import { docenteRouter } from './routes/users/userRoute';
+import { periodoRouter } from './routes/periodoAcademico/periodRoute';
+import { autoEvaluationRouter } from './routes/autoevaluacion/autoevaluacionRoute';
 
 export const app = express();
 
@@ -27,7 +29,9 @@ app.set('views', path.join(__dirname, './views'));
 // Definicion de rutas
 app.use('/auth', authRouter);
 app.use('/labor', laborRouter);
-app.use('/docente', docenteRouter);
+app.use('/user', docenteRouter);
+app.use('/periodo',periodoRouter);
+app.use('/autoevaluacion',autoEvaluationRouter);
 
 // redirigir al inicio a login
 // app.get('*', (__, res) => res.redirect('auth/login') );
