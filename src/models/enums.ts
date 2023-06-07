@@ -20,6 +20,7 @@ export enum activo {
     ACTIVO = 1,
     NOACTIVO = 0,
 }
+export const labor_type_ref = ['D','TD','PI','TI','AD','AS','S','E','C','OS',''];
 
 export enum labor_type {
     DOCENCIA = 'D',

@@ -6,5 +6,5 @@ export type Labor = {
     labor_name: String;
     labor_type_labor : labor_type;
     labor_hours: String;
-    labor_activo: activo;
+    activo: activo;
 }
