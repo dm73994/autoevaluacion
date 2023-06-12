@@ -33,8 +33,6 @@ app.use('/user', docenteRouter);
 app.use('/periodo',periodoRouter);
 app.use('/autoevaluacion',autoEvaluationRouter);
 
-// redirigir al inicio a login
-// app.get('*', (__, res) => res.redirect('auth/login') );
 
 // Acceso a recursos
 app.use('/resources', express.static('public'));

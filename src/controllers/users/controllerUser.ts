@@ -2,6 +2,7 @@ import { connection } from '../../database/db';
 import bcryptjs from 'bcryptjs';
 import { encryptPassword } from '../../utils/passwordHandler';
 import { User } from '../../models/User';
+
 export const getUsers = async(req: Request, res: Response) => {
     try {
         console.log("HEADERS")
