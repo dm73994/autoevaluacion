@@ -12,6 +12,22 @@ export const getUsers = async(req: Request, res: Response) => {
     }
 }
 
+export const showCoordinadorPrincipal = (req, res) => {
+    res.render('coordinadorPrincipal');
+}
+
+export const coordinadorCRUDuser = (req, res) => {
+    connection.query('SELECT * FROM user' , (err, users) =>{
+        if(err) {
+            res.json(err);
+        }
+        else{
+            res.render('coordinadorCrudUser', {
+                data: users
+            });
+        }
+    });
+}
 export const createDocente = async(req, res) => {
     try{
         const {identification,name,lastname,gender,email,password,studies,role_id,date_init,date_final}: any = req.body;
@@ -38,32 +54,35 @@ export const createDocente = async(req, res) => {
     }
 }
 
+export const showUpdateDocente = (req, res)  => {
+    const {user_id} = req.params;
+    connection.query('SELECT * FROM user WHERE user_id = ?',[ user_id],(err, user)=>{
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.render('coordinadorUpdateUser', {
+                data: user[0]
+            });
+        }
+    })
+}
 export const updateDocente = (req, res) => {
     try{
-        const user: User = req.body;
-        const user_identification: String = user.user_identification
-
-        Object.keys(user).forEach((key) => {
-            const value = user[key];
-            if (!value) {
-              delete user[key];
-            }
-          });
-        console.log(user);
-        console.log('CONTROLLER UPDATE DOCENTE');
-
-        connection.query('UPDATE user SET ? WHERE user_identification = ?',[user, user_identification],(err, result)=>{
+        const {user_id} = req.params;
+        const { user_identification, ...rest } = req.body;
+        const docente = rest;
+        connection.query('UPDATE user SET ? WHERE user_id = ?',[docente, user_id],(err, result)=>{
             if(err){
                 console.log(err);
             }
             else{
                 console.log('docente actualizada');
+                res.redirect('/coordinadorCruduser');
             }
         })
 
-        res.status(200).json({
 
-        });
     }catch(err){
         console.log(err);
     }

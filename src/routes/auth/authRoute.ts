@@ -7,6 +7,7 @@ export const authRouter = express.Router();
 
 authRouter.route('/login')
     .post(login)
+    .get(showLogin)
 
 authRouter.route('/register')
     .post(register)

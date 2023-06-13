@@ -32,6 +32,7 @@ app.use('/labor', laborRouter);
 app.use('/user', docenteRouter);
 app.use('/periodo',periodoRouter);
 app.use('/autoevaluacion',autoEvaluationRouter);
+app.use('/',docenteRouter);
 
 
 // Acceso a recursos

@@ -4,73 +4,48 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Actualizar</title>
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
 </head>
 <body>
-
-    <nav class="navbar navbar-dark bg-dark">
-        <a href="/" class="navbar-brand">Register</a>
-    </nav>
     
+    <nav class="navbar navbar-dark bg-dark">
+        <a href="/" class="navbar-brand">CRUD CUSTOMERS</a>
+    </nav>
+
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-5">
                 <div class="card">
                     <div class="card-body">
-                        <form action="/register" method="post">
+                        <form action="" method="post">
                             <div class="form-group">
-                                <label>Digite su identificacion:</label>
-                                <input type="text" name="identification" class="form-control" required>
+                                <input type="text" name="user_name" value="<%= data.user_name %>" class="form-control" >
                             </div>
                             <div class="form-group">
-                                <label>Digite su username:</label>
-                                <input type="text" name="username" class="form-control" required>
+                                <input type="text" name="user_lastname" value="<%= data.user_lastname %>" class="form-control" >
                             </div>
                             <div class="form-group">
-                                <label>Digite su email:</label>
-                                <input type="text" name="email" class="form-control" required>
+                                <input type="text" name="user_gender" value="<%= data.user_gender %>" class="form-control" >
                             </div>
                             <div class="form-group">
-                                <label>Digite su contraseñia:</label>
-                                <input type="password" name="password" class="form-control" required>
+                                <input type="text" name="user_email" value="<%= data.user_email %>" class="form-control" >
                             </div>
-                            <!--
                             <div class="form-group">
-                                <label>Seleccione el rol:</label>
-                                <select name="tipo">
-                                    <option value="profesor" selected>profesor</option>
-                                    <option value="administrativo" selected>administrativo</option>
-                                    <option value="decano" selected>decano</option>
-                                </select>
-                            </div>  
-                            -->
+                                <input type="text" name="user_studies" value="<%= data.user_studies %>" class="form-control" >
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="activo" value="<%= data.activo %>" class="form-control" >
+                            </div>
                             <button type="submit" class="btn btn-primary">
-                                save
+                                Update customer
                             </button>
-                            <a href="login"  class="btn btn-primary">
-                                cancel
-                            </a>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <% if(typeof alert != "undefined") { %>
-        <script>
-            Swal.fire({
-                title: '<%= alertTitle %>' ,
-                text: '<%= alertMessage %>',
-                icon: '<%= alertIcon %>',
-                showConfirmationButton: <%= showConfirmButton %>,
-                timer:<%= timer %>
-            }).then(()=>{
-                window.location='login <%= ruta %>'
-            })
-        </script>
-    <% } %>
+    </div>
 </body>
 </html>
