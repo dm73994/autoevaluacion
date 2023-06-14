@@ -28,7 +28,7 @@ export const login = async (req, res) => {
         const password = req.body.password;
         const passwordHash = await encryptPassword(password);
 
-        connection.query('SELECT * FROM user WHERE user_email = ?', [email], async(err, result) => {
+        connection.query('SELECT * FROM user WHERE user_email = ? AND activo != -1', [email], async(err, result) => {
             if (err) {
                 console.log(err);
             } else {

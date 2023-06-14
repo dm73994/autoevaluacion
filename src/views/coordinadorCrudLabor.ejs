@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>crud users</title>
+    <title>crud labor</title>
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
     <style>
         .navbar {
@@ -28,9 +28,10 @@
     </style>
 </head>
 <body>
+
     <nav class="navbar navbar-dark bg-dark">
-        <a href="/" class="navbar-brand">crud users</a>
-        <a class="btn btn-info" href="/coordinadorCreateUserView">Create</a>
+        <a href="/" class="navbar-brand">crud labor</a>
+        <a class="btn btn-info" href="/coordinadorCreateLaborView">Create</a>
     </nav>
 
     <div class="container mt-5">
@@ -38,16 +39,11 @@
             <div class="col-md-12 table-container">
                 <table class="table table-bordered table-hover">
                     <thead>
-                        <th>identificacion</th>
+                        <th>codigo</th>
                         <th>nombre</th>
-                        <th>apellido</th>
-                        <th>genero</th>
-                        <th>email</th>
-                        <th>estudios</th>
-                        <th>tipo docente</th>
-                        <th>rol</th>
-                        <th>fecha inicio</th>
-                        <th>fecha fin</th>
+                        <th>tipo labor</th>
+                        <th>tipo labor codigo</th>
+                        <th>horas</th>
                         <th>activo</th>
                         <th>acciones</th>
                     </thead>
@@ -55,23 +51,16 @@
                         <% if(data) { %>
                             <% for (var i = 0; i < data.length ; i++){ %>
                                 <% if(data[i].activo !== 1) { continue; } %> 
-                                <% var startDate = new Date(data[i].date_start); %>
-                                <% var endDate = new Date(data[i].date_finish); %>
                         
                                 <tr>
-                                    <td><%= data[i].user_identification %></td>
-                                    <td><%= data[i].user_name %></td>
-                                    <td><%= data[i].user_lastname %></td>
-                                    <td><%= data[i].user_gender %></td>
-                                    <td><%= data[i].user_email %></td>
-                                    <td><%= data[i].user_studies %></td>
-                                    <td><%= data[i].user_tipoDocente %></td>
-                                    <td><%= data[i].role_type %></td>
-                                    <td><%= startDate.toISOString().substring(0, 10) %></td>
-                                    <td><%= endDate.toISOString().substring(0, 10) %></td>
+                                    <td><%= data[i].labor_code %></td>
+                                    <td><%= data[i].labor_name %></td>
+                                    <td><%= data[i].type_labor_name %></td>
+                                    <td><%= data[i].type_labor_code %></td>
+                                    <td><%= data[i].labor_hours %></td>
                                     <td><%= data[i].activo %></td>
                                     <td>
-                                        <a class="btn btn-info" href="/coordinadorUpdateUserView/<%= data[i].user_identification %>">Update</a>
+                                        <a class="btn btn-info" href="/coordinadorUpdateLaborView/<%= data[i].labor_code %>">Update</a>
                                     </td>
                                 </tr>
                         

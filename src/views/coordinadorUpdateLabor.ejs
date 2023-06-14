@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar</title>
+    <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
+</head>
+<body>
+    
+    <nav class="navbar navbar-dark bg-dark">
+        <a href="/" class="navbar-brand">Actualizar labor</a>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/coordinadorUpdateLabor/<%= data.labor_code %>" method="post">
+                            <div class="form-group">
+                                <input type="text" name="labor_name" value="<%= data.labor_name %>" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <select name="type_labor_code" class="form-control">
+                                    <option value="D" <%= data.type_labor_code === 'D' ? 'selected' : '' %>>Docencia</option>
+                                    <option value="TD" <%= data.type_labor_code === 'TD' ? 'selected' : '' %>>Trabajos Docencia</option>
+                                    <option value="PI" <%= data.type_labor_code === 'PI' ? 'selected' : '' %>>Proyectos Investigacion</option>
+                                    <option value="TI" <%= data.type_labor_code === 'TI' ? 'selected' : '' %>>Trabajos Investigacion</option>
+                                    <option value="AD" <%= data.type_labor_code === 'AD' ? 'selected' : '' %>>Administracion</option>
+                                    <option value="AS" <%= data.type_labor_code === 'AS' ? 'selected' : '' %>>Asesoria</option>
+                                    <option value="S" <%= data.type_labor_code === 'S' ? 'selected' : '' %>>Servicios</option>
+                                    <option value="E" <%= data.type_labor_code === 'E' ? 'selected' : '' %>>Extension</option>
+                                    <option value="C" <%= data.type_labor_code === 'C' ? 'selected' : '' %>>Capacitacion</option>
+                                    <option value="OS" <%= data.type_labor_code === 'OS' ? 'selected' : '' %>>Otros Servicios</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="labor_hours" value="<%= data.labor_hours %>" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <select name="activo" class="form-control">
+                                    <option value="1" <%= data.activo === 1 ? 'selected' : '' %>>Activo</option>
+                                    <option value="-1" <%= data.activo === -1 ? 'selected' : '' %>>Inactivo</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update labor</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

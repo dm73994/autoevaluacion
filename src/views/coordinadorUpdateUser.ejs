@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actualizar</title>
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 <body>
     
     <nav class="navbar navbar-dark bg-dark">
-        <a href="/" class="navbar-brand">CRUD CUSTOMERS</a>
+        <a href="/" class="navbar-brand">Actualizar user</a>
     </nav>
 
     <div class="container mt-5">
@@ -18,7 +19,7 @@
             <div class="col-md-5">
                 <div class="card">
                     <div class="card-body">
-                        <form action="/coordinadorUpdateUser/<%= data.user_id %>" method="post">
+                        <form action="/coordinadorUpdateUser/<%= data.user_id %>/<%= data.user_role_id %>" method="post">
                             <div class="form-group">
                                 <input type="text" name="user_name" value="<%= data.user_name %>" class="form-control" >
                             </div>
@@ -26,7 +27,10 @@
                                 <input type="text" name="user_lastname" value="<%= data.user_lastname %>" class="form-control" >
                             </div>
                             <div class="form-group">
-                                <input type="text" name="user_gender" value="<%= data.user_gender %>" class="form-control" >
+                                <select name="user_gender" class="form-control">
+                                    <option value="masculino" <%= data.user_gender === 'masculino' ? 'selected' : '' %>>Masculino</option>
+                                    <option value="femenino" <%= data.user_gender === 'femenino' ? 'selected' : '' %>>Femenino</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <input type="text" name="user_email" value="<%= data.user_email %>" class="form-control" >
@@ -35,7 +39,30 @@
                                 <input type="text" name="user_studies" value="<%= data.user_studies %>" class="form-control" >
                             </div>
                             <div class="form-group">
-                                <input type="text" name="activo" value="<%= data.activo %>" class="form-control" >
+                                <select name="user_tipoDocente" class="form-control">
+                                    <option value="catedra" <%= data.user_tipoDocente === 'catedra' ? 'selected' : '' %>>Cátedra</option>
+                                    <option value="tiempo completo" <%= data.user_tipoDocente === 'tiempo completo' ? 'selected' : '' %>>Tiempo Completo</option>
+                                    <option value="planta" <%= data.user_tipoDocente === 'planta' ? 'selected' : '' %>>Planta</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select name="role_id" class="form-control">
+                                    <option value="1" <%= data.role_id === 1 ? 'selected' : '' %>>Docente</option>
+                                    <option value="2" <%= data.role_id === 2 ? 'selected' : '' %>>Decano</option>
+                                    <option value="3" <%= data.role_id === 3 ? 'selected' : '' %>>Coordinador</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="date_start" name="date_start" value="<%= data.date_start %>" class="form-control" >
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="date_finish" name="date_finish" value="<%= data.date_finish%>" class="form-control" >
+                            </div>
+                            <div class="form-group">
+                                <select name="activo" class="form-control">
+                                    <option value="1" <%= data.activo === 1 ? 'selected' : '' %>>Activo</option>
+                                    <option value="-1" <%= data.activo === -1 ? 'selected' : '' %>>Inactivo</option>
+                                </select>
                             </div>
                             <button type="submit" class="btn btn-primary">
                                 Update user
@@ -47,5 +74,16 @@
         </div>
 
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        flatpickr("#date_start", {
+            dateFormat: "Y-m-d"
+        });
+
+        flatpickr("#date_finish", {
+            dateFormat: "Y-m-d"
+        });
+    </script>
 </body>
 </html>

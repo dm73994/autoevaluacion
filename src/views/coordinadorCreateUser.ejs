@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actualizar</title>
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 <body>
     
@@ -51,16 +52,30 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="form-row">
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Digite los estudios:</label>
+                                        <input type="text" name="user_studies" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-group">
+                                        <label>Seleccione el tipo de docente:</label>
+                                        <select name="user_tipoDocente" class="form-control">
+                                            <option value="catedra">catedra</option>
+                                            <option value="tiempo completo">tiempo completo</option>
+                                            <option value="planta">planta</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label>Seleccione el género:</label>
                                 <select name="user_gender" class="form-control" required>
                                     <option value="masculino">Masculino</option>
                                     <option value="femenino">Femenino</option>
                                 </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Digite los estudios:</label>
-                                <input type="text" name="user_studies" class="form-control" required>
                             </div>
                         </div>
                     </div>
@@ -69,16 +84,20 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="form-group">
-                            <label>Digite la identificacion del rol:</label>
-                            <input type="text" name="role_id" class="form-control" required>
+                            <label>Seleccione el rol:</label>
+                            <select name="role_id" class="form-control" required>
+                                <option value="1">Docente</option>
+                                <option value="2">Decano</option>
+                                <option value="3">Coordinador</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label>Digite la fecha de inicio:</label>
-                            <input type="text" name="date_start" class="form-control" required>
+                            <input type="text" id="date_start" name="date_start" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label>Digite la fecha fin:</label>
-                            <input type="text" name="date_finish" class="form-control" required>
+                            <input type="text" id="date_finish" name="date_finish" class="form-control" required>
                         </div>
                         <button type="submit" class="btn btn-primary">
                             Create user
@@ -103,6 +122,17 @@
             })
         </script>
     <% } %>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        flatpickr("#date_start", {
+            dateFormat: "Y-m-d"
+        });
+
+        flatpickr("#date_finish", {
+            dateFormat: "Y-m-d"
+        });
+    </script>
 
 </body>
 </html>

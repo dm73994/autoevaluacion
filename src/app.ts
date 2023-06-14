@@ -28,7 +28,7 @@ app.set('views', path.join(__dirname, './views'));
 
 // Definicion de rutas
 app.use('/', authRouter);
-app.use('/labor', laborRouter);
+app.use('/',checkAuth, laborRouter);
 app.use('/periodo',periodoRouter);
 app.use('/autoevaluacion',autoEvaluationRouter);
 app.use('/',checkAuth,docenteRouter);
