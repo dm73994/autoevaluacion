@@ -1,13 +1,10 @@
 import express from 'express';
-import { login, showLogin } from '../../controllers/auth/controllerLogin';
-import { register, showRegister } from '../../controllers/auth/controllerRegister';
+import { endSetion, login, showLogin } from '../../controllers/auth/controllerLogin';
 import { checkAuth } from '../../middleware/auth';
 
 export const authRouter = express.Router();
 
-authRouter.route('/login')
-    .post(login)
-    .get(showLogin)
-
-authRouter.route('/register')
-    .post(register)
+authRouter.get('/login',showLogin);
+authRouter.post('/login',login);
+authRouter.get('/logout',endSetion);
+export default authRouter;

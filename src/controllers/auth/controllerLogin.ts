@@ -7,8 +7,21 @@ import { showCoordinadorPrincipal } from '../users/controllerUser';
 
 export const showLogin = (req, res) => {
     res.render('login');
-}
 
+}
+export const endSetion =(req,res) =>{
+    req.session.destroy(()=>{
+        res.render('login',{
+            alert: true,
+            alertTitle: "Cierre de sesion exitoso",
+            alertMessage: "Cerrando sesion...",
+            alertIcon: "success",
+            showConfirmButton: false,
+            timer: 1500,
+            ruta:'login'
+        })
+    })
+}
 export const login = async (req, res) => {
     try {
         const email = req.body.email;
@@ -20,7 +33,15 @@ export const login = async (req, res) => {
                 console.log(err);
             } else {
                 if(result.length == 0 || !(await bcryptjs.compare(password, result[0].user_password))){
-                    console.log('usuario no valido');
+                    res.render('login',{
+                        alert:true,
+                        alertTitle: "Error",
+                        alertMessage:"Usuario y/o contraseñia incorrectas",
+                        alertIcon:"error",
+                        showConfirmButton:true,
+                        timer:false,
+                        ruta:'login'
+                    })
                 }
                 else{
                     console.log('usuario valido');
@@ -30,6 +51,8 @@ export const login = async (req, res) => {
                         if (err2) {
                             console.log(err)
                         } else {
+                            req.session.loggedin = true;
+                            const user = req.session.username = result[0].user_email;
                             if(result2[0].role_id == 1){
                                 console.log('redireccionar al menu docente')
                             }
@@ -38,7 +61,15 @@ export const login = async (req, res) => {
                             }
                             else if(result2[0].role_id == 3){
                                 console.log('redireccionar al menu coordinador')
-                                showCoordinadorPrincipal(req,res);
+                                res.render('login', {
+                                    alert: true,
+                                    alertTitle: "Conexión exitosa",
+                                    alertMessage: "!Login correcto!",
+                                    alertIcon: "success",
+                                    showConfirmButton: false,
+                                    timer: 1500,
+                                    ruta: 'coordinadorPrincipal',
+                                });
                             }
                         }
                         });

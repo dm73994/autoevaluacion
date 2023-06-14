@@ -13,7 +13,9 @@ export const getUsers = async(req: Request, res: Response) => {
 }
 
 export const showCoordinadorPrincipal = (req, res) => {
-    res.render('coordinadorPrincipal');
+    res.render('coordinadorPrincipal',{
+        user: req.session.username
+    });
 }
 
 export const coordinadorCRUDuser = (req, res) => {
@@ -28,29 +30,84 @@ export const coordinadorCRUDuser = (req, res) => {
         }
     });
 }
+
+export const showCreateCoordinadorCreateUser = (req, res) =>{
+    res.render('coordinadorCreateUser');
+}
 export const createDocente = async(req, res) => {
-    try{
-        const {identification,name,lastname,gender,email,password,studies,role_id,date_init,date_final}: any = req.body;
-        let passwordHash = await encryptPassword(password);
+    try {
+        const { user_identification, user_name, user_lastname, user_gender, user_email, user_password, user_studies, role_id, date_start, date_finish } = req.body;
+        let passwordHash = await encryptPassword(user_password);
         console.log('CONTROLLER CREATE DOCENTE');
-        connection.query('INSERT INTO user SET ?', {user_identification: identification ,user_name: name,user_lastname: lastname,user_gender: gender,user_email: email, user_password: passwordHash,user_studies: studies,activo: 1}, async(err, result)=>{
-            if(err){
-                console.log(err);
-            }
-            else{
-                console.log('docente creado');
-                connection.query('INSERT INTO user_role SET ?', {user_identification:identification , role_id:role_id,date_start:date_init , date_finish:date_final},(err, result)=>{
-                    if(err){
-                        console.log(err);
-                    }
-                    else{
-                        console.log('user rol registrado');
-                    }
+        console.log(req.body)
+        connection.query('SELECT * FROM role WHERE role_id = ?', [role_id], (err, result) => {
+          if (err) {
+            res.render('coordinadorCreateUser',{
+                alert:true,
+                alertTitle: "Error",
+                alertMessage:"Error en role",
+                alertIcon:"error",
+                showConfirmButton:true,
+                timer:false,
+                ruta:'coordinadorCrudUser'
+            })
+          } else {
+            console.log(result)
+            if (result.length === 0) {
+                res.render('coordinadorCreateUser',{
+                    alert:true,
+                    alertTitle: "Error",
+                    alertMessage:"Error, no existe el rol",
+                    alertIcon:"error",
+                    showConfirmButton:true,
+                    timer:false,
+                    ruta:'coordinadorCrudUser'
                 })
+            } else {
+              connection.query('INSERT INTO user SET ?', { user_identification: user_identification, user_name: user_name, user_lastname: user_lastname, user_gender: user_gender, user_email: user_email, user_password: passwordHash, user_studies: user_studies, activo: 1 }, async (err, result) => {
+                if (err) {
+                    res.render('coordinadorCreateUser',{
+                        alert:true,
+                        alertTitle: "Error",
+                        alertMessage:"Error en user",
+                        alertIcon:"error",
+                        showConfirmButton:true,
+                        timer:false,
+                        ruta:'coordinadorCrudUser'
+                    })
+                } else {
+                  console.log('docente creado');
+                  connection.query('INSERT INTO user_role SET ?', { user_identification: user_identification, role_id: role_id, date_start: date_start, date_finish: date_finish }, (err, result) => {
+                    if (err) {
+                        res.render('coordinadorCreateUser',{
+                            alert:true,
+                            alertTitle: "Error",
+                            alertMessage:"Error en user_role",
+                            alertIcon:"error",
+                            showConfirmButton:true,
+                            timer:false,
+                            ruta:'coordinadorCrudUser'
+                        })
+                    } else {
+                      console.log('user rol registrado');
+                      res.render('coordinadorCreateUser', {
+                        alert: true,
+                        alertTitle: "Registro completado",
+                        alertMessage: "!usuario registrado!",
+                        alertIcon: "success",
+                        showConfirmButton: false,
+                        timer: 1500,
+                        ruta: 'coordinadorCrudUser'
+                    });
+                    }
+                  });
+                }
+              });
             }
-        })
-    }catch(err){
-        console.log(err);
+          }
+        });
+    } catch (err) {
+    console.log(err);
     }
 }
 

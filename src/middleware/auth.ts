@@ -2,14 +2,18 @@ import { JwtPayload } from "jsonwebtoken";
 import { tokeInfo } from "../models/User";
 import { verifyToken } from "../utils/tokenManagment";
 
-export const checkAuth = async(req, res, next) => {
-    // console.log(req.headers)
-    // const token = req.headers.authorization.split(' ').pop();
-    // const tokenData: JwtPayload | string = await verifyToken(token);
-
-    // console.log(tokenData);
-    // console.log(token);
-    console.log("verificar roles")
-
-    next();
-}
+export const checkAuth = (req, res, next) => {
+    if (req.session.loggedin) {
+      next();
+    } else {
+        res.render('login',{
+            alert:true,
+            alertTitle: "Error",
+            alertMessage:"Debe iniciar sesion...",
+            alertIcon:"error",
+            showConfirmButton:true,
+            timer:false,
+            ruta:'login'
+        })
+    }
+  };
