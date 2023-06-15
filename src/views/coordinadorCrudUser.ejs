@@ -69,7 +69,11 @@
                                     <td><%= data[i].role_type %></td>
                                     <td><%= startDate.toISOString().substring(0, 10) %></td>
                                     <td><%= endDate.toISOString().substring(0, 10) %></td>
-                                    <td><%= data[i].activo %></td>
+                                    <td>
+                                        <% if (data[i].activo === 1) { %>
+                                            &#9989;
+                                        <% } %>
+                                      </td>
                                     <td>
                                         <a class="btn btn-info" href="/coordinadorUpdateUserView/<%= data[i].user_identification %>">Update</a>
                                     </td>

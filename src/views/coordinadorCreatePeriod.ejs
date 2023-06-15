@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create</title>
+    <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+<body>
+    
+    <nav class="navbar navbar-dark bg-dark">
+        <a href="/" class="navbar-brand">Create period</a>
+        
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/coordinadorCreatePeriods" method="post">
+                            <div class="form-group">
+                                <label for="period_name">Digite el nombre del periodo:</label>
+                                <input type="text" id="period_name" name="period_name" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="period_dateStart">Digite la fecha de inicio:</label>
+                                <input type="text" id="period_dateStart" name="period_dateStart" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="period_dateFinish">Digite la fecha fin:</label>
+                                <input type="text" id="period_dateFinish" name="period_dateFinish" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                Create period
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <% if(typeof alert != "undefined") { %>
+        <script>
+            Swal.fire({
+                title: '<%= alertTitle %>' ,
+                text: '<%= alertMessage %>',
+                icon: '<%= alertIcon %>',
+                showConfirmationButton: <%= showConfirmButton %>,
+                timer:<%= timer %>
+            }).then(()=>{
+                window.location='/<%= ruta %>'
+            })
+        </script>
+    <% } %>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        flatpickr("#period_dateStart", {
+            dateFormat: "Y-m-d"
+        });
+
+        flatpickr("#period_dateFinish", {
+            dateFormat: "Y-m-d"
+        });
+    </script>
+
+</body>
+</html>

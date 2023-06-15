@@ -24,16 +24,16 @@
                             </div>
                             <div class="form-group">
                                 <select name="type_labor_code" class="form-control">
+                                    <option value="AD" <%= data.type_labor_code === 'AD' ? 'selected' : '' %>>Administración</option>
+                                    <option value="AS" <%= data.type_labor_code === 'AS' ? 'selected' : '' %>>Asesoría</option>
+                                    <option value="C" <%= data.type_labor_code === 'C' ? 'selected' : '' %>>Capacitación</option>
                                     <option value="D" <%= data.type_labor_code === 'D' ? 'selected' : '' %>>Docencia</option>
-                                    <option value="TD" <%= data.type_labor_code === 'TD' ? 'selected' : '' %>>Trabajos Docencia</option>
-                                    <option value="PI" <%= data.type_labor_code === 'PI' ? 'selected' : '' %>>Proyectos Investigacion</option>
-                                    <option value="TI" <%= data.type_labor_code === 'TI' ? 'selected' : '' %>>Trabajos Investigacion</option>
-                                    <option value="AD" <%= data.type_labor_code === 'AD' ? 'selected' : '' %>>Administracion</option>
-                                    <option value="AS" <%= data.type_labor_code === 'AS' ? 'selected' : '' %>>Asesoria</option>
-                                    <option value="S" <%= data.type_labor_code === 'S' ? 'selected' : '' %>>Servicios</option>
-                                    <option value="E" <%= data.type_labor_code === 'E' ? 'selected' : '' %>>Extension</option>
-                                    <option value="C" <%= data.type_labor_code === 'C' ? 'selected' : '' %>>Capacitacion</option>
+                                    <option value="E" <%= data.type_labor_code === 'E' ? 'selected' : '' %>>Extensión</option>
                                     <option value="OS" <%= data.type_labor_code === 'OS' ? 'selected' : '' %>>Otros Servicios</option>
+                                    <option value="PI" <%= data.type_labor_code === 'PI' ? 'selected' : '' %>>Proyectos Investigación</option>
+                                    <option value="S" <%= data.type_labor_code === 'S' ? 'selected' : '' %>>Servicios</option>
+                                    <option value="TD" <%= data.type_labor_code === 'TD' ? 'selected' : '' %>>Trabajos Docencia</option>
+                                    <option value="TI" <%= data.type_labor_code === 'TI' ? 'selected' : '' %>>Trabajos Investigación</option>
                                 </select>
                             </div>
                             <div class="form-group">

@@ -17,3 +17,14 @@ export const checkAuth = (req, res, next) => {
         })
     }
   };
+
+export const checkUserAccess = (allowedUser) => {
+  return (req, res, next) => {
+    const user = req.session.role;
+    if (user === allowedUser) {
+      next();
+    } else {
+      res.render('error/error');
+    }
+  };
+};
