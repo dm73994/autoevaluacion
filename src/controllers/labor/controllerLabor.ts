@@ -24,9 +24,9 @@ export const showCoordinadorCreateLabor  = (req, res) => {
 }
 
 export const createLabor = (req, res) => {
-    const { labor_code, labor_name, type_labor_code, labor_hours } = req.body;
+    const { labor_code, labor_name, type_labor_code, labor_hours,labor_descripcion } = req.body;
     console.log('CONTROLLER CREATE LABOR');
-    insertLabor({ labor_code, labor_name, type_labor_code, labor_hours }, (err, result) => {
+    insertLabor({ labor_code, labor_name, type_labor_code, labor_hours , labor_descripcion }, (err, result) => {
         if (err) {
             res.render('coordinadorCreateLabor', {
                 alert: true,
@@ -85,7 +85,23 @@ export const updateLabor = (req, res) => {
                 res.send('Error al actualizar la labor');
             } else {
                 console.log('Labor actualizada');
-                res.redirect('/coordinadorCrudLabor');
+                getLabors((err, results) => {
+                    if (err) {
+                        res.json(err);
+                    } else {
+                        res.render('coordinadorUpdateLabor', {
+                            data:results,
+                            alert: true,
+                            alertTitle: "Registro completado",
+                            alertMessage: "!labor actualizada!",
+                            alertIcon: "success",
+                            showConfirmButton: false,
+                            timer: 1500,
+                            ruta: 'coordinadorCrudLabor'
+                        });
+                    }
+                });
+                //res.redirect('/coordinadorCrudLabor');
             }
         });
     } catch (err) {

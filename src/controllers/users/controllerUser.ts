@@ -116,7 +116,6 @@ export const createDocente = async (req, res) => {
       getUserByIdentification(user_identification, (err, result) => {
           if (err) {
               console.log(err);
-              res.render('error', { message: 'Error al obtener el usuario' });
           } else {
               const user = result[0];
               console.log(user);
@@ -158,13 +157,27 @@ export const createDocente = async (req, res) => {
 
         updateUserRole(user_role_id, userRole, (err, result) => {
             if (err) {
-                console.log(err);
+              console.log(err);
             } else {
-                console.log('Rol de usuario actualizado');
+              console.log('Rol de usuario actualizado');
             }
         });
-
-        res.redirect('/coordinadorCruduser');
+        getUsers(user_email, (err, users) => {
+          if (err) {
+              res.json(err);
+          } else {
+              res.render('coordinadorUpdateuser', {
+                data: users,
+                alert: true,
+                alertTitle: 'Registro completado',
+                alertMessage: '!usuario actualizado!',
+                alertIcon: 'success',
+                showConfirmButton: false,
+                timer: 1500,
+                ruta: 'coordinadorCrudUser',
+              });
+          }
+      });
     } catch (err) {
         console.log(err);
     }

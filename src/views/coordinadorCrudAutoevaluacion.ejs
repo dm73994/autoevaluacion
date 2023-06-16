@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>crud users</title>
+    <title>crud autoevaluacion</title>
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
     <style>
         .navbar {
@@ -32,15 +32,16 @@
     </style>
 </head>
 <body>
+
     <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand">crud users</a>
+        <a class="navbar-brand">crud autoevaluacion</a>
         <a href="/coordinadorPrincipal"  class="navbar-brand">home</a>
-        <a class="btn btn-info btn-create" href="/coordinadorCreateUserView">Create</a>
+        <a class="btn btn-info btn-create" href="/coordinadorCreateAutoevaluacionView">Create</a>
         <details>
             <summary>&#9776;</summary>
             <ul>
-                <li><a class="btn btn-info" href="/coordinadorCrudAutoevaluacion">Crear autoevaluación</a></li>
                 <li><a class="btn btn-info" href="/coordinadorListPeriods">Crear periodo académico</a></li>
+                <li><a class="btn btn-info" href="/coordinadorCRUDuser">Gestión docente</a></li>
                 <li><a class="btn btn-info" href="/coordinadorCrudLabor">Gestión labor</a></li>
                 <li><a class="btn btn-info" href="/coordinadorDiligenciarAutoevaluaciones">Realizar autoevaluación</a></li>
             </ul>
@@ -52,47 +53,43 @@
             <div class="col-md-12 table-container">
                 <table class="table table-bordered table-hover">
                     <thead>
-                        <th>identificacion</th>
-                        <th>nombre</th>
-                        <th>apellido</th>
-                        <th>genero</th>
-                        <th>email</th>
-                        <th>estudios</th>
-                        <th>tipo docente</th>
-                        <th>rol</th>
+                        <th>N</th>
+                        <th>nombre labor</th>
+                        <th>tipo labor</th>
+                        <th>horas</th>
+                        <th>descripcion</th>
+                        <th>acto</th>
                         <th>fecha inicio</th>
                         <th>fecha fin</th>
-                        <th>activo</th>
-                        <th>acciones</th>
+                        <th>estado</th>
+                        <th>resultados</th>
+                        <th>evaluacion</th>
+                        <th>docente</th>
+                        <th>periodo</th>
                     </thead>
                     <tbody>
                         <% if(data) { %>
                             <% for (var i = 0; i < data.length ; i++){ %>
                                 <% if(data[i].activo !== 1) { continue; } %> 
-                                <% var startDate = new Date(data[i].date_start); %>
-                                <% var endDate = new Date(data[i].date_finish); %>
                         
                                 <tr>
-                                    <td><%= data[i].user_identification %></td>
-                                    <td><%= data[i].user_name %></td>
-                                    <td><%= data[i].user_lastname %></td>
-                                    <td><%= data[i].user_gender %></td>
-                                    <td><%= data[i].user_email %></td>
-                                    <td><%= data[i].user_studies %></td>
-                                    <td><%= data[i].user_tipoDocente %></td>
-                                    <td><%= data[i].role_type %></td>
-                                    <td><%= startDate.toISOString().substring(0, 10) %></td>
-                                    <td><%= endDate.toISOString().substring(0, 10) %></td>
+                                    <td><%= data[i].autoevaluation_id %></td>
+                                    <td><%= data[i].labor_name %></td>
+                                    <td><%= data[i].type_labor_name %></td>
+                                    <td><%= data[i].labor_hours %></td>
+                                    <td><%= data[i].labor_descripcion %></td>
+                                    <td><%= data[i].acto %></td>
+                                    <td><%= data[i].date_init.toISOString().substring(0, 10) %></td>
+                                    <td><%= data[i].date_finish.toISOString().substring(0, 10) %></td>
+                                    <td><%= data[i].state %></td>
+                                    <td><%= data[i].resultados %></td>
+                                    <td><%= data[i].evaluacion %></td>
+                                    <td><%= data[i].user_name + ' ' + data[i].user_lastname%></td>
+                                    <td><%= data[i].period_name %></td>
                                     <td>
-                                        <% if (data[i].activo === 1) { %>
-                                            &#9989;
-                                        <% } %>
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-info" href="/coordinadorUpdateUserView/<%= data[i].user_identification %>">Update</a>
+                                        <a class="btn btn-info" href="/coordinadorUpdateAutoevaluacionView/<%= data[i].autoevaluation_id %>">Update</a>
                                     </td>
                                 </tr>
-                        
                             <% }%>   
                         <% } %>
                     </tbody>

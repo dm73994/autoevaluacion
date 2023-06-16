@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>crud autoevaluacion</title>
+    <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
+    <style>
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .navbar-brand {
+            flex-grow: 1;
+        }
+        
+        .table-container {
+            margin-left: -200px;
+            margin-right: auto;
+            max-width: 500px;
+        }
+        
+        .table-container table {
+            margin-bottom: 0;
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand">crud autoevaluacion</a>
+        <a href="/coordinadorPrincipal"  class="navbar-brand">home</a>
+        <details>
+            <summary>&#9776;</summary>
+            <ul>
+                <li><a class="btn btn-info" href="/coordinadorCrudAutoevaluacion">Crear autoevaluación</a></li>
+                <li><a class="btn btn-info" href="/coordinadorListPeriods">Crear periodo académico</a></li>
+                <li><a class="btn btn-info" href="/coordinadorCRUDuser">Gestión docente</a></li>
+                <li><a class="btn btn-info" href="/coordinadorCrudLabor">Gestión labor</a></li>
+            </ul>
+        </details>
+    </nav>
+    <br>
+    <% if(data && data.length > 0) { %>
+        <h3>nombre: <%= data[0].user_name + ' ' + data[0].user_lastname %></h3>
+        <h3>identificacion: <%= data[0].user_identification %></h3>
+    <% } %>
+    <h3></h3>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12 table-container">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <th>N</th>
+                        <th>nombre labor</th>
+                        <th>tipo labor</th>
+                        <th>horas</th>
+                        <th>descripcion</th>
+                        <th>acto</th>
+                        <th>fecha inicio</th>
+                        <th>fecha fin</th>
+                        <th>estado</th>
+                        <th>resultados</th>
+                        <th>evaluacion</th>
+                        <th>periodo</th>
+                    </thead>
+                    <tbody>
+                        <% let totalLaborHours = 0; %>
+                        <% if(data) { %>
+                            <% for (var i = 0; i < data.length ; i++){ %>
+                                <% if(data[i].activo !== 1) { continue; } %> 
+                        
+                                <tr>
+                                    <td><%= data[i].autoevaluation_id %></td>
+                                    <td><%= data[i].labor_name %></td>
+                                    <td><%= data[i].type_labor_name %></td>
+                                    <td><%= data[i].labor_hours %></td>
+                                    <td><%= data[i].labor_descripcion %></td>
+                                    <td><%= data[i].acto %></td>
+                                    <td><%= data[i].date_init.toISOString().substring(0, 10) %></td>
+                                    <td><%= data[i].date_finish.toISOString().substring(0, 10) %></td>
+                                    <td><%= data[i].state %></td>
+                                    <td><%= data[i].resultados %></td>
+                                    <td><%= data[i].evaluacion %></td>
+                                    <td><%= data[i].period_name %></td>
+                                    <td>
+                                        <% if (data[i].state === 'suspendido' || data[i].state === 'terminado') { %>
+                                            <a class="btn btn-info disabled" href="/coordinadorDiligenciarAutoevaluacionView/<%= data[i].autoevaluation_id %>">Realizar autoevaluación</a>
+                                        <% } else { %>
+                                            <a class="btn btn-info" href="/coordinadorDiligenciarAutoevaluacionView/<%= data[i].autoevaluation_id %>">Realizar autoevaluación</a>
+                                        <% } %>
+                                    </td>
+                                </tr>
+                                <% totalLaborHours += parseInt(data[i].labor_hours, 10); %>
+                            <% }%>   
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <h3>Total horas: <%= totalLaborHours %></h3>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <% if(typeof alert != "undefined") { %>
+        <script>
+            Swal.fire({
+                title: '<%= alertTitle %>' ,
+                text: '<%= alertMessage %>',
+                icon: '<%= alertIcon %>',
+                showConfirmationButton: <%= showConfirmButton %>,
+                timer:<%= timer %>
+            }).then(()=>{
+                window.location='/<%= ruta %>'
+            })
+        </script>
+    <% } %>
+</body>
+</html>

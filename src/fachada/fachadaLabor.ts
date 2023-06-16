@@ -2,7 +2,7 @@ import { connection } from '../database/db';
 
 export const getLabors = (callback) => {
     connection.query(
-        'SELECT tl.type_labor_id, tl.type_labor_code, tl.type_labor_name, l.labor_id, l.labor_code, l.labor_name, l.labor_hours, l.activo FROM type_labor tl JOIN labor l ON tl.type_labor_code = l.type_labor_code',
+        'SELECT tl.type_labor_id, tl.type_labor_code, tl.type_labor_name,l.labor_descripcion ,l.labor_id, l.labor_code, l.labor_name, l.labor_hours, l.activo FROM type_labor tl JOIN labor l ON tl.type_labor_code = l.type_labor_code',
         (err, results) => {
             if (err) {
                 callback(err, null);

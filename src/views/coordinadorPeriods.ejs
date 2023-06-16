@@ -25,12 +25,26 @@
         .table-container table {
             margin-bottom: 0;
         }
+
+        .btn-create {
+            margin-right: 30px;
+        }
     </style>
 </head>
 <body>
     <nav class="navbar navbar-dark bg-dark">
-        <a href="/" class="navbar-brand">periods</a>
-        <a class="btn btn-info" href="/coordinadorCreatePeriodView">Create</a>
+        <a class="navbar-brand">periods</a>
+        <a href="/coordinadorPrincipal"  class="navbar-brand">home</a>
+        <a class="btn btn-info btn-create" href="/coordinadorCreatePeriodView">Create</a>
+        <details>
+            <summary>&#9776;</summary>
+            <ul>
+                <li><a class="btn btn-info" href="/coordinadorCrudAutoevaluacion">Crear autoevaluación</a></li>
+                <li><a class="btn btn-info" href="/coordinadorCRUDuser">Gestión docente</a></li>
+                <li><a class="btn btn-info" href="/coordinadorCrudLabor">Gestión labor</a></li>
+                <li><a class="btn btn-info" href="/coordinadorDiligenciarAutoevaluaciones">Realizar autoevaluación</a></li>
+            </ul>
+        </details>
     </nav>
 
     <div class="container mt-5">
@@ -38,6 +52,7 @@
             <div class="col-md-12 table-container">
                 <table class="table table-bordered table-hover">
                     <thead>
+                        <th>Id</th>
                         <th>Nombre</th>
                         <th>Fecha de inicio</th>
                         <th>Fecha de fin</th>
@@ -46,6 +61,7 @@
                         <% if(data) { %>
                             <% for (var i = 0; i < data.length; i++) { %>
                                 <tr>
+                                    <td><%= data[i].period_id %></td>
                                     <td><%= data[i].period_name %></td>
                                     <td><%= data[i].period_dateStart.toISOString().substring(0, 10) %></td>
                                     <td><%= data[i].period_dateFinish.toISOString().substring(0, 10) %></td>

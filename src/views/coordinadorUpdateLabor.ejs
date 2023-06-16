@@ -4,13 +4,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actualizar</title>
+    <title>Actualizar Labor</title>
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
 </head>
 <body>
     
     <nav class="navbar navbar-dark bg-dark">
-        <a href="/" class="navbar-brand">Actualizar labor</a>
+        <a class="navbar-brand">Actualizar Labor</a>
+        <a href="/coordinadorPrincipal"  class="navbar-brand">home</a>
+        <details>
+            <summary>&#9776;</summary>
+            <ul>
+                <li><a class="btn btn-info" href="/coordinadorCrudAutoevaluacion">Crear autoevaluación</a></li>
+                <li><a class="btn btn-info" href="/coordinadorListPeriods">Crear periodo académico</a></li>
+                <li><a class="btn btn-info" href="/coordinadorCRUDuser">Gestión docente</a></li>
+                <li><a class="btn btn-info" href="/coordinadorCrudLabor">Gestión labor</a></li>
+                <li><a class="btn btn-info" href="/coordinadorDiligenciarAutoevaluaciones">Realizar autoevaluación</a></li>
+            </ul>
+        </details>
     </nav>
 
     <div class="container mt-5">
@@ -20,10 +31,12 @@
                     <div class="card-body">
                         <form action="/coordinadorUpdateLabor/<%= data.labor_code %>" method="post">
                             <div class="form-group">
-                                <input type="text" name="labor_name" value="<%= data.labor_name %>" class="form-control">
+                                <label for="labor_name">Nombre del Labor</label>
+                                <input type="text" id="labor_name" name="labor_name" value="<%= data.labor_name %>" class="form-control">
                             </div>
                             <div class="form-group">
-                                <select name="type_labor_code" class="form-control">
+                                <label for="type_labor_code">Código del Tipo de Labor</label>
+                                <select id="type_labor_code" name="type_labor_code" class="form-control">
                                     <option value="AD" <%= data.type_labor_code === 'AD' ? 'selected' : '' %>>Administración</option>
                                     <option value="AS" <%= data.type_labor_code === 'AS' ? 'selected' : '' %>>Asesoría</option>
                                     <option value="C" <%= data.type_labor_code === 'C' ? 'selected' : '' %>>Capacitación</option>
@@ -37,21 +50,36 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <input type="text" name="labor_hours" value="<%= data.labor_hours %>" class="form-control">
+                                <label for="labor_hours">Horas del Labor</label>
+                                <input type="text" id="labor_hours" name="labor_hours" value="<%= data.labor_hours %>" class="form-control">
                             </div>
                             <div class="form-group">
-                                <select name="activo" class="form-control">
+                                <label for="activo">Estado</label>
+                                <select id="activo" name="activo" class="form-control">
                                     <option value="1" <%= data.activo === 1 ? 'selected' : '' %>>Activo</option>
                                     <option value="-1" <%= data.activo === -1 ? 'selected' : '' %>>Inactivo</option>
                                 </select>
                             </div>
-                            <button type="submit" class="btn btn-primary">Update labor</button>
+                            <button type="submit" class="btn btn-primary">Actualizar Labor</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <% if(typeof alert != "undefined") { %>
+        <script>
+            Swal.fire({
+                title: '<%= alertTitle %>' ,
+                text: '<%= alertMessage %>',
+                icon: '<%= alertIcon %>',
+                showConfirmationButton: <%= showConfirmButton %>,
+                timer:<%= timer %>
+            }).then(()=>{
+                window.location='/<%= ruta %>'
+            })
+        </script>
+    <% } %>
 </body>
 </html>
