@@ -79,8 +79,17 @@
                                     <td><%= data[i].labor_hours %></td>
                                     <td><%= data[i].labor_descripcion %></td>
                                     <td><%= data[i].acto %></td>
-                                    <td><%= data[i].date_init.toISOString().substring(0, 10) %></td>
-                                    <td><%= data[i].date_finish.toISOString().substring(0, 10) %></td>
+                                    <% if (data[i].date_init && typeof data[i].date_init === 'object' && data[i].date_init instanceof Date) { %>
+                                        <td><%= data[i].date_init.toISOString().substring(0, 10) %></td>
+                                      <% } else { %>
+                                        <td></td>
+                                      <% } %>
+                                      
+                                      <% if (data[i].date_finish && typeof data[i].date_finish === 'object' && data[i].date_finish instanceof Date) { %>
+                                        <td><%= data[i].date_finish.toISOString().substring(0, 10) %></td>
+                                      <% } else { %>
+                                        <td></td>
+                                      <% } %>
                                     <td><%= data[i].state %></td>
                                     <td><%= data[i].resultados %></td>
                                     <td><%= data[i].evaluacion %></td>

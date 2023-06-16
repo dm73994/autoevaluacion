@@ -19,6 +19,42 @@ export const getAutoevaluaciones = (callback) => {
   );
 };
 
+export const getCodeLabor = () => {
+  return new Promise((resolve, reject) => {
+    connection.query(`SELECT labor_code FROM labor`, (err, codes) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(codes);
+      }
+    });
+  });
+};
+
+export const getIdentificationUser = () => {
+  return new Promise((resolve, reject) => {
+    connection.query(`SELECT  user_identification FROM user WHERE activo = 1`, (err, identifications) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(identifications);
+      }
+    });
+  });
+};
+
+export const getIdPeriodo = () => {
+  return new Promise((resolve, reject) => {
+    connection.query(`SELECT  period_id,period_name FROM period`, (err, periods) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(periods);
+      }
+    });
+  });
+};
+
 export const getAutoevaluacionesDiligenciar = (correo, callback) => {
   connection.query(
     `SELECT a.*, l.labor_name, l.labor_descripcion, tl.type_labor_name, p.period_name, l.labor_hours, u.user_name, u.user_lastname

@@ -1,5 +1,5 @@
 import { connection } from '../../database/db';
-import { getAutoevaluacionesDiligenciar,getAutoevaluaciones ,insertAutoevaluacion, updateAutoevaluationByCode,getAutoevaluationByCode} from '../../fachada/fachadaAutoevaluacion';
+import { getIdPeriodo,getCodeLabor,getIdentificationUser,getAutoevaluacionesDiligenciar,getAutoevaluaciones ,insertAutoevaluacion, updateAutoevaluationByCode,getAutoevaluationByCode} from '../../fachada/fachadaAutoevaluacion';
 
 export const showCoordinadorCrudAutoevaluation = (req,res) =>{
   res.render('coordinadorCrudAutoevaluacion');
@@ -7,7 +7,7 @@ export const showCoordinadorCrudAutoevaluation = (req,res) =>{
 export const coordinadorCrudAutoevaluacion = (req,res) => {
     getAutoevaluaciones((err,autoevaluaciones) =>{
         if(err){
-            console.log(err)
+          console.log(err)
         }
         else{
             console.log(autoevaluaciones);
@@ -17,11 +17,26 @@ export const coordinadorCrudAutoevaluacion = (req,res) => {
         }
     })
 }
-export const showCoordinadorCreateAutoevaluacion = (req,res) =>{
-  res.render('coordinadorCreateAutoevaluacion');
-}
-export const createAutoevaluacion = (req, res) => {
+
+export const showCoordinadorCreateAutoevaluacion = async (req, res) => {
   try {
+    const codes = await getCodeLabor();
+    const identifications = await getIdentificationUser();
+    const periods = await getIdPeriodo();
+    res.render('coordinadorCreateAutoevaluacion', {
+      dataIdentifications: identifications,
+      dataCode: codes,
+      dataPeriods: periods
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+export const createAutoevaluacion = async (req, res) => {
+  try {
+    const codes = await getCodeLabor();
+    const identifications = await getIdentificationUser();
+    const periods = await getIdPeriodo();
     const { user_identification, labor_code,period_id, acto, date_init, date_finish } = req.body;
     console.log(req.body)
     console.log('CONTROLLER CREATE LABOR');
@@ -43,6 +58,9 @@ export const createAutoevaluacion = (req, res) => {
       } else {
         console.log('Autoevaluación registrada');
         res.render('coordinadorCreateAutoevaluacion', {
+          dataIdentifications: identifications,
+          dataCode: codes,
+          dataPeriods: periods,
           alert: true,
           alertTitle: "Registro completado",
           alertMessage: "!Autoevaluacion registrada!",
@@ -51,6 +69,7 @@ export const createAutoevaluacion = (req, res) => {
           timer: 1500,
           ruta: 'coordinadorCrudAutoevaluacion'
         });
+        //res.redirect('/coordinadorCrudAutoevaluacion');
       }
     });
   } catch (err) {
@@ -58,9 +77,11 @@ export const createAutoevaluacion = (req, res) => {
   }
 };
 
-export const showAutoevaluationUpdate = (req, res) => {
+export const showAutoevaluationUpdate = async(req, res) => {
   const {autoevaluation_id} = req.params;
-
+  const codes = await getCodeLabor();
+  const identifications = await getIdentificationUser();
+  const periods = await getIdPeriodo();
   getAutoevaluationByCode(autoevaluation_id, (err, result) => {
     if (err) {
       console.log(err);
@@ -68,16 +89,21 @@ export const showAutoevaluationUpdate = (req, res) => {
       const autoevaluacion = result[0];
       console.log(autoevaluacion);
       res.render('coordinadorUpdateAutoevaluacion',{
-        data:autoevaluacion
+        data:autoevaluacion,
+        dataIdentifications: identifications,
+        dataCode: codes,
+        dataPeriods: periods
       });
     }
   });
 };
 
-export const updateAutoevaluation = (req, res) => {
+export const updateAutoevaluation = async(req, res) => {
   const {autoevaluation_id} = req.params;
   const { user_identification, labor_code,period_id, acto,state, date_init, date_finish,activo } = req.body;
-  
+  const codes = await getCodeLabor();
+  const identifications = await getIdentificationUser();
+  const periods = await getIdPeriodo();
   const autoevaluacionData = {
     user_identification: user_identification,
     labor_code:labor_code,
@@ -95,6 +121,9 @@ export const updateAutoevaluation = (req, res) => {
         console.log(autoevaluaciones);
         res.render('coordinadorUpdateAutoevaluacion', {
           data:autoevaluaciones,
+          dataIdentifications: identifications,
+          dataCode: codes,
+          dataPeriods: periods,
           alert: true,
           alertTitle: "Registro fallido",
           alertMessage: "!Error al actualizar!",
@@ -109,6 +138,9 @@ export const updateAutoevaluation = (req, res) => {
         console.log(autoevaluaciones);
         res.render('coordinadorUpdateAutoevaluacion', {
           data:autoevaluaciones,
+          dataIdentifications: identifications,
+          dataCode: codes,
+          dataPeriods: periods,
           alert: true,
           alertTitle: "Registro completado",
           alertMessage: "!Autoevaluacion actualizada!",

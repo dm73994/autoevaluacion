@@ -33,16 +33,46 @@
                         <form action="/coordinadorUpdateAutoevaluacion/<%= data.autoevaluation_id %>" method="post">
                             <div class="form-group">
                                 <label for="user_identification">Identificación de Usuario</label>
-                                <input type="text" id="user_identification" name="user_identification" value="<%= data.user_identification %>" class="form-control" >
+                                <select id="user_identification" name="user_identification" class="form-control">
+                                  <% dataIdentifications.forEach(identification => { %>
+                                    <option value="<%= identification.user_identification %>"
+                                      <% if (identification.user_identification === data.user_identification) { %>
+                                        selected
+                                      <% } %>
+                                    >
+                                      <%= identification.user_identification %>
+                                    </option>
+                                  <% }) %>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="labor_code">Código de Labor</label>
-                                <input type="text" id="labor_code" name="labor_code" value="<%= data.labor_code %>" class="form-control" >
-                            </div>
-                            <div class="form-group">
+                                <select id="labor_code" name="labor_code" class="form-control">
+                                  <% dataCode.forEach(code => { %>
+                                    <option value="<%= code.labor_code %>"
+                                      <% if (code.labor_code === data.labor_code) { %>
+                                        selected
+                                      <% } %>
+                                    >
+                                      <%= code.labor_code %>
+                                    </option>
+                                  <% }) %>
+                                </select>
+                              </div>    
+                              <div class="form-group">
                                 <label for="period_id">ID del Período</label>
-                                <input type="text" id="period_id" name="period_id" value="<%= data.period_id %>" class="form-control" >
-                            </div>
+                                <select id="period_id" name="period_id" class="form-control">
+                                  <% dataPeriods.forEach(period => { %>
+                                    <option value="<%= period.period_id %>"
+                                      <% if (period.period_id === data.period_id) { %>
+                                        selected
+                                      <% } %>
+                                    >
+                                      <%= period.period_name %>
+                                    </option>
+                                  <% }) %>
+                                </select>
+                              </div>
                             <div class="form-group">
                                 <label for="acto">Acto</label>
                                 <select id="acto" name="acto" class="form-control">

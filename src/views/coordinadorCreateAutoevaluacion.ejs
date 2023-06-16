@@ -32,17 +32,29 @@
                     <div class="card-body">
                         <form action="/coordinadorCreateAutoevaluacion" method="post">
                             <div class="form-group">
-                                <label for="period_name">Digite la identificacion del docente:</label>
-                                <input type="text" id="user_identification" name="user_identification" class="form-control" required>
+                                <label for="user_identification">Seleccione la identificación del docente:</label>
+                                <select id="user_identification" name="user_identification" class="form-control" required>
+                                    <% dataIdentifications.forEach(function(identification) { %>
+                                        <option value="<%= identification.user_identification %>"><%= identification.user_identification %></option>
+                                    <% }); %>
+                                </select>
                             </div>
                             <div class="form-group">
-                                <label for="period_name">Digite el codigo de la labor:</label>
-                                <input type="text" id="labor_code" name="labor_code" class="form-control" required>
+                                <label for="labor_code">Seleccione el código de la labor:</label>
+                                <select id="labor_code" name="labor_code" class="form-control" required>
+                                    <% for (let i = 0; i < dataCode.length; i++) { %>
+                                        <option value="<%= dataCode[i].labor_code %>"><%= dataCode[i].labor_code %></option>
+                                    <% } %>
+                                </select>
                             </div>
                             <div class="form-group">
-                                <label for="period_name">Digite el codigo de el periodo:</label>
-                                <input type="text" id="labor_code" name="period_id" class="form-control" required>
-                            </div>
+                                <label for="period_name">Seleccione el periodo:</label>
+                                <select id="period_id" name="period_id" class="form-control" required>
+                                  <% dataPeriods.forEach(period => { %>
+                                    <option value="<%= period.period_id %>"><%= period.period_name %></option>
+                                  <% }); %>
+                                </select>
+                              </div>
                             <div class="form-group">
                                 <label for="acto">Es acto:</label>
                                 <select id="acto" name="acto" class="form-control" required>
