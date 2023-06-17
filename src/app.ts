@@ -3,13 +3,12 @@ import morgan from 'morgan';
 import session from 'express-session';
 import path from 'path'; 
 import { authRouter } from './routes/auth/authRoute';
-import { Labor } from './observer/Labor';
-import { Publisher } from './observer/Publisher';
 import { laborRouter } from './routes/labores/laboresRoute';
-import { docenteRouter } from './routes/users/userRoute';
+import { userRouter } from './routes/users/userRoute';
 import { periodoRouter } from './routes/periodoAcademico/periodRoute';
 import { autoEvaluationRouter } from './routes/autoevaluacion/autoevaluacionRoute';
 import { checkAuth, checkUserAccess } from './middleware/auth'; // Importa el middleware checkAuth
+import {notificacionRouter} from './routes/notificaciones/notificacionesRoute';
 export const app = express();
 
 // Default configs
@@ -30,16 +29,10 @@ app.use('/',authRouter);
 app.use('/',checkAuth, laborRouter);
 app.use('/',checkAuth,periodoRouter);
 app.use('/',checkAuth,autoEvaluationRouter);
-app.use('/',checkAuth,docenteRouter);
+app.use('/',checkAuth,userRouter);
+app.use('/',checkAuth,notificacionRouter);
 
 
 // Acceso a recursos
 app.use('/resources', express.static('public'));
 app.use('/resources', express.static(__dirname + "/public"));
-
-
-const l = new Labor();
-const p = new Publisher();
-
-p.eventManager.suscribe(l);
-p.fecha();

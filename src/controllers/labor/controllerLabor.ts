@@ -3,6 +3,7 @@ import { cleanData } from '../../middleware/sanitize';
 import { Labor } from '../../models/Labor';
 import { activo } from '../../models/enums';
 import { updateLaborByCode,getLaborByCode,insertLabor,getLabors} from '../../fachada/fachadaLabor';
+
 export const showCoordinadorCrudLabor  = (req, res) => {
     res.render('coordinadorCrudLabor')
 }

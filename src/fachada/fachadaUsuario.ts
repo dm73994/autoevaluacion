@@ -14,6 +14,20 @@ export const getUsers = (currentUser, callback) => {
     );
 };
 
+export const getUserByEmail = (email,callback) => {
+    connection.query(
+        'SELECT user_identification FROM user WHERE user_email = ?',[email],(err,identification) =>
+        {
+            if(err){
+                callback(err,null);
+            }
+            else{
+                console.log('identificacion:')
+                callback(null,identification);
+            }
+        }
+    );
+}
 export const createUser = (userData, callback) => {
     connection.query('INSERT INTO user SET ?', userData, (err, result) => {
       if (err) {

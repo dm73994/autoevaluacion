@@ -1,5 +1,9 @@
+import { Result } from 'express-validator';
 import { connection } from '../../database/db';
-import { getIdPeriodo,getCodeLabor,getIdentificationUser,getAutoevaluacionesDiligenciar,getAutoevaluaciones ,insertAutoevaluacion, updateAutoevaluationByCode,getAutoevaluationByCode} from '../../fachada/fachadaAutoevaluacion';
+import {getIdPeriodo,getCodeLabor,getIdentificationUser,getAutoevaluacionesDiligenciar,getAutoevaluaciones ,insertAutoevaluacion, updateAutoevaluationByCode,getAutoevaluationByCode} from '../../fachada/fachadaAutoevaluacion';
+import { getUserByEmail } from '../../fachada/fachadaUsuario';
+import {almacenarMensaje } from '../../observador/observadorNotificacion';
+import { notificarRelizacionAutoevaluacion } from '../notificaciones/controllerNotificaciones';
 
 export const showCoordinadorCrudAutoevaluation = (req,res) =>{
   res.render('coordinadorCrudAutoevaluacion');
@@ -202,6 +206,7 @@ export const diligenciarAutoevaluation = (req, res) => {
     if (err) {
       console.log(err);
     } else {
+      notificarRelizacionAutoevaluacion(req,res,autoevaluation_id);
       getAutoevaluaciones((err,autoevaluaciones) =>{
         console.log(autoevaluaciones);
         res.render('coordinadorDiligenciar', {
@@ -215,11 +220,9 @@ export const diligenciarAutoevaluation = (req, res) => {
           ruta: 'coordinadorDiligenciarAutoevaluaciones'
         });
       })
-      //res.redirect('/coordinadorDiligenciarAutoevaluaciones');
     }
   });
 };
-
 
 
 
