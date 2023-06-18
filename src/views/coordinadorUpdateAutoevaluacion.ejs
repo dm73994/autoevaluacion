@@ -16,8 +16,9 @@
         <details>
             <summary>&#9776;</summary>
             <ul>
-                <li><a class="btn btn-info" href="/coordinadorCrudAutoevaluacion">Crear autoevaluación</a></li>
+                <li><a class="btn btn-info" href="/coordinadorBandejaEntrada">Bandeja de entrada</a></li>
                 <li><a class="btn btn-info" href="/coordinadorListPeriods">Crear periodo académico</a></li>
+                <a class="btn btn-info" href="/coordinadorCrudAutoevaluacion">Gestion autoevaluacion</a>
                 <li><a class="btn btn-info" href="/coordinadorCRUDuser">Gestión docente</a></li>
                 <li><a class="btn btn-info" href="/coordinadorCrudLabor">Gestión labor</a></li>
                 <li><a class="btn btn-info" href="/coordinadorDiligenciarAutoevaluaciones">Realizar autoevaluación</a></li>
@@ -89,6 +90,10 @@
                                 </select>
                             </div>
                             <div class="form-group">
+                              <label for="recomendaciones">Recomendaciones</label>
+                              <textarea id="recomendaciones" name="recomendaciones" class="form-control" rows="8"><%= data.recomendaciones %></textarea>
+                            </div>
+                            <div class="form-group">
                                 <label for="date_init">Fecha de Inicio</label>
                                 <input type="text" id="date_init" name="date_init" value="<%= data.date_init %>" class="form-control" >
                             </div>
@@ -104,7 +109,7 @@
                                 </select>
                             </div>
                             <button type="submit" class="btn btn-primary">
-                                Actualizar Autoevaluación
+                                Actualizar
                             </button>
                         </form>
                     </div>

@@ -45,9 +45,41 @@ export const almacenarNotificacion = (req,res) => {
     }
   });
 }
+export const notificarAsignacionAutoevaluacion = (req,res,autoevaluacion_id,user_identification) => {
+  const userIdentificationRecep = user_identification;
+  const email = req.session.username;
+  getUserByEmail(email,(err,emisor_identification) =>{
+    if(err){
+      console.log(err);
+    }
+    else{
+      const notificacion = {
+        emisor_identification : emisor_identification[0].user_identification,
+        receptor_identification : userIdentificationRecep,
+        mensaje:'Se le ha asignado una autoevaluacion',
+        autoevaluacion_id : autoevaluacion_id
+      }
+      almacenarMensaje(notificacion,(err,result) =>{
+        if(err){
+          console.log(err);
+        }
+        else{
+          console.log(result);
+          getAutoevaluaciones((err,autoevaluaciones) =>{
+            if(err){
+              console.log(err)
+            }
+            else{
+                console.log(autoevaluaciones);
+            }
+        })}
+      })
+    }
+  });
+}
 
-export const notificarRelizacionAutoevaluacion = (req,res,autoevaluacion_id) => {
-  const user_identification = '1002963849';
+export const notificarRelizacionAutoevaluacionCoordinador = (req,res,autoevaluacion_id) => {
+  const user_identification = '100009';
   const email = req.session.username;
   getUserByEmail(email,(err,emisor_identification) =>{
     if(err){

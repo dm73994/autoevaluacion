@@ -3,8 +3,8 @@ import { connection } from '../../database/db';
 import {getIdPeriodo,getCodeLabor,getIdentificationUser,getAutoevaluacionesDiligenciar,getAutoevaluaciones ,insertAutoevaluacion, updateAutoevaluationByCode,getAutoevaluationByCode} from '../../fachada/fachadaAutoevaluacion';
 import { getUserByEmail } from '../../fachada/fachadaUsuario';
 import {almacenarMensaje } from '../../observador/observadorNotificacion';
-import { notificarRelizacionAutoevaluacion } from '../notificaciones/controllerNotificaciones';
-
+import { notificarRelizacionAutoevaluacionCoordinador } from '../notificaciones/controllerNotificaciones';
+import { notificarAsignacionAutoevaluacion } from '../notificaciones/controllerNotificaciones';
 export const showCoordinadorCrudAutoevaluation = (req,res) =>{
   res.render('coordinadorCrudAutoevaluacion');
 }
@@ -36,6 +36,7 @@ export const showCoordinadorCreateAutoevaluacion = async (req, res) => {
     console.log(err);
   }
 };
+
 export const createAutoevaluacion = async (req, res) => {
   try {
     const codes = await getCodeLabor();
@@ -60,6 +61,8 @@ export const createAutoevaluacion = async (req, res) => {
       if (err) {
         console.log(err);
       } else {
+        const autoevaluacionId = result.insertId;
+        notificarAsignacionAutoevaluacion(req,res,autoevaluacionId,user_identification);
         console.log('Autoevaluación registrada');
         res.render('coordinadorCreateAutoevaluacion', {
           dataIdentifications: identifications,
@@ -104,7 +107,7 @@ export const showAutoevaluationUpdate = async(req, res) => {
 
 export const updateAutoevaluation = async(req, res) => {
   const {autoevaluation_id} = req.params;
-  const { user_identification, labor_code,period_id, acto,state, date_init, date_finish,activo } = req.body;
+  const { user_identification, labor_code,period_id, acto,state, date_init, date_finish,activo ,recomendaciones} = req.body;
   const codes = await getCodeLabor();
   const identifications = await getIdentificationUser();
   const periods = await getIdPeriodo();
@@ -116,7 +119,8 @@ export const updateAutoevaluation = async(req, res) => {
     state: state,
     date_init: date_init,
     date_finish: date_finish,
-    activo: activo
+    activo: activo,
+    recomendaciones: recomendaciones
   };
   
   updateAutoevaluationByCode(autoevaluation_id, autoevaluacionData, (err, result) => {
@@ -195,18 +199,19 @@ export const showAutoevaluationDiligenciar = (req, res) => {
 
 export const diligenciarAutoevaluation = (req, res) => {
   const {autoevaluation_id} = req.params;
-  const { resultados , evaluacion} = req.body;
+  const { resultados , evaluacion, sugerencias} = req.body;
   
   const autoevaluacionData = {
     resultados:resultados,
-    evaluacion:evaluacion
+    evaluacion:evaluacion,
+    sugerencias: sugerencias
   };
 
   updateAutoevaluationByCode(autoevaluation_id, autoevaluacionData, (err, result) => {
     if (err) {
       console.log(err);
     } else {
-      notificarRelizacionAutoevaluacion(req,res,autoevaluation_id);
+      notificarRelizacionAutoevaluacionCoordinador(req,res,autoevaluation_id);
       getAutoevaluaciones((err,autoevaluaciones) =>{
         console.log(autoevaluaciones);
         res.render('coordinadorDiligenciar', {

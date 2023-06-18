@@ -40,6 +40,7 @@
         <details>
             <summary>&#9776;</summary>
             <ul>
+                <li><a class="btn btn-info" href="/coordinadorBandejaEntrada">Bandeja de entrada</a></li>
                 <li><a class="btn btn-info" href="/coordinadorListPeriods">Crear periodo académico</a></li>
                 <li><a class="btn btn-info" href="/coordinadorCRUDuser">Gestión docente</a></li>
                 <li><a class="btn btn-info" href="/coordinadorCrudLabor">Gestión labor</a></li>
@@ -82,6 +83,8 @@
                                 <th>evaluacion</th>
                                 <th>docente</th>
                                 <th>periodo</th>
+                                <th>recomendaciones</th>
+                                <th>sugerencias</th>
                             </thead>
                             <tbody>
                                 <% for (var i = 0; i < realizadas.length ; i++){ %>
@@ -109,6 +112,8 @@
                                         <td><%= realizadas[i].evaluacion %></td>
                                         <td><%= realizadas[i].user_name + ' ' + realizadas[i].user_lastname%></td>
                                         <td><%= realizadas[i].period_name %></td>
+                                        <td> <%= realizadas[i].recomendaciones %></td>
+                                        <td> <%= realizadas[i].sugerencias %></td>
                                         <td>
                                             <a class="btn btn-info" href="/coordinadorUpdateAutoevaluacionView/<%= realizadas[i].autoevaluation_id %>">Update</a>
                                             <form method="post" action="/enviarNotificacion/<%= realizadas[i].user_identification %>/<%= realizadas[i].autoevaluation_id %>">
