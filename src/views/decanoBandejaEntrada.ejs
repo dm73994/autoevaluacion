@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificaciones</title>
+    <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
+    <style>
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .navbar-brand {
+            flex-grow: 1;
+        }
+        
+        .table-container {
+            margin-left: -200px;
+            margin-right: auto;
+            max-width: 500px;
+        }
+        
+        .table-container table {
+            margin-bottom: 0;
+        }
+
+        .btn-create {
+            margin-right: 30px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand">Notificaciones</a>
+        <a href="/decanoPrincipal"  class="navbar-brand">home</a>
+        <details>
+            <summary>&#9776;</summary>
+            <ul>
+                <li><a class="btn btn-info" href="/decanoAutoevaluaciones">Consultar autoevaluaciones</a></li>
+                <li><a class="btn btn-info" href="/decanoAutoevaluacionCoordinador">Consultar autoevaluacion coordinador</a></li>
+            </ul>
+        </details>
+    </nav>
+    <h3>Notificaciones</h3>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12 table-container">
+                <table class="table table-bordered table-hover">
+                    <tbody>
+                        <% if(data && data.length > 0) { %>
+                            <% for (var i = 0; i < data.length; i++) { %>
+                              <thead> 
+                                <th>from:</th>
+                                <th>To:</th>
+                                <th>recibido :</th>
+                                <th>Mensaje:</th>
+                                <th>Disponible entre:</th>
+                                <th>Labor pendiente de autoevaluacion: </th>
+                                <th>Link</th>
+                              </thead>
+                              <tr>
+                                <td><%= data[i].emisor_nombre + '  ' + data[i].emisor_apellido %></td>
+                                <td><%= data[i].receptor_nombre + '  ' + data[i].receptor_apellido %></td>
+                                <th><%= new Date(data[i].created_at).toLocaleString('es-CO', { timeZone: 'America/Bogota' }) %></th>
+                                <td><%= data[i].mensaje %></td>
+                                <td>
+                                  <%= '('+ data[i].date_init.toISOString().substring(0, 10) +') - (' + data[i].date_finish.toISOString().substring(0, 10) + ')' %>
+                                </td>
+                                <td> <%= data[i].labor_name %></td>
+                                <td><a href="/decanoAutoevaluacionCoordinador">Ir a autoevaluacones</a></td>
+                              </tr>
+                            <% } %>
+                          <% } else { %>
+                            <tr>
+                              <td colspan="5">Bandeja de entrada vacía</td>
+                            </tr>
+                          <% } %>
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

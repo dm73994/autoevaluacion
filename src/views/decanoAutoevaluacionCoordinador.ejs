@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>autoevaluaciones coordinador</title>
+    <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
+    <style>
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .navbar-brand {
+            flex-grow: 1;
+        }
+        
+        .table-container {
+            margin-left: -200px;
+            margin-right: auto;
+            max-width: 500px;
+        }
+        
+        .table-container table {
+            margin-bottom: 0;
+        }
+
+        .btn-create {
+            margin-right: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand">autoevaluaciones coordinador</a>
+        <a href="/decanoPrincipal" class="navbar-brand">home</a>
+        <details>
+            <summary>&#9776;</summary>
+            <ul>
+                <li><a class="btn btn-info" href="/decanoBandejaEntrada">Bandeja de entrada</a></li>
+                <li><a class="btn btn-info" href="/decanoAutoevaluaciones">Consultar autoevaluaciones</a></li>
+            </ul>
+        </details>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12 table-container">
+                <% if(data) { %>
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <th>N</th>
+                        <th>nombre labor</th>
+                        <th>tipo labor</th>
+                        <th>horas</th>
+                        <th>descripcion</th>
+                        <th>acto</th>
+                        <th>fecha inicio</th>
+                        <th>fecha fin</th>
+                        <th>estado</th>
+                        <th>resultados</th>
+                        <th>evaluacion</th>
+                        <th>docente</th>
+                        <th>periodo</th>
+                        <th>recomendaciones</th>
+                        <th>sugerencias</th>
+                    </thead>
+                    <tbody>
+                        <% for (var i = 0; i < data.length ; i++){ %>
+                        <% if(data[i].activo !== 1) { continue; } %>
+                        <tr>
+                            <td><%= data[i].autoevaluation_id %></td>
+                            <td><%= data[i].labor_name %></td>
+                            <td><%= data[i].type_labor_name %></td>
+                            <td><%= data[i].labor_hours %></td>
+                            <td><%= data[i].labor_descripcion %></td>
+                            <td><%= data[i].acto %></td>
+                            <% if (data[i].date_init && typeof data[i].date_init === 'object' && data[i].date_init instanceof Date) { %>
+                            <td><%= data[i].date_init.toISOString().substring(0, 10) %></td>
+                            <% } else { %>
+                            <td></td>
+                            <% } %>
+
+                            <% if (data[i].date_finish && typeof data[i].date_finish === 'object' && data[i].date_finish instanceof Date) { %>
+                            <td><%= data[i].date_finish.toISOString().substring(0, 10) %></td>
+                            <% } else { %>
+                            <td></td>
+                            <% } %>
+
+                            <td><%= data[i].state %></td>
+                            <td><%= data[i].resultados %></td>
+                            <td><%= data[i].evaluacion %></td>
+                            <td><%= data[i].user_name + ' ' + data[i].user_lastname%></td>
+                            <td><%= data[i].period_name %></td>
+                            <td><%= data[i].recomendaciones %></td>
+                            <td><%= data[i].sugerencias %></td>
+                            <td>
+                                <form method="post"
+                                    action="/decanoEnviarNotificacion/<%= data[i].user_identification %>/<%= data[i].autoevaluation_id %>">
+                                    <button type="submit" class="btn btn-info">Notificar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <% if(typeof alert != "undefined") { %>
+    <script>
+        Swal.fire({
+            title: '<%= alertTitle %>',
+            text: '<%= alertMessage %>',
+            icon: '<%= alertIcon %>',
+            showConfirmationButton: <%= showConfirmButton %>,
+            timer: <%= timer %>
+        }).then(() => {
+            window.location = '/<%= ruta %>'
+        })
+    </script>
+    <% } %>
+</body>
+
+</html>

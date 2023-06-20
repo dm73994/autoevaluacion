@@ -5,10 +5,15 @@ import { tokenSign } from '../../utils/tokenManagment';
 import { Response } from 'express';
 import { showCoordinadorPrincipal } from '../users/controllerUser';
 import {getUserByEmail,getUserRole} from '../../fachada/fachadaLogin'
-export const showLogin = (req, res) => {
-    res.render('login');
 
+export const showLogin = (req, res) => {
+  res.render('login');
 }
+
+export const paginaError = (req,res) => {
+  res.render('error');
+}
+
 export const endSetion =(req,res) =>{
     req.session.destroy(()=>{
         res.render('login',{
@@ -22,6 +27,7 @@ export const endSetion =(req,res) =>{
         })
     })
 }
+
 export const login = async (req, res) => {
     try {
       const email = req.body.email;
@@ -55,17 +61,35 @@ export const login = async (req, res) => {
   
                 if (result2[0].role_id == 1) {
                   console.log('Redireccionar al menú docente');
+                  res.render('login', {
+                    alert: true,
+                    alertTitle: "Conexión exitosa",
+                    alertMessage: "!Login correcto!",
+                    alertIcon: "success",
+                    showConfirmButton: false,
+                    timer: 1500,
+                    ruta: 'docentePrincipal',
+                });
                 } else if (result2[0].role_id == 2) {
                   console.log('Redireccionar al menú decano');
+                  res.render('login',{
+                    alert:true,
+                    alertTitle: "Conexion exitosa",
+                    alertMessage: "!Login correcto!",
+                    alertIcon : "success",
+                    showConfirmButton: false,
+                    timer: 1500,
+                    ruta: 'decanoPrincipal',
+                  });
                 } else if (result2[0].role_id == 3) {
                     res.render('login', {
-                        alert: true,
-                        alertTitle: "Conexión exitosa",
-                        alertMessage: "!Login correcto!",
-                        alertIcon: "success",
-                        showConfirmButton: false,
-                        timer: 1500,
-                        ruta: 'coordinadorPrincipal',
+                      alert: true,
+                      alertTitle: "Conexión exitosa",
+                      alertMessage: "!Login correcto!",
+                      alertIcon: "success",
+                      showConfirmButton: false,
+                      timer: 1500,
+                      ruta: 'coordinadorPrincipal',
                     });
                 }
               }
@@ -76,4 +100,4 @@ export const login = async (req, res) => {
     } catch (err) {
       console.log(err);
     }
-  };
+};

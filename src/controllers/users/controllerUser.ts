@@ -1,12 +1,11 @@
 import { connection } from '../../database/db';
 import bcryptjs from 'bcryptjs';
 import { encryptPassword } from '../../utils/passwordHandler';
-import { User } from '../../models/User';
-import { getUsers,createUser, createUserRole ,getUserByIdentification,updateUser,updateUserRole} from '../../fachada/fachadaUsuario'; 
+import { getInfoUser,getUsers,createUser, createUserRole ,getUserByIdentification,updateUser,updateUserRole} from '../../fachada/fachadaUsuario'; 
 
 export const showCoordinadorPrincipal = (req, res) => {
     res.render('coordinadorPrincipal',{
-        user: req.session.username
+      user: req.session.username
     });
 }
 
@@ -108,9 +107,9 @@ export const createDocente = async (req, res) => {
     } catch (err) {
       console.log(err);
     }
-  };
+};
 
-  export const showUpdateDocente = (req, res) => {
+export const showUpdateDocente = (req, res) => {
       const { user_identification } = req.params;
       
       getUserByIdentification(user_identification, (err, result) => {
@@ -124,9 +123,9 @@ export const createDocente = async (req, res) => {
               });
           }
       });
-  };
+};
 
-  export const updateDocente = (req, res) => {
+export const updateDocente = (req, res) => {
     try {
         const { user_id, user_role_id } = req.params;
         const { user_name, user_lastname, user_gender, user_email, user_studies, activo, user_tipoDocente, date_start, date_finish, role_id } = req.body;
@@ -182,3 +181,34 @@ export const createDocente = async (req, res) => {
         console.log(err);
     }
 };
+
+export const showDocentePrincipal = (req, res) => {
+  res.render('docentePrincipal',{
+    user: req.session.username
+  });
+}
+
+export const showInformacionDocente = (req, res) => {
+  res.render('docenteInformacionPersonal');
+}
+
+export const informacionDocente = (req, res) => {
+  const user = req.session.username;
+  console.log(user);
+  getInfoUser(user, (err, users) => {
+    if (err) {
+        res.json(err);
+    } else {
+        console.log(users);
+        res.render('docenteInformacionPersonal', {
+            data: users
+        });
+    }
+  });
+}
+
+export const showDecanoPrincipal = (req,res) => {
+  res.render('decanoPrincipal',{
+    user: req.session.username
+  });
+}

@@ -1,6 +1,5 @@
 import express from 'express';
 import { createLabor, showCoordinadorCreateLabor, updateLabor } from '../../controllers/labor/controllerLabor';
-import { sanitizeLaborData } from '../../middleware/sanitize';
 import { showCoordinadorCrudLabor, coordinadorCrudLabor ,showUpdateLabor} from '../../controllers/labor/controllerLabor';
 import { checkUserAccess } from '../../middleware/auth';
 export const laborRouter = express.Router();

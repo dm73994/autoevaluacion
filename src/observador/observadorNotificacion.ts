@@ -31,7 +31,8 @@ export const notificarUser = (email, callback) => {
     'JOIN user AS receptor ON notificaciones.receptor_identification = receptor.user_identification ' +
     'JOIN autoevaluation ON notificaciones.autoevaluacion_id = autoevaluation.autoevaluation_id ' +
     'JOIN labor ON autoevaluation.labor_code = labor.labor_code ' +
-    'WHERE receptor.user_email = ?',
+    'WHERE receptor.user_email = ? ' +
+    'ORDER BY notificaciones.created_at DESC',
     [email],
     (err, result) => {
       if (err) {

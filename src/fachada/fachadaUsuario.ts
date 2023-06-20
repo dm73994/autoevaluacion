@@ -28,6 +28,7 @@ export const getUserByEmail = (email,callback) => {
         }
     );
 }
+
 export const createUser = (userData, callback) => {
     connection.query('INSERT INTO user SET ?', userData, (err, result) => {
       if (err) {
@@ -36,7 +37,7 @@ export const createUser = (userData, callback) => {
         callback(null, result);
       }
     });
-  };
+};
   
 export const createUserRole = (userRoleData, callback) => {
 connection.query('INSERT INTO user_role SET ?', userRoleData, (err, result) => {
@@ -80,4 +81,18 @@ export const updateUserRole = (user_role_id, userRole, callback) => {
             callback(null, result);
         }
     });
+};
+
+export const getInfoUser = (email, callback) => {
+    connection.query(
+        'SELECT  * FROM user WHERE user_email = ?',
+        [email],
+        (err, result) => {
+            if (err) {
+                callback(err, null);
+            } else {
+                callback(null, result);
+            }
+        }
+    );
 };

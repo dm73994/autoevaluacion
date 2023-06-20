@@ -1,25 +1,27 @@
 import { Result } from 'express-validator';
 import { connection } from '../../database/db';
-import {getIdPeriodo,getCodeLabor,getIdentificationUser,getAutoevaluacionesDiligenciar,getAutoevaluaciones ,insertAutoevaluacion, updateAutoevaluationByCode,getAutoevaluationByCode} from '../../fachada/fachadaAutoevaluacion';
+import {getAutoevaluacionesDocente,getIdPeriodo,getCodeLabor,getIdentificationUser,getAutoevaluacionesDiligenciar,getAutoevaluaciones ,insertAutoevaluacion, updateAutoevaluationByCode,getAutoevaluationByCode, getAutoevaluationCoordinaor} from '../../fachada/fachadaAutoevaluacion';
 import { getUserByEmail } from '../../fachada/fachadaUsuario';
 import {almacenarMensaje } from '../../observador/observadorNotificacion';
 import { notificarRelizacionAutoevaluacionCoordinador } from '../notificaciones/controllerNotificaciones';
-import { notificarAsignacionAutoevaluacion } from '../notificaciones/controllerNotificaciones';
+import { notificarRelizacionAutoevaluacionDocente,notificarAsignacionAutoevaluacion } from '../notificaciones/controllerNotificaciones';
+
 export const showCoordinadorCrudAutoevaluation = (req,res) =>{
   res.render('coordinadorCrudAutoevaluacion');
 }
+
 export const coordinadorCrudAutoevaluacion = (req,res) => {
-    getAutoevaluaciones((err,autoevaluaciones) =>{
-        if(err){
-          console.log(err)
-        }
-        else{
-            console.log(autoevaluaciones);
-            res.render('coordinadorCrudAutoevaluacion',{
-              data:autoevaluaciones
-            });
-        }
-    })
+  getAutoevaluaciones((err,autoevaluaciones) =>{
+      if(err){
+        console.log(err)
+      }
+      else{
+          console.log(autoevaluaciones);
+          res.render('coordinadorCrudAutoevaluacion',{
+            data:autoevaluaciones
+          });
+      }
+  })
 }
 
 export const showCoordinadorCreateAutoevaluacion = async (req, res) => {
@@ -229,5 +231,126 @@ export const diligenciarAutoevaluation = (req, res) => {
   });
 };
 
+export const showConsultarAutoevaluacionesArchivo = (req,res) => {
+  res.render('docenteAutoevaluaciones');
+}
 
+export const consultarAutoevaluacionesArchivo = (req,res) => {
+  const email = req.session.username;
+  console.log(email)
+  getAutoevaluacionesDocente(email,(err,autoevaluaciones) =>{
+    if(err){
+      console.log(err)
+    }
+    else{
+        console.log(autoevaluaciones);
+        res.render('docenteAutoevaluaciones',{
+          data:autoevaluaciones
+        });
+    }
+})
+}
 
+export const showDocenteDiligenciar = (req,res) =>{
+  res.render('docenteDiligenciar');
+}
+
+export const docenteAutoevaluaciones = (req,res) => {
+  const email = req.session.username; 
+  getAutoevaluacionesDiligenciar(email,(err,autoevaluaciones) =>{
+      if(err){
+          console.log(err)
+      }
+      else{
+          console.log(autoevaluaciones);
+          res.render('docenteDiligenciar',{
+            data:autoevaluaciones
+          });
+      }
+  });
+}
+
+export const showDocenteAutoevaluationDiligenciar = (req, res) => {
+  const {autoevaluation_id} = req.params;
+
+  getAutoevaluationByCode(autoevaluation_id, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      const autoevaluacion = result[0];
+      console.log(autoevaluacion);
+      res.render('docenteDiligenciarAutoevaluacion',{
+        data:autoevaluacion
+      });
+    }
+  });
+};
+
+export const diligenciarDocenteAutoevaluation = (req, res) => {
+  const {autoevaluation_id} = req.params;
+  const { resultados , evaluacion, sugerencias} = req.body;
+  
+  const autoevaluacionData = {
+    resultados:resultados,
+    evaluacion:evaluacion,
+    sugerencias: sugerencias
+  };
+
+  updateAutoevaluationByCode(autoevaluation_id, autoevaluacionData, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      notificarRelizacionAutoevaluacionDocente(req,res,autoevaluation_id);
+      getAutoevaluaciones((err,autoevaluaciones) =>{
+        console.log(autoevaluaciones);
+        res.render('docenteDiligenciar', {
+          data:autoevaluaciones,
+          alert: true,
+          alertTitle: "Registro completado",
+          alertMessage: "!Autoevaluacion realizada!",
+          alertIcon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+          ruta: 'docenteDiligenciar'
+        });
+      })
+    }
+  });
+};
+
+export const showDecanoAutoevaluationes = (req,res) =>{
+  res.render('decanoAutoevaluaciones');
+}
+
+export const decanoAutoevaluationes = (req,res) => {
+  getAutoevaluaciones((err,autoevaluaciones) =>{
+      if(err){
+        console.log(err)
+      }
+      else{
+          console.log(autoevaluaciones);
+          res.render('decanoAutoevaluaciones',{
+            data:autoevaluaciones
+          });
+      }
+  })
+}
+
+export const showDecanoAutoevaluationCoordinador = (req, res) => {
+  res.render('decanoAutoevaluacionCoordinador');
+}
+
+export const decanoAutoevaluationCoordinador = (req, res) => {
+  const coordinadorId = '1002963849';
+  getAutoevaluationCoordinaor (coordinadorId,(err,autoevaluacion) =>{
+    if(err){
+      console.log(err);
+    }
+    else{
+      console.log(autoevaluacion);
+      res.render('decanoAutoevaluacionCoordinador',{
+        data:autoevaluacion
+      });
+    }
+  });
+}

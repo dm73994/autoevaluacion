@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vista principal docente</title>
+    <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand">Vista principal docente</a>
+        <a class="btn btn-info" href="/docenteBandejaEntrada">Bandeja de entrada</a>
+    </nav>
+    <h3>usuario: <%= user %></h3>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="card">
+                    <div class="card-body">
+                        <a class="btn btn-info" href="/docenteAutoevaluaciones">Consultar autoevaluaciones</a>
+                        <br>
+                        <a class="btn btn-info" href="/docenteInformacionPersonal">Consultar informacion personal</a>
+                        <br>
+                        <a class="btn btn-info" href="/docenteDiligenciar">Realizar autoevaluacion</a>
+                        <br>
+                        <a href="/logout" class="btn btn-primary"> cerrar sesion </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <% if(typeof alert != "undefined") { %>
+        <script>
+            Swal.fire({
+                title: '<%= alertTitle %>' ,
+                text: '<%= alertMessage %>',
+                icon: '<%= alertIcon %>',
+                showConfirmationButton: <%= showConfirmButton %>,
+                timer:<%= timer %>
+            }).then(()=>{
+                window.location='/<%= ruta %>'
+            })
+        </script>
+    <% } %>
+</body>
+</html>

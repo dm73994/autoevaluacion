@@ -1,9 +1,26 @@
 import express from 'express';
-import { coordinadorAutoevaluaciones,showCoordinadorDiligenciar,coordinadorCrudAutoevaluacion, createAutoevaluacion, showCoordinadorCreateAutoevaluacion, showCoordinadorCrudAutoevaluation,showAutoevaluationUpdate,updateAutoevaluation, showAutoevaluationDiligenciar, diligenciarAutoevaluation } from '../../controllers/autoevaluacion/controllerAutoevaluacion';
+import { showDocenteAutoevaluationDiligenciar,showConsultarAutoevaluacionesArchivo,coordinadorAutoevaluaciones,showCoordinadorDiligenciar,coordinadorCrudAutoevaluacion, createAutoevaluacion, showCoordinadorCreateAutoevaluacion, showCoordinadorCrudAutoevaluation,showAutoevaluationUpdate,updateAutoevaluation, showAutoevaluationDiligenciar, diligenciarAutoevaluation, consultarAutoevaluacionesArchivo, showDocenteDiligenciar, docenteAutoevaluaciones, diligenciarDocenteAutoevaluation, decanoAutoevaluationes, showDecanoAutoevaluationes, decanoAutoevaluationCoordinador, showDecanoAutoevaluationCoordinador } from '../../controllers/autoevaluacion/controllerAutoevaluacion';
 import { checkUserAccess } from '../../middleware/auth';
+import { informacionDocente, showInformacionDocente } from '../../controllers/users/controllerUser';
 
 export const autoEvaluationRouter = express.Router();
 
+
+//docente 
+autoEvaluationRouter.get("/showDocenteAutoevaluaciones",checkUserAccess(1),showConsultarAutoevaluacionesArchivo);
+autoEvaluationRouter.get("/docenteAutoevaluaciones",checkUserAccess(1),consultarAutoevaluacionesArchivo);
+autoEvaluationRouter.get("/showDocenteDiligenciar",checkUserAccess(1),showDocenteDiligenciar);
+autoEvaluationRouter.get("/docenteDiligenciar",checkUserAccess(1),docenteAutoevaluaciones);
+autoEvaluationRouter.get("/docenteDiligenciarAutoevaluacionView/:autoevaluation_id", checkUserAccess(1), showDocenteAutoevaluationDiligenciar);
+autoEvaluationRouter.post("/docenteDiligenciarAutoevaluacion/:autoevaluation_id", checkUserAccess(1), diligenciarDocenteAutoevaluation);
+
+//decano
+autoEvaluationRouter.get("/decanoAutoevaluaciones",checkUserAccess(2),decanoAutoevaluationes);
+autoEvaluationRouter.get("/decanoAutoevaluacionesView",checkUserAccess(2),showDecanoAutoevaluationes);
+autoEvaluationRouter.get("/decanoAutoevaluacionCoordinador",checkUserAccess(2),decanoAutoevaluationCoordinador);
+autoEvaluationRouter.get("/decanoAutoevaluacionCoordinadorView",checkUserAccess(2),showDecanoAutoevaluationCoordinador);
+
+//coordinador
 autoEvaluationRouter.get("/coordinadorCrudAutoevaluacion", checkUserAccess(3), coordinadorCrudAutoevaluacion);
 autoEvaluationRouter.get("/coordinadorCrudAutoevaluacionView", checkUserAccess(3), showCoordinadorCrudAutoevaluation);
 autoEvaluationRouter.post("/coordinadorCreateAutoevaluacion", checkUserAccess(3), createAutoevaluacion);

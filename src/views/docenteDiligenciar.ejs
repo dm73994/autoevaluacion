@@ -32,15 +32,13 @@
 
     <nav class="navbar navbar-dark bg-dark">
         <a class="navbar-brand">Diligenciar autoevaluacion</a>
-        <a href="/coordinadorPrincipal"  class="navbar-brand">home</a>
+        <a href="/docentePrincipal"  class="navbar-brand">home</a>
         <details>
             <summary>&#9776;</summary>
             <ul>
-                <li><a class="btn btn-info" href="/coordinadorBandejaEntrada">Bandeja de entrada</a></li>
-                <li><a class="btn btn-info" href="/coordinadorCrudAutoevaluacion">Gestion autoevaluación</a></li>
-                <li><a class="btn btn-info" href="/coordinadorListPeriods">Crear periodo académico</a></li>
-                <li><a class="btn btn-info" href="/coordinadorCRUDuser">Gestión docente</a></li>
-                <li><a class="btn btn-info" href="/coordinadorCrudLabor">Gestión labor</a></li>
+                <li><a class="btn btn-info" href="/docenteBandejaEntrada">Bandeja de entrada</a></li>
+                <li><a class="btn btn-info" href="/docenteAutoevaluaciones">Consultar autoevaluaciones</a></li>
+                <li><a class="btn btn-info" href="/docenteInformacionPersonal">Consultar informacion personal</a></li>
             </ul>
         </details>
     </nav>
@@ -73,6 +71,7 @@
                         <% if(data) { %>
                             <% for (var i = 0; i < data.length ; i++){ %>
                                 <% if(data[i].activo !== 1) { continue; } %> 
+                        
                                 <tr>
                                     <td><%= data[i].autoevaluation_id %></td>
                                     <td><%= data[i].labor_name %></td>
@@ -88,9 +87,9 @@
                                     <td><%= data[i].period_name %></td>
                                     <td>
                                         <% if (data[i].state === 'suspendido' || data[i].state === 'terminado') { %>
-                                            <a class="btn btn-info disabled" href="/coordinadorDiligenciarAutoevaluacionView/<%= data[i].autoevaluation_id %>">Realizar autoevaluación</a>
+                                            <a class="btn btn-info disabled" href="/docenteDiligenciarAutoevaluacionView/<%= data[i].autoevaluation_id %>">Realizar autoevaluación</a>
                                         <% } else { %>
-                                            <a class="btn btn-info" href="/coordinadorDiligenciarAutoevaluacionView/<%= data[i].autoevaluation_id %>">Realizar autoevaluación</a>
+                                            <a class="btn btn-info" href="/docenteDiligenciarAutoevaluacionView/<%= data[i].autoevaluation_id %>">Realizar autoevaluación</a>
                                         <% } %>
                                     </td>
                                 </tr>

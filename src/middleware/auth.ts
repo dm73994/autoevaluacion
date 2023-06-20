@@ -1,5 +1,4 @@
 import { JwtPayload } from "jsonwebtoken";
-import { tokeInfo } from "../models/User";
 import { verifyToken } from "../utils/tokenManagment";
 
 export const checkAuth = (req, res, next) => {
@@ -16,7 +15,7 @@ export const checkAuth = (req, res, next) => {
             ruta:'login'
         })
     }
-  };
+};
 
 export const checkUserAccess = (allowedUser) => {
   return (req, res, next) => {
@@ -24,7 +23,7 @@ export const checkUserAccess = (allowedUser) => {
     if (user === allowedUser) {
       next();
     } else {
-      res.render('error/error');
+      res.render('error');
     }
   };
 };

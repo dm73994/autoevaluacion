@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informacion docente</title>
+    <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
+</head>
+<body>
+
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand">Informacion docente</a>
+        <a href="/docentePrincipal" class="navbar-brand">home</a>
+        <details>
+            <summary>&#9776;</summary>
+            <ul>
+                <li><a class="btn btn-info" href="/docenteBandejaEntrada">Bandeja de entrada</a></li>
+                <li><a class="btn btn-info" href="/docenteAutoevaluaciones">Consultar autoevaluaciones</a></li>
+                <li><a class="btn btn-info" href="/docenteDiligenciar">Realizar autoevaluación</a></li>
+            </ul>
+        </details>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row">
+            <% for(let i = 0; i < data.length; i++) { %>
+            <div class="col-md-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Información del usuario</h5>
+                        <p><strong>Identificación:</strong> <%= data[i].user_identification %></p>
+                        <p><strong>Nombre:</strong> <%= data[i].user_name %></p>
+                        <p><strong>Apellido:</strong> <%= data[i].user_lastname %></p>
+                        <p><strong>Género:</strong> <%= data[i].user_gender %></p>
+                        <p><strong>Email:</strong> <%= data[i].user_email %></p>
+                        <p><strong>Tipo docente:</strong> <%= data[i].user_tipoDocente %></p>
+                        <p><strong>Estudios:</strong> <%= data[i].user_studies %></p>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>crud autoevaluacion</title>
+    <title>autoevaluaciones</title>
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
     <style>
         .navbar {
@@ -34,17 +34,13 @@
 <body>
 
     <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand">crud autoevaluacion</a>
-        <a href="/coordinadorPrincipal"  class="navbar-brand">home</a>
-        <a class="btn btn-info btn-create" href="/coordinadorCreateAutoevaluacionView">Create</a>
+        <a class="navbar-brand">autoevaluaciones</a>
+        <a href="/decanoPrincipal"  class="navbar-brand">home</a>
         <details>
             <summary>&#9776;</summary>
             <ul>
-                <li><a class="btn btn-info" href="/coordinadorBandejaEntrada">Bandeja de entrada</a></li>
-                <li><a class="btn btn-info" href="/coordinadorListPeriods">Crear periodo académico</a></li>
-                <li><a class="btn btn-info" href="/coordinadorCRUDuser">Gestión docente</a></li>
-                <li><a class="btn btn-info" href="/coordinadorCrudLabor">Gestión labor</a></li>
-                <li><a class="btn btn-info" href="/coordinadorDiligenciarAutoevaluaciones">Realizar autoevaluación</a></li>
+                <li><a class="btn btn-info" href="/decanoBandejaEntrada">Bandeja de entrada</a></li>
+                <li><a class="btn btn-info" href="/decanoAutoevaluacionCoordinador">Consultar autoevaluacion coordinador</a></li>
             </ul>
         </details>
     </nav>
@@ -116,12 +112,6 @@
                                         <td><%= realizadas[i].period_name %></td>
                                         <td> <%= realizadas[i].recomendaciones %></td>
                                         <td> <%= realizadas[i].sugerencias %></td>
-                                        <td>
-                                            <a class="btn btn-info" href="/coordinadorUpdateAutoevaluacionView/<%= realizadas[i].autoevaluation_id %>">Update</a>
-                                            <form method="post" action="/enviarNotificacion/<%= realizadas[i].user_identification %>/<%= realizadas[i].autoevaluation_id %>">
-                                                <button type="submit" class="btn btn-info">Notificar</button>
-                                            </form>                                        
-                                        </td>
                                     </tr>
                                 <% } %>
                             </tbody>
@@ -176,12 +166,6 @@
                                         <td><%= pendientes[i].period_name %></td>
                                         <td> <%= realizadas[i].recomendaciones %></td>
                                         <td> <%= realizadas[i].sugerencias %></td>
-                                        <td>
-                                            <a class="btn btn-info" href="/coordinadorUpdateAutoevaluacionView/<%= pendientes[i].autoevaluation_id %>">Update</a>
-                                            <form method="post" action="/enviarNotificacion/<%= pendientes[i].user_identification %>/<%= pendientes[i].autoevaluation_id %>">
-                                                <button type="submit" class="btn btn-info">Notificar</button>
-                                            </form>                                        
-                                        </td>
                                     </tr>
                                 <% } %>
                             </tbody>
@@ -192,22 +176,6 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <% if(typeof alert != "undefined") { %>
-        <script>
-            Swal.fire({
-                title: '<%= alertTitle %>' ,
-                text: '<%= alertMessage %>',
-                icon: '<%= alertIcon %>',
-                showConfirmationButton: <%= showConfirmButton %>,
-                timer:<%= timer %>
-            }).then(()=>{
-                window.location='/<%= ruta %>'
-            })
-        </script>
-    <% } %>
-
-    <button id="btnMostrarReporte" class="btn btn-primary">Mostrar Reporte</button> 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <% if(typeof alert != "undefined") { %>
         <script>

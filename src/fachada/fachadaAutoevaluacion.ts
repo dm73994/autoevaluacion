@@ -1,5 +1,26 @@
 import { connection } from '../database/db';
 
+export const getAutoevaluacionesDocente = (userEmail, callback) => {
+  connection.query(
+    `SELECT a.*, l.labor_name, l.labor_descripcion, tl.type_labor_name, u.user_name, u.user_lastname, p.period_name, l.labor_hours
+     FROM autoevaluation a
+     INNER JOIN labor l ON a.labor_code = l.labor_code
+     INNER JOIN type_labor tl ON l.type_labor_code = tl.type_labor_code
+     INNER JOIN user u ON a.user_identification = u.user_identification
+     INNER JOIN period p ON a.period_id = p.period_id
+     WHERE u.user_email = ? AND a.state = 'terminado'
+     ORDER BY a.user_identification`,
+    [userEmail],
+    (err, autoevaluaciones) => {
+      if (err) {
+        callback(err, null);
+      } else {
+        callback(null, autoevaluaciones);
+      }
+    }
+  );
+};
+
 export const getAutoevaluaciones = (callback) => {
   connection.query(
     `SELECT a.*, l.labor_name,l.labor_descripcion ,tl.type_labor_name, u.user_name, u.user_lastname, p.period_name ,l.labor_hours
@@ -21,7 +42,7 @@ export const getAutoevaluaciones = (callback) => {
 
 export const getCodeLabor = () => {
   return new Promise((resolve, reject) => {
-    connection.query(`SELECT labor_code FROM labor`, (err, codes) => {
+    connection.query(`SELECT labor_code FROM labor where activo = 1`, (err, codes) => {
       if (err) {
         reject(err);
       } else {
@@ -75,6 +96,7 @@ export const getAutoevaluacionesDiligenciar = (correo, callback) => {
     }
   );
 };
+
 export const insertAutoevaluacion = (autoevaluacionData, callback) => {
   connection.query(
     'INSERT INTO autoevaluation (user_identification, labor_code, period_id, acto, state, date_init, date_finish, activo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
@@ -98,6 +120,7 @@ export const getAutoevaluationByCode = (autoevaluationId, callback) => {
       }
   });
 };
+
 export const updateAutoevaluationByCode = (autoevaluationId, laborData, callback) => {
   connection.query('UPDATE autoevaluation SET ? WHERE autoevaluation_id = ?', [laborData, autoevaluationId], (err, result) => {
       if (err) {
@@ -107,3 +130,22 @@ export const updateAutoevaluationByCode = (autoevaluationId, laborData, callback
       }
   });
 };
+
+export const getAutoevaluationCoordinaor = (user_identification,callback) => {
+  connection.query(
+    `SELECT a.*, l.labor_name,l.labor_descripcion ,tl.type_labor_name, u.user_name, u.user_lastname, p.period_name ,l.labor_hours
+     FROM autoevaluation a
+     INNER JOIN labor l ON a.labor_code = l.labor_code
+     INNER JOIN type_labor tl ON l.type_labor_code = tl.type_labor_code
+     INNER JOIN user u ON a.user_identification = u.user_identification
+     INNER JOIN period p ON a.period_id = p.period_id
+     WHERE a.user_identification = ?`,[user_identification],
+    (err, autoevaluaciones) => {
+      if (err) {
+        callback(err, null);
+      } else {
+        callback(null, autoevaluaciones);
+      }
+    }
+  );
+}
