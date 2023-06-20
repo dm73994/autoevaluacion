@@ -6,50 +6,123 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>crud autoevaluacion</title>
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-******************************" crossorigin="anonymous">
+    
     <style>
+
+        .custom-nav {
+            display: flex;
+            align-items: center;
+        }
+        .create-link {
+            margin-right: 9000px; 
+        }
+
         .navbar {
             display: flex;
             justify-content: space-between;
+            position: sticky;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 9999;
         }
-        
+
         .navbar-brand {
-            flex-grow: 1;
+            padding: 5;
         }
         
         .table-container {
-            margin-left: -200px;
-            margin-right: auto;
-            max-width: 500px;
+            margin-top: 70px; 
+            overflow: auto;
+            height: calc(100vh - 70px); 
+            overflow-y: hidden;
         }
         
         .table-container table {
             margin-bottom: 0;
         }
+        .navbar {
+            position: relative;
+            z-index: 1;
+        }
 
-        .btn-create {
-            margin-right: 30px;
+        details {
+            position: relative;
+            display: inline-block;
+            z-index: 2;
+        }
+
+        details summary {
+            cursor: pointer;
+        }
+
+        details ul {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            display: none;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            background-color: #9b1a1a;
+        }
+
+        details ul li {
+            width: 100%;
+        }
+
+        details ul li a {
+            display: block;
+            padding: 10px;
+            color: #fff;
+            text-decoration: none;
+            width: 200px;
+        }
+        details summary {
+            cursor: pointer;
+            white-space: nowrap; 
+        }
+        details ul li a:hover {
+            background-color: #555;
+        }
+
+        details[open] ul {
+            display: block;
         }
     </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand">crud autoevaluacion</a>
-        <a href="/coordinadorPrincipal"  class="navbar-brand">home</a>
-        <a class="btn btn-info btn-create" href="/coordinadorCreateAutoevaluacionView">Create</a>
-        <details>
-            <summary>&#9776;</summary>
-            <ul>
-                <li><a class="btn btn-info" href="/coordinadorBandejaEntrada">Bandeja de entrada</a></li>
-                <li><a class="btn btn-info" href="/coordinadorListPeriods">Crear periodo académico</a></li>
-                <li><a class="btn btn-info" href="/coordinadorCRUDuser">Gestión docente</a></li>
-                <li><a class="btn btn-info" href="/coordinadorCrudLabor">Gestión labor</a></li>
-                <li><a class="btn btn-info" href="/coordinadorDiligenciarAutoevaluaciones">Realizar autoevaluación</a></li>
-            </ul>
-        </details>
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+        <div class="navbar-brand"> 
+            <a>crud autoevaluacion</a>
+            <details>
+                <summary>&#9776;</summary>
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="btn btn-info" href="/coordinadorBandejaEntrada">Bandeja de entrada</a></li>
+                    <li class="nav-item"><a class="btn btn-info" href="/coordinadorListPeriods">Crear periodo académico</a></li>
+                    <li class="nav-item"><a class="btn btn-info" href="/coordinadorCRUDuser">Gestión docente</a></li>
+                    <li class="nav-item"><a class="btn btn-info" href="/coordinadorCrudLabor">Gestión labores</a></li>
+                    <li class="nav-item"><a class="btn btn-info" href="/coordinadorDiligenciarAutoevaluaciones">Realizar autoevaluación</a></li>
+                </ul>
+            </details>
+        </div>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item"> 
+                <a class="navbar-brand home-link" href="/coordinadorPrincipal"> 
+                    <i class="fas fa-home"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-info btn-create" href="/coordinadorCreateAutoevaluacionView">Create</a>
+            </li>
+        </ul>
     </nav>
 
-    <button id="btnMostrarReporte" class="btn btn-primary">Mostrar Reporte</button> 
+    <br>
+
+    <center><button id="btnMostrarReporte" class="btn btn-primary">Mostrar Reporte</button> </center>
     
     <div class="container mt-5">
         <div class="row">
@@ -67,7 +140,6 @@
                             <% pendientes.push(data[i]); %>
                         <% } %>
                     <% } %>
-                    
                     <% if (realizadas.length > 0) { %>
                         <h3>Realizadas</h3>
                         <table class="table table-bordered table-hover">
@@ -127,6 +199,27 @@
                             </tbody>
                         </table>
                     <% } %>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12 table-container">
+                <% if(data) { %>
+                    <% var realizadas = []; %>
+                    <% var pendientes = []; %>
+                    <% for (var i = 0; i < data.length ; i++){ %>
+                        <% if(data[i].activo !== 1) { continue; } %> 
+                        
+                        <% if (data[i].resultados !== null && data[i].evaluacion !== null && data[i].resultados !== '' && data[i].evaluacion !== '') { %>
+                            <% realizadas.push(data[i]); %>
+                        <% } else { %>
+                            <% pendientes.push(data[i]); %>
+                        <% } %>
+                    <% } %>
+                    
                     
                     <% if (pendientes.length > 0) { %>
                         <h3>Pendientes</h3>
@@ -206,8 +299,7 @@
             })
         </script>
     <% } %>
-
-    <button id="btnMostrarReporte" class="btn btn-primary">Mostrar Reporte</button> 
+    
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <% if(typeof alert != "undefined") { %>
         <script>

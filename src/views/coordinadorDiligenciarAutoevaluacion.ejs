@@ -6,24 +6,123 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Realizar Autoevaluación</title>
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-******************************" crossorigin="anonymous">
 </head>
+<style>
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .navbar-brand {
+        flex-grow: 1;
+    }
+    
+    .table-container {
+        margin-left: -200px;
+        margin-right: auto;
+        max-width: 500px;
+    }
+    
+    .table-container table {
+        margin-bottom: 0;
+    }
+
+    .custom-nav {
+        display: flex;
+        align-items: center;
+    }
+    .create-link {
+        margin-right: 9000px; 
+    }
+
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 9999;
+    }
+
+    .navbar-brand {
+        padding: 5;
+    }
+    
+    .navbar {
+        position: relative;
+        z-index: 1;
+    }
+
+    details {
+        position: relative;
+        display: inline-block;
+        z-index: 2;
+    }
+
+    details summary {
+        cursor: pointer;
+    }
+
+    details ul {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        display: none;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        background-color: #9b1a1a;
+    }
+
+    details ul li {
+        width: 100%;
+    }
+
+    details ul li a {
+        display: block;
+        padding: 10px;
+        color: #fff;
+        text-decoration: none;
+        width: 200px;
+    }
+    details summary {
+        cursor: pointer;
+        white-space: nowrap; 
+    }
+    details ul li a:hover {
+        background-color: #555;
+    }
+
+    details[open] ul {
+        display: block;
+    }
+</style>
 <body>
     
-    <nav class="navbar navbar-dark bg-dark">
-        <a href="/" class="navbar-brand">Realizar Autoevaluación</a>
-        <a href="/coordinadorPrincipal"  class="navbar-brand">home</a>
-        <details>
-            <summary>&#9776;</summary>
-            <ul>
-                <li><a class="btn btn-info" href="/coordinadorBandejaEntrada">Bandeja de entrada</a></li>
-                <li><a class="btn btn-info" href="/coordinadorListPeriods">Crear periodo académico</a></li>
-                <li><a class="btn btn-info" href="/coordinadorCrudAutoevaluacion">Gestion autoevaluación</a></li>
-                <li><a class="btn btn-info" href="/coordinadorCRUDuser">Gestión docente</a></li>
-                <li><a class="btn btn-info" href="/coordinadorCrudLabor">Gestión labor</a></li>
-                <li><a class="btn btn-info" href="/coordinadorDiligenciarAutoevaluaciones">Realizar autoevaluación</a></li>
-            </ul>
-        </details>
-        
+    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+        <div class="navbar-brand"> 
+            <a>realizar autoevaluacion</a>
+            <details>
+                <summary>&#9776;</summary>
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="btn btn-info" href="/coordinadorBandejaEntrada">Bandeja de entrada</a></li>
+                <li class="nav-item"><a class="btn btn-info" href="/coordinadorListPeriods">Crear periodo académico</a></li>
+                <li class="nav-item"><a class="btn btn-info" href="/coordinadorCrudAutoevaluacion">Gestion autoevaluación</a></li>
+                <li class="nav-item"><a class="btn btn-info" href="/coordinadorCRUDuser">Gestión docente</a></li>
+                <li class="nav-item"><a class="btn btn-info" href="/coordinadorCrudLabor">Gestión labor</a></li>
+                <li class="nav-item"><a class="btn btn-info" href="/coordinadorDiligenciarAutoevaluaciones">Realizar autoevaluación</a></li>
+                </ul>
+            </details>
+        </div>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item"> 
+                <a class="navbar-brand home-link" href="/coordinadorPrincipal"> 
+                    <i class="fas fa-home"></i>
+                </a>
+            </li>
+        </ul>
     </nav>
 
     <div class="container mt-5">
