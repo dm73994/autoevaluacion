@@ -36,7 +36,6 @@
             margin-top: 70px; 
             overflow: auto;
             height: calc(100vh - 70px); 
-            overflow-y: hidden;
         }
         
         .table-container table {
@@ -186,8 +185,17 @@
                                         <td><%= realizadas[i].evaluacion %></td>
                                         <td><%= realizadas[i].user_name + ' ' + realizadas[i].user_lastname%></td>
                                         <td><%= realizadas[i].period_name %></td>
-                                        <td> <%= realizadas[i].recomendaciones %></td>
-                                        <td> <%= realizadas[i].sugerencias %></td>
+                                        <td> 
+                                            <% if (realizadas[i].recomendaciones !== undefined && realizadas[i].recomendaciones !== '') { %>
+                                              <%= realizadas[i].recomendaciones %>
+                                            <% } %>
+                                          </td>
+                                          
+                                          <td> 
+                                            <% if (realizadas[i].sugerencias !== undefined && realizadas[i].sugerencias !== '') { %>
+                                              <%= realizadas[i].sugerencias %>
+                                            <% } %>
+                                          </td>
                                         <td>
                                             <a class="btn btn-info" href="/coordinadorUpdateAutoevaluacionView/<%= realizadas[i].autoevaluation_id %>">Update</a>
                                             <form method="post" action="/enviarNotificacion/<%= realizadas[i].user_identification %>/<%= realizadas[i].autoevaluation_id %>">
@@ -199,28 +207,6 @@
                             </tbody>
                         </table>
                     <% } %>
-                <% } %>
-            </div>
-        </div>
-    </div>
-
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-12 table-container">
-                <% if(data) { %>
-                    <% var realizadas = []; %>
-                    <% var pendientes = []; %>
-                    <% for (var i = 0; i < data.length ; i++){ %>
-                        <% if(data[i].activo !== 1) { continue; } %> 
-                        
-                        <% if (data[i].resultados !== null && data[i].evaluacion !== null && data[i].resultados !== '' && data[i].evaluacion !== '') { %>
-                            <% realizadas.push(data[i]); %>
-                        <% } else { %>
-                            <% pendientes.push(data[i]); %>
-                        <% } %>
-                    <% } %>
-                    
-                    
                     <% if (pendientes.length > 0) { %>
                         <h3>Pendientes</h3>
                         <table class="table table-bordered table-hover">
@@ -267,8 +253,16 @@
                                         <td><%= pendientes[i].evaluacion %></td>
                                         <td><%= pendientes[i].user_name + ' ' + pendientes[i].user_lastname%></td>
                                         <td><%= pendientes[i].period_name %></td>
-                                        <td> <%= realizadas[i].recomendaciones %></td>
-                                        <td> <%= realizadas[i].sugerencias %></td>
+                                        <td> 
+                                            <% if (pendientes[i].recomendaciones !== undefined && pendientes[i].recomendaciones !== '') { %>
+                                              <%= pendientes[i].recomendaciones %>
+                                            <% } %>
+                                        </td>
+                                        <td> 
+                                        <% if (pendientes[i].sugerencias !== undefined && pendientes[i].sugerencias !== '') { %>
+                                            <%= pendientes[i].sugerencias %>
+                                        <% } %>
+                                        </td>
                                         <td>
                                             <a class="btn btn-info" href="/coordinadorUpdateAutoevaluacionView/<%= pendientes[i].autoevaluation_id %>">Update</a>
                                             <form method="post" action="/enviarNotificacion/<%= pendientes[i].user_identification %>/<%= pendientes[i].autoevaluation_id %>">
@@ -281,6 +275,7 @@
                         </table>
                     <% } %>
                 <% } %>
+                
             </div>
         </div>
     </div>

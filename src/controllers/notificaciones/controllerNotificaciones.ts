@@ -80,7 +80,7 @@ export const notificarAsignacionAutoevaluacion = (req,res,autoevaluacion_id,user
 }
 
 export const notificarRelizacionAutoevaluacionCoordinador = (req,res,autoevaluacion_id) => {
-  const user_identification = '100009';
+  const user_identification = '1006';
   const email = req.session.username;
   getUserByEmail(email,(err,emisor_identification) =>{
     if(err){

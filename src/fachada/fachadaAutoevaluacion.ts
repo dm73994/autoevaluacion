@@ -99,8 +99,8 @@ export const getAutoevaluacionesDiligenciar = (correo, callback) => {
 
 export const insertAutoevaluacion = (autoevaluacionData, callback) => {
   connection.query(
-    'INSERT INTO autoevaluation (user_identification, labor_code, period_id, acto, state, date_init, date_finish, activo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-    [autoevaluacionData.user_identification, autoevaluacionData.labor_code, autoevaluacionData.period_id, autoevaluacionData.acto, autoevaluacionData.state, autoevaluacionData.date_init, autoevaluacionData.date_finish, autoevaluacionData.activo],
+    'INSERT INTO autoevaluation (user_identification, labor_code, period_id, acto, state, date_init, date_finish, activo,recomendaciones) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)',
+    [autoevaluacionData.user_identification, autoevaluacionData.labor_code, autoevaluacionData.period_id, autoevaluacionData.acto, autoevaluacionData.state, autoevaluacionData.date_init, autoevaluacionData.date_finish, autoevaluacionData.activo,autoevaluacionData.recomendaciones],
     (err, result) => {
       if (err) {
         callback(err, null);

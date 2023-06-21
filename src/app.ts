@@ -24,6 +24,12 @@ app.use(session({
 // Acceso a vistas
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+
+//Acceso de imagenes y css
+app.use('/resources', express.static('public'));
+app.use('/img', express.static(path.join(__dirname, 'public/img')));
+app.use('/css', express.static(path.join(__dirname, 'public/css')));
+
 // Definicion de rutas
 app.use('/',authRouter);
 app.use('/',checkAuth, laborRouter);

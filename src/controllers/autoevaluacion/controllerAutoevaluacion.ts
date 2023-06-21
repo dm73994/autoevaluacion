@@ -44,7 +44,7 @@ export const createAutoevaluacion = async (req, res) => {
     const codes = await getCodeLabor();
     const identifications = await getIdentificationUser();
     const periods = await getIdPeriodo();
-    const { user_identification, labor_code,period_id, acto, date_init, date_finish } = req.body;
+    const { user_identification, labor_code,period_id, acto, date_init, date_finish,recomendaciones } = req.body;
     console.log(req.body)
     console.log('CONTROLLER CREATE LABOR');
     
@@ -56,7 +56,8 @@ export const createAutoevaluacion = async (req, res) => {
       state: 'ejecucion',
       date_init: date_init,
       date_finish: date_finish,
-      activo: 1
+      activo: 1,
+      recomendaciones: recomendaciones
     };
     console.log(autoevaluacionData)
     insertAutoevaluacion(autoevaluacionData, (err, result) => {
@@ -354,3 +355,74 @@ export const decanoAutoevaluationCoordinador = (req, res) => {
     }
   });
 }
+
+export const showAutoevaluationUpdateCoordinador = async(req, res) => {
+  const {autoevaluation_id} = req.params;
+  const codes = await getCodeLabor();
+  const identifications = await getIdentificationUser();
+  const periods = await getIdPeriodo();
+  getAutoevaluationByCode(autoevaluation_id, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      const autoevaluacion = result[0];
+      console.log(autoevaluacion);
+      res.render('decanoUpdateAutoevaluacionCoordinador',{
+        data:autoevaluacion,
+        dataIdentifications: identifications,
+        dataCode: codes,
+        dataPeriods: periods
+      });
+    }
+  });
+};
+
+export const updateAutoevaluationCoordinador = async(req, res) => {
+  const {autoevaluation_id} = req.params;
+  const { recomendaciones , state} = req.body;
+  const codes = await getCodeLabor();
+  const identifications = await getIdentificationUser();
+  const periods = await getIdPeriodo();
+  const autoevaluacionData = {
+    state:state,
+    recomendaciones: recomendaciones
+  };
+  
+  updateAutoevaluationByCode(autoevaluation_id, autoevaluacionData, (err, result) => {
+    if (err) {
+      getAutoevaluaciones((err,autoevaluaciones) =>{
+        console.log(autoevaluaciones);
+        res.render('decanoUpdateAutoevaluacionCoordinador', {
+          data:autoevaluaciones,
+          dataIdentifications: identifications,
+          dataCode: codes,
+          dataPeriods: periods,
+          alert: true,
+          alertTitle: "Registro fallido",
+          alertMessage: "!Error al actualizar!",
+          alertIcon: "error",
+          showConfirmButton: false,
+          timer: 1500,
+          ruta: 'decanoAutoevaluacionCoordinador'
+        });
+      })
+    } else {
+      getAutoevaluaciones((err,autoevaluaciones) =>{
+        console.log(autoevaluaciones);
+        res.render('decanoUpdateAutoevaluacionCoordinador', {
+          data:autoevaluaciones,
+          dataIdentifications: identifications,
+          dataCode: codes,
+          dataPeriods: periods,
+          alert: true,
+          alertTitle: "Registro completado",
+          alertMessage: "!Autoevaluacion actualizada!",
+          alertIcon: "success",
+          showConfirmButton: false,
+          timer: 1500,
+          ruta: 'decanoAutoevaluacionCoordinador'
+        });
+      })
+    }
+  });
+};

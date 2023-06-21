@@ -18,9 +18,13 @@
         }
         
         .table-container {
-            margin-left: -200px;
+            margin-left: -100px;
             margin-right: auto;
-            max-width: 500px;
+            margin-top: 0px; 
+            overflow: auto;
+            height: calc(100vh - 70px); 
+            overflow-y: hidden;
+            width: 250%;
         }
         
         .table-container table {
@@ -146,6 +150,7 @@
                         <th>resultados</th>
                         <th>evaluacion</th>
                         <th>periodo</th>
+                        <th>recomendaciones</th>
                     </thead>
                     <tbody>
                         <% let totalLaborHours = 0; %>
@@ -165,6 +170,7 @@
                                     <td><%= data[i].resultados %></td>
                                     <td><%= data[i].evaluacion %></td>
                                     <td><%= data[i].period_name %></td>
+                                    <td><%= data[i].recomendaciones %></td>
                                     <td>
                                         <% if (data[i].state === 'suspendido' || data[i].state === 'terminado') { %>
                                             <a class="btn btn-info disabled" href="/coordinadorDiligenciarAutoevaluacionView/<%= data[i].autoevaluation_id %>">Realizar autoevaluación</a>

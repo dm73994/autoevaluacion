@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Autoevaluación</title>
+    <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-******************************" crossorigin="anonymous">
+</head>
+<style>
+  .navbar {
+      display: flex;
+      justify-content: space-between;
+  }
+  
+  .navbar-brand {
+      flex-grow: 1;
+  }
+  
+  .table-container {
+      margin-left: -200px;
+      margin-right: auto;
+      max-width: 500px;
+  }
+  
+  .table-container table {
+      margin-bottom: 0;
+  }
+
+  .custom-nav {
+      display: flex;
+      align-items: center;
+  }
+  .create-link {
+      margin-right: 9000px; 
+  }
+
+  .navbar {
+      display: flex;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 9999;
+  }
+
+  .navbar-brand {
+      padding: 5;
+  }
+  
+  .navbar {
+      position: relative;
+      z-index: 1;
+  }
+
+  details {
+      position: relative;
+      display: inline-block;
+      z-index: 2;
+  }
+
+  details summary {
+      cursor: pointer;
+  }
+
+  details ul {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      display: none;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      background-color: #9b1a1a;
+  }
+
+  details ul li {
+      width: 100%;
+  }
+
+  details ul li a {
+      display: block;
+      padding: 10px;
+      color: #fff;
+      text-decoration: none;
+      width: 200px;
+  }
+  details summary {
+      cursor: pointer;
+      white-space: nowrap; 
+  }
+  details ul li a:hover {
+      background-color: #555;
+  }
+
+  details[open] ul {
+      display: block;
+  }
+</style>
+<body>
+    
+  <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+    <div class="navbar-brand"> 
+        <a>actualizar autoevaluacion</a>
+        <details>
+            <summary>&#9776;</summary>
+            <ul class="navbar-nav">
+            <li class="nav-item"><a class="btn btn-info" href="/decanoBandejaEntrada">Bandeja de entrada</a></li>
+            <li class="nav-item"><a class="btn btn-info" href="/decanoAutoevaluaciones">Consultar autoevaluaciones</a></li>
+            <li class="nav-item"><a class="btn btn-info" href="/decanoAutoevaluacionCoordinador">consultar autoevaluacion coor</a></li>
+        </details>
+    </div>
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item"> 
+            <a class="navbar-brand home-link" href="/decanoPrincipal"> 
+                <i class="fas fa-home"></i>
+            </a>
+        </li>
+    </ul>
+  </nav>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/decanoUpdateAutoevaluacionCoordinador/<%= data.autoevaluation_id %>" method="post">
+                            <div class="form-group">
+                                <label for="user_identification">Identificación de Usuario:</label>
+                                <br>
+                                <%= data.user_identification %>
+                            </div>
+                            <div class="form-group">
+                                <label for="labor_code">Código de Labor</label>
+                                <br>
+                                <%= data.labor_code %>
+                              </div>    
+                              <div class="form-group">
+                                <label for="period_id">ID del Período:</label>
+                                <br>
+                                <%= data.period_id %>
+                              </div>
+                            <div class="form-group">
+                                <label for="acto">Acto:</label>
+                                <br>
+                                <%= data.acto %>
+                            </div>
+                            <div class="form-group">
+                                <label for="state">Estado:</label>
+                                <select id="state" name="state" class="form-control">
+                                    <option value="terminado" <%= data.state === 'terminado' ? 'selected' : '' %>>Terminado</option>
+                                    <option value="ejecucion" <%= data.state === 'ejecucion' ? 'selected' : '' %>>En ejecución</option>
+                                    <option value="suspendido" <%= data.state === 'suspendido' ? 'selected' : '' %>>Suspendido</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                              <label for="recomendaciones">Recomendaciones:</label>
+                              <textarea id="recomendaciones" name="recomendaciones" class="form-control" rows="8"><%= data.recomendaciones %></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="date_init">Fecha de Inicio:</label>
+                                <br>
+                                <% if (data.date_init) { %>
+                                    <%= data.date_init.toISOString().substring(0, 10) %>
+                                <% } else { %>
+                                    Fecha de inicio no disponible
+                                <% } %>
+                            </div>
+                            <div class="form-group">
+                                <label for="date_finish">Fecha de Finalización:</label>
+                                <br> 
+                                <% if (data.date_finish) { %>
+                                    <%= data.date_finish.toISOString().substring(0, 10) %>
+                                  <% } else { %>
+                                    Fecha de inicio no disponible
+                                  <% } %>
+                            </div>
+                            <div class="form-group">
+                                <label for="activo">Activo:</label>
+                                <br>
+                                <% if (data.activo === 1) {%>
+                                    si
+                                <%} else {%>
+                                    no
+                                <%} %>
+                            </div>
+                            <div class="form-group">
+                                <label for="resultados">Resultados:</label>
+                                <br>
+                                <%= data.resultados %>
+                            </div>
+                            <div class="form-group">
+                                <label for="evaluacion">evaluacion:</label>
+                                <br>
+                                <%= data.evaluacion %>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                Actualizar
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <% if(typeof alert != "undefined") { %>
+        <script>
+            Swal.fire({
+                title: '<%= alertTitle %>' ,
+                text: '<%= alertMessage %>',
+                icon: '<%= alertIcon %>',
+                showConfirmationButton: <%= showConfirmButton %>,
+                timer:<%= timer %>
+            }).then(()=>{
+                window.location='/<%= ruta %>'
+            })
+        </script>
+    <% } %>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        flatpickr("#date_init", {
+            dateFormat: "Y-m-d"
+        });
+
+        flatpickr("#date_finish", {
+            dateFormat: "Y-m-d"
+        });
+    </script>
+</body>
+</html>
