@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actualizar Autoevaluación</title>
+    <link rel="preload" href="css/style.css" as=" style">
+    <link href="css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-******************************" crossorigin="anonymous">
@@ -13,6 +15,7 @@
   .navbar {
       display: flex;
       justify-content: space-between;
+      background-color: #1d1281;
   }
   
   .navbar-brand {
@@ -99,10 +102,21 @@
   details[open] ul {
       display: block;
   }
+  .fondo{
+            background-image: url(../img/fondo2.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin-top: -46px;
+            height: 1200px;
+        }
+        .form-group p{
+        color: black;
+        font-size: 17px;
+    }
 </style>
 <body>
     
-  <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+  <nav class="navbar navbar-dark  navbar-expand-lg">
     <div class="navbar-brand"> 
         <a>actualizar autoevaluacion</a>
         <details>
@@ -126,110 +140,113 @@
     </ul>
   </nav>
 
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-5">
-                <div class="card">
-                    <div class="card-body">
-                        <form action="/coordinadorUpdateAutoevaluacion/<%= data.autoevaluation_id %>" method="post">
-                            <div class="form-group">
-                                <label for="user_identification">Identificación de Usuario</label>
-                                <select id="user_identification" name="user_identification" class="form-control">
-                                  <% dataIdentifications.forEach(identification => { %>
-                                    <option value="<%= identification.user_identification %>"
-                                      <% if (identification.user_identification === data.user_identification) { %>
-                                        selected
-                                      <% } %>
-                                    >
-                                      <%= identification.user_identification %>
-                                    </option>
-                                  <% }) %>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="labor_code">Código de Labor</label>
-                                <select id="labor_code" name="labor_code" class="form-control">
-                                  <% dataCode.forEach(code => { %>
-                                    <option value="<%= code.labor_code %>"
-                                      <% if (code.labor_code === data.labor_code) { %>
-                                        selected
-                                      <% } %>
-                                    >
-                                      <%= code.labor_code %>
-                                    </option>
-                                  <% }) %>
-                                </select>
-                              </div>    
+  <div class="fondo">
+
+      <div class="container mt-5">
+          <div class="row">
+              <div class="col-md-5">
+                  <div class="card">
+                      <div class="card-body">
+                          <form action="/coordinadorUpdateAutoevaluacion/<%= data.autoevaluation_id %>" method="post">
                               <div class="form-group">
-                                <label for="period_id">ID del Período</label>
-                                <select id="period_id" name="period_id" class="form-control">
-                                  <% dataPeriods.forEach(period => { %>
-                                    <option value="<%= period.period_id %>"
-                                      <% if (period.period_id === data.period_id) { %>
-                                        selected
-                                      <% } %>
-                                    >
-                                      <%= period.period_name %>
-                                    </option>
-                                  <% }) %>
-                                </select>
+                                  <p for="user_identification">Identificación de Usuario</p>
+                                  <select id="user_identification" name="user_identification" class="form-control">
+                                    <% dataIdentifications.forEach(identification => { %>
+                                      <option value="<%= identification.user_identification %>"
+                                        <% if (identification.user_identification === data.user_identification) { %>
+                                          selected
+                                        <% } %>
+                                      >
+                                        <%= identification.user_identification %>
+                                      </option>
+                                    <% }) %>
+                                  </select>
                               </div>
-                            <div class="form-group">
-                                <label for="acto">Acto</label>
-                                <select id="acto" name="acto" class="form-control">
-                                    <option value="si" <%= data.acto === 'si' ? 'selected' : '' %>>Si</option>
-                                    <option value="no" <%= data.acto === 'no' ? 'selected' : '' %>>No</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <% if (data.user_identification !== '1002963849') { %>
-                                    <label for="state">Estado</label>
-                                    <select id="state" name="state" class="form-control">
-                                        <option value="terminado" <%= data.state === 'terminado' ? 'selected' : '' %>>Terminado</option>
-                                        <option value="ejecucion" <%= data.state === 'ejecucion' ? 'selected' : '' %>>En ejecución</option>
-                                        <option value="suspendido" <%= data.state === 'suspendido' ? 'selected' : '' %>>Suspendido</option>
-                                    </select>
-                                <% } else { %>
-                                    <label for="state">Estado:</label>
-                                    <input type="hidden" name="state" value="<%= data.state %>">
-                                    <br>
-                                    <%= data.state %>
-                                <% } %>
-                            </div>
-                            <div class="form-group">
-                                <% if (data.user_identification !== '1002963849') { %>
-                                    <label for="recomendaciones">Recomendaciones</label>
-                                    <textarea id="recomendaciones" name="recomendaciones" class="form-control" rows="8"><%= data.recomendaciones %></textarea>
-                                <% } else { %>
-                                    <label for="state">Recomendaciones:</label>
-                                    <br>
-                                    <input type="hidden" name="recomendaciones" value="<%= data.recomendaciones%>">
-                                    <%= data.recomendaciones %>
-                                <% } %>
-                            </div>
-                            <div class="form-group">
-                                <label for="date_init">Fecha de Inicio</label>
-                                <input type="text" id="date_init" name="date_init" value="<%= data.date_init %>" class="form-control" >
-                            </div>
-                            <div class="form-group">
-                                <label for="date_finish">Fecha de Finalización</label>
-                                <input type="text" id="date_finish" name="date_finish" value="<%= data.date_finish %>" class="form-control" >
-                            </div>
-                            <div class="form-group">
-                                <label for="activo">Activo</label>
-                                <select id="activo" name="activo" class="form-control">
-                                    <option value="1" <%= data.activo === 1 ? 'selected' : '' %>>Activo</option>
-                                    <option value="-1" <%= data.activo === -1 ? 'selected' : '' %>>Inactivo</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-primary">
-                                Actualizar
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+                              <div class="form-group">
+                                  <p for="labor_code">Código de Labor</p>
+                                  <select id="labor_code" name="labor_code" class="form-control">
+                                    <% dataCode.forEach(code => { %>
+                                      <option value="<%= code.labor_code %>"
+                                        <% if (code.labor_code === data.labor_code) { %>
+                                          selected
+                                        <% } %>
+                                      >
+                                        <%= code.labor_code %>
+                                      </option>
+                                    <% }) %>
+                                  </select>
+                                </div>    
+                                <div class="form-group">
+                                  <p for="period_id">ID del Período</p>
+                                  <select id="period_id" name="period_id" class="form-control">
+                                    <% dataPeriods.forEach(period => { %>
+                                      <option value="<%= period.period_id %>"
+                                        <% if (period.period_id === data.period_id) { %>
+                                          selected
+                                        <% } %>
+                                      >
+                                        <%= period.period_name %>
+                                      </option>
+                                    <% }) %>
+                                  </select>
+                                </div>
+                              <div class="form-group">
+                                  <p for="acto">Acto</p>
+                                  <select id="acto" name="acto" class="form-control">
+                                      <option value="si" <%= data.acto === 'si' ? 'selected' : '' %>>Si</option>
+                                      <option value="no" <%= data.acto === 'no' ? 'selected' : '' %>>No</option>
+                                  </select>
+                              </div>
+                              <div class="form-group">
+                                  <% if (data.user_identification !== '1002963849') { %>
+                                      <p for="state">Estado</p>
+                                      <select id="state" name="state" class="form-control">
+                                          <option value="terminado" <%= data.state === 'terminado' ? 'selected' : '' %>>Terminado</option>
+                                          <option value="ejecucion" <%= data.state === 'ejecucion' ? 'selected' : '' %>>En ejecución</option>
+                                          <option value="suspendido" <%= data.state === 'suspendido' ? 'selected' : '' %>>Suspendido</option>
+                                      </select>
+                                  <% } else { %>
+                                      <p for="state">Estado:</p>
+                                      <input type="hidden" name="state" value="<%= data.state %>">
+                                      <br>
+                                      <%= data.state %>
+                                  <% } %>
+                              </div>
+                              <div class="form-group">
+                                  <% if (data.user_identification !== '1002963849') { %>
+                                      <p for="recomendaciones">Recomendaciones</p>
+                                      <textarea id="recomendaciones" name="recomendaciones" class="form-control" rows="8"><%= data.recomendaciones %></textarea>
+                                  <% } else { %>
+                                      <p for="state">Recomendaciones:</p>
+                                      <br>
+                                      <input type="hidden" name="recomendaciones" value="<%= data.recomendaciones%>">
+                                      <%= data.recomendaciones %>
+                                  <% } %>
+                              </div>
+                              <div class="form-group">
+                                  <p for="date_init">Fecha de Inicio</p>
+                                  <input type="text" id="date_init" name="date_init" value="<%= data.date_init %>" class="form-control" >
+                              </div>
+                              <div class="form-group">
+                                  <p for="date_finish">Fecha de Finalización</p>
+                                  <input type="text" id="date_finish" name="date_finish" value="<%= data.date_finish %>" class="form-control" >
+                              </div>
+                              <div class="form-group">
+                                  <p for="activo">Activo</p>
+                                  <select id="activo" name="activo" class="form-control">
+                                      <option value="1" <%= data.activo === 1 ? 'selected' : '' %>>Activo</option>
+                                      <option value="-1" <%= data.activo === -1 ? 'selected' : '' %>>Inactivo</option>
+                                  </select>
+                              </div>
+                              <button type="submit" class="btn btn-primary">
+                                  Actualizar
+                              </button>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+          </div>
+  </div>
 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

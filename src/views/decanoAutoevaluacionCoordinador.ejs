@@ -6,12 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>autoevaluaciones coordinador</title>
+    <link rel="preload" href="css/style.css" as=" style">
+    <link href="css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-******************************" crossorigin="anonymous">
     <style>
         .navbar {
             display: flex;
             justify-content: space-between;
+            background-color: #1d1281;
         }
         
         .navbar-brand {
@@ -21,7 +24,7 @@
         .table-container {
             margin-top: 70px; 
             overflow: auto;
-            height: calc(100vh - 70px); 
+           
             overflow-y: hidden;
             width: 200%;
         }
@@ -108,12 +111,23 @@
         details[open] ul {
             display: block;
         }
+        .fondo{
+            background-image: url(../img/fondo2.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin-top: -46px;
+            height: 780px
+         
+        }
+       
+    
+</style>
     </style>
 </head>
 
 <body>
 
-    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+    <nav class="navbar navbar-dark  navbar-expand-lg">
         <div class="navbar-brand"> 
             <a>autoevaluaciones</a>
             <details>
@@ -132,69 +146,72 @@
         </ul>
     </nav>
 
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-12 table-container">
-                <% if(data) { %>
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <th>N</th>
-                        <th>nombre labor</th>
-                        <th>tipo labor</th>
-                        <th>horas</th>
-                        <th>descripcion</th>
-                        <th>acto</th>
-                        <th>fecha inicio</th>
-                        <th>fecha fin</th>
-                        <th>estado</th>
-                        <th>resultados</th>
-                        <th>evaluacion</th>
-                        <th>docente</th>
-                        <th>periodo</th>
-                        <th>recomendaciones</th>
-                        <th>sugerencias</th>
-                    </thead>
-                    <tbody>
-                        <% for (var i = 0; i < data.length ; i++){ %>
-                        <% if(data[i].activo !== 1) { continue; } %>
-                        <tr>
-                            <td><%= data[i].autoevaluation_id %></td>
-                            <td><%= data[i].labor_name %></td>
-                            <td><%= data[i].type_labor_name %></td>
-                            <td><%= data[i].labor_hours %></td>
-                            <td><%= data[i].labor_descripcion %></td>
-                            <td><%= data[i].acto %></td>
-                            <% if (data[i].date_init && typeof data[i].date_init === 'object' && data[i].date_init instanceof Date) { %>
-                            <td><%= data[i].date_init.toISOString().substring(0, 10) %></td>
-                            <% } else { %>
-                            <td></td>
-                            <% } %>
+    <div class="fondo">
 
-                            <% if (data[i].date_finish && typeof data[i].date_finish === 'object' && data[i].date_finish instanceof Date) { %>
-                            <td><%= data[i].date_finish.toISOString().substring(0, 10) %></td>
-                            <% } else { %>
-                            <td></td>
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-12 table-container">
+                    <% if(data) { %>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <th>N</th>
+                            <th>nombre labor</th>
+                            <th>tipo labor</th>
+                            <th>horas</th>
+                            <th>descripcion</th>
+                            <th>acto</th>
+                            <th>fecha inicio</th>
+                            <th>fecha fin</th>
+                            <th>estado</th>
+                            <th>resultados</th>
+                            <th>evaluacion</th>
+                            <th>docente</th>
+                            <th>periodo</th>
+                            <th>recomendaciones</th>
+                            <th>sugerencias</th>
+                        </thead>
+                        <tbody>
+                            <% for (var i = 0; i < data.length ; i++){ %>
+                            <% if(data[i].activo !== 1) { continue; } %>
+                            <tr>
+                                <td><%= data[i].autoevaluation_id %></td>
+                                <td><%= data[i].labor_name %></td>
+                                <td><%= data[i].type_labor_name %></td>
+                                <td><%= data[i].labor_hours %></td>
+                                <td><%= data[i].labor_descripcion %></td>
+                                <td><%= data[i].acto %></td>
+                                <% if (data[i].date_init && typeof data[i].date_init === 'object' && data[i].date_init instanceof Date) { %>
+                                <td><%= data[i].date_init.toISOString().substring(0, 10) %></td>
+                                <% } else { %>
+                                <td></td>
+                                <% } %>
+    
+                                <% if (data[i].date_finish && typeof data[i].date_finish === 'object' && data[i].date_finish instanceof Date) { %>
+                                <td><%= data[i].date_finish.toISOString().substring(0, 10) %></td>
+                                <% } else { %>
+                                <td></td>
+                                <% } %>
+    
+                                <td><%= data[i].state %></td>
+                                <td><%= data[i].resultados %></td>
+                                <td><%= data[i].evaluacion %></td>
+                                <td><%= data[i].user_name + ' ' + data[i].user_lastname%></td>
+                                <td><%= data[i].period_name %></td>
+                                <td><%= data[i].recomendaciones %></td>
+                                <td><%= data[i].sugerencias %></td>
+                                <td>
+                                    <a class="btn btn-info" href="/decanoUpdateAutoevaluacionCoordinadorView/<%= data[i].autoevaluation_id %>">Update</a>
+                                    <form method="post"
+                                        action="/decanoEnviarNotificacion/<%= data[i].user_identification %>/<%= data[i].autoevaluation_id %>">
+                                        <button type="submit" class="btn btn-info">Notificar</button>
+                                    </form>
+                                </td>
+                            </tr>
                             <% } %>
-
-                            <td><%= data[i].state %></td>
-                            <td><%= data[i].resultados %></td>
-                            <td><%= data[i].evaluacion %></td>
-                            <td><%= data[i].user_name + ' ' + data[i].user_lastname%></td>
-                            <td><%= data[i].period_name %></td>
-                            <td><%= data[i].recomendaciones %></td>
-                            <td><%= data[i].sugerencias %></td>
-                            <td>
-                                <a class="btn btn-info" href="/decanoUpdateAutoevaluacionCoordinadorView/<%= data[i].autoevaluation_id %>">Update</a>
-                                <form method="post"
-                                    action="/decanoEnviarNotificacion/<%= data[i].user_identification %>/<%= data[i].autoevaluation_id %>">
-                                    <button type="submit" class="btn btn-info">Notificar</button>
-                                </form>
-                            </td>
-                        </tr>
-                        <% } %>
-                    </tbody>
-                </table>
-                <% } %>
+                        </tbody>
+                    </table>
+                    <% } %>
+                </div>
             </div>
         </div>
     </div>

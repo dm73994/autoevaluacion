@@ -39,6 +39,3 @@ app.use('/',checkAuth,userRouter);
 app.use('/',checkAuth,notificacionRouter);
 
 
-// Acceso a recursos
-app.use('/resources', express.static('public'));
-app.use('/resources', express.static(__dirname + "/public"));

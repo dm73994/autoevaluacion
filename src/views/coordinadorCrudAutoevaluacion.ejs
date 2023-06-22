@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>crud autoevaluacion</title>
+    <link rel="preload" href="css/style.css" as=" style">
+    <link href="css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-******************************" crossorigin="anonymous">
     
@@ -26,6 +28,7 @@
             left: 0;
             right: 0;
             z-index: 9999;
+            background-color: #1d1281;
         }
 
         .navbar-brand {
@@ -89,11 +92,37 @@
         details[open] ul {
             display: block;
         }
+        .fondo{
+            background-image: url(img/fondo2.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin-top: -76px;
+            height: 740px;
+        }
+        .table-container {
+            margin-top: 10px;
+            overflow: auto;
+            height: calc(700px); 
+        }
+        .boton {
+    background-color: #f0f0f0;
+    color: #000000;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 19px;
+  }
+
+  .boton:hover {
+    background-color: #ddd;
+  }
+       
     </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+    <nav class="navbar navbar-dark  navbar-expand-lg">
         <div class="navbar-brand"> 
             <a>crud autoevaluacion</a>
             <details>
@@ -107,6 +136,7 @@
                 </ul>
             </details>
         </div>
+       <button id="btnMostrarReporte" class="boton">Mostrar Reporte</button> 
         <ul class="navbar-nav ml-auto">
             <li class="nav-item"> 
                 <a class="navbar-brand home-link" href="/coordinadorPrincipal"> 
@@ -121,161 +151,163 @@
 
     <br>
 
-    <center><button id="btnMostrarReporte" class="btn btn-primary">Mostrar Reporte</button> </center>
-    
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-12 table-container">
-                <% if(data) { %>
-                    <% var realizadas = []; %>
-                    <% var pendientes = []; %>
-                    
-                    <% for (var i = 0; i < data.length ; i++){ %>
-                        <% if(data[i].activo !== 1) { continue; } %> 
+  
+    <div class="fondo">
+
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-12 table-container">
+                    <% if(data) { %>
+                        <% var realizadas = []; %>
+                        <% var pendientes = []; %>
                         
-                        <% if (data[i].resultados !== null && data[i].evaluacion !== null && data[i].resultados !== '' && data[i].evaluacion !== '') { %>
-                            <% realizadas.push(data[i]); %>
-                        <% } else { %>
-                            <% pendientes.push(data[i]); %>
+                        <% for (var i = 0; i < data.length ; i++){ %>
+                            <% if(data[i].activo !== 1) { continue; } %> 
+                            
+                            <% if (data[i].resultados !== null && data[i].evaluacion !== null && data[i].resultados !== '' && data[i].evaluacion !== '') { %>
+                                <% realizadas.push(data[i]); %>
+                            <% } else { %>
+                                <% pendientes.push(data[i]); %>
+                            <% } %>
+                        <% } %>
+                        <% if (realizadas.length > 0) { %>
+                            <h3>Realizadas</h3>
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <th>N</th>
+                                    <th>nombre labor</th>
+                                    <th>tipo labor</th>
+                                    <th>horas</th>
+                                    <th>descripcion</th>
+                                    <th>acto</th>
+                                    <th>fecha inicio</th>
+                                    <th>fecha fin</th>
+                                    <th>estado</th>
+                                    <th>resultados</th>
+                                    <th>evaluacion</th>
+                                    <th>docente</th>
+                                    <th>periodo</th>
+                                    <th>recomendaciones</th>
+                                    <th>sugerencias</th>
+                                </thead>
+                                <tbody>
+                                    <% for (var i = 0; i < realizadas.length ; i++){ %>
+                                        <tr>
+                                            <td><%= realizadas[i].autoevaluation_id %></td>
+                                            <td><%= realizadas[i].labor_name %></td>
+                                            <td><%= realizadas[i].type_labor_name %></td>
+                                            <td><%= realizadas[i].labor_hours %></td>
+                                            <td><%= realizadas[i].labor_descripcion %></td>
+                                            <td><%= realizadas[i].acto %></td>
+                                            <% if (realizadas[i].date_init && typeof realizadas[i].date_init === 'object' && realizadas[i].date_init instanceof Date) { %>
+                                                <td><%= realizadas[i].date_init.toISOString().substring(0, 10) %></td>
+                                            <% } else { %>
+                                                <td></td>
+                                            <% } %>
+                                            
+                                            <% if (realizadas[i].date_finish && typeof realizadas[i].date_finish === 'object' && realizadas[i].date_finish instanceof Date) { %>
+                                                <td><%= realizadas[i].date_finish.toISOString().substring(0, 10) %></td>
+                                            <% } else { %>
+                                                <td></td>
+                                            <% } %>
+                                            
+                                            <td><%= realizadas[i].state %></td>
+                                            <td><%= realizadas[i].resultados %></td>
+                                            <td><%= realizadas[i].evaluacion %></td>
+                                            <td><%= realizadas[i].user_name + ' ' + realizadas[i].user_lastname%></td>
+                                            <td><%= realizadas[i].period_name %></td>
+                                            <td> 
+                                                <% if (realizadas[i].recomendaciones !== undefined && realizadas[i].recomendaciones !== '') { %>
+                                                  <%= realizadas[i].recomendaciones %>
+                                                <% } %>
+                                              </td>
+                                              
+                                              <td> 
+                                                <% if (realizadas[i].sugerencias !== undefined && realizadas[i].sugerencias !== '') { %>
+                                                  <%= realizadas[i].sugerencias %>
+                                                <% } %>
+                                              </td>
+                                            <td>
+                                                <a class="btn btn-info" href="/coordinadorUpdateAutoevaluacionView/<%= realizadas[i].autoevaluation_id %>">Update</a>
+                                                <form method="post" action="/enviarNotificacion/<%= realizadas[i].user_identification %>/<%= realizadas[i].autoevaluation_id %>">
+                                                    <button type="submit" class="btn btn-info">Notificar</button>
+                                                </form>                                        
+                                            </td>
+                                        </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
+                        <% } %>
+                        <% if (pendientes.length > 0) { %>
+                            <h3>Pendientes</h3>
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <th>N</th>
+                                    <th>nombre labor</th>
+                                    <th>tipo labor</th>
+                                    <th>horas</th>
+                                    <th>descripcion</th>
+                                    <th>acto</th>
+                                    <th>fecha inicio</th>
+                                    <th>fecha fin</th>
+                                    <th>estado</th>
+                                    <th>resultados</th>
+                                    <th>evaluacion</th>
+                                    <th>docente</th>
+                                    <th>periodo</th>
+                                    <th>recomendaciones</th>
+                                    <th>sugerencias</th>
+                                </thead>
+                                <tbody>
+                                    <% for (var i = 0; i < pendientes.length ; i++){ %>
+                                        <tr>
+                                            <td><%= pendientes[i].autoevaluation_id %></td>
+                                            <td><%= pendientes[i].labor_name %></td>
+                                            <td><%= pendientes[i].type_labor_name %></td>
+                                            <td><%= pendientes[i].labor_hours %></td>
+                                            <td><%= pendientes[i].labor_descripcion %></td>
+                                            <td><%= pendientes[i].acto %></td>
+                                            <% if (pendientes[i].date_init && typeof pendientes[i].date_init === 'object' && pendientes[i].date_init instanceof Date) { %>
+                                                <td><%= pendientes[i].date_init.toISOString().substring(0, 10) %></td>
+                                            <% } else { %>
+                                                <td></td>
+                                            <% } %>
+                                            
+                                            <% if (pendientes[i].date_finish && typeof pendientes[i].date_finish === 'object' && pendientes[i].date_finish instanceof Date) { %>
+                                                <td><%= pendientes[i].date_finish.toISOString().substring(0, 10) %></td>
+                                            <% } else { %>
+                                                <td></td>
+                                            <% } %>
+                                            
+                                            <td><%= pendientes[i].state %></td>
+                                            <td><%= pendientes[i].resultados %></td>
+                                            <td><%= pendientes[i].evaluacion %></td>
+                                            <td><%= pendientes[i].user_name + ' ' + pendientes[i].user_lastname%></td>
+                                            <td><%= pendientes[i].period_name %></td>
+                                            <td> 
+                                                <% if (pendientes[i].recomendaciones !== undefined && pendientes[i].recomendaciones !== '') { %>
+                                                  <%= pendientes[i].recomendaciones %>
+                                                <% } %>
+                                            </td>
+                                            <td> 
+                                            <% if (pendientes[i].sugerencias !== undefined && pendientes[i].sugerencias !== '') { %>
+                                                <%= pendientes[i].sugerencias %>
+                                            <% } %>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-info" href="/coordinadorUpdateAutoevaluacionView/<%= pendientes[i].autoevaluation_id %>">Update</a>
+                                                <form method="post" action="/enviarNotificacion/<%= pendientes[i].user_identification %>/<%= pendientes[i].autoevaluation_id %>">
+                                                    <button type="submit" class="btn btn-info">Notificar</button>
+                                                </form>                                        
+                                            </td>
+                                        </tr>
+                                    <% } %>
+                                </tbody>
+                            </table>
                         <% } %>
                     <% } %>
-                    <% if (realizadas.length > 0) { %>
-                        <h3>Realizadas</h3>
-                        <table class="table table-bordered table-hover">
-                            <thead>
-                                <th>N</th>
-                                <th>nombre labor</th>
-                                <th>tipo labor</th>
-                                <th>horas</th>
-                                <th>descripcion</th>
-                                <th>acto</th>
-                                <th>fecha inicio</th>
-                                <th>fecha fin</th>
-                                <th>estado</th>
-                                <th>resultados</th>
-                                <th>evaluacion</th>
-                                <th>docente</th>
-                                <th>periodo</th>
-                                <th>recomendaciones</th>
-                                <th>sugerencias</th>
-                            </thead>
-                            <tbody>
-                                <% for (var i = 0; i < realizadas.length ; i++){ %>
-                                    <tr>
-                                        <td><%= realizadas[i].autoevaluation_id %></td>
-                                        <td><%= realizadas[i].labor_name %></td>
-                                        <td><%= realizadas[i].type_labor_name %></td>
-                                        <td><%= realizadas[i].labor_hours %></td>
-                                        <td><%= realizadas[i].labor_descripcion %></td>
-                                        <td><%= realizadas[i].acto %></td>
-                                        <% if (realizadas[i].date_init && typeof realizadas[i].date_init === 'object' && realizadas[i].date_init instanceof Date) { %>
-                                            <td><%= realizadas[i].date_init.toISOString().substring(0, 10) %></td>
-                                        <% } else { %>
-                                            <td></td>
-                                        <% } %>
-                                        
-                                        <% if (realizadas[i].date_finish && typeof realizadas[i].date_finish === 'object' && realizadas[i].date_finish instanceof Date) { %>
-                                            <td><%= realizadas[i].date_finish.toISOString().substring(0, 10) %></td>
-                                        <% } else { %>
-                                            <td></td>
-                                        <% } %>
-                                        
-                                        <td><%= realizadas[i].state %></td>
-                                        <td><%= realizadas[i].resultados %></td>
-                                        <td><%= realizadas[i].evaluacion %></td>
-                                        <td><%= realizadas[i].user_name + ' ' + realizadas[i].user_lastname%></td>
-                                        <td><%= realizadas[i].period_name %></td>
-                                        <td> 
-                                            <% if (realizadas[i].recomendaciones !== undefined && realizadas[i].recomendaciones !== '') { %>
-                                              <%= realizadas[i].recomendaciones %>
-                                            <% } %>
-                                          </td>
-                                          
-                                          <td> 
-                                            <% if (realizadas[i].sugerencias !== undefined && realizadas[i].sugerencias !== '') { %>
-                                              <%= realizadas[i].sugerencias %>
-                                            <% } %>
-                                          </td>
-                                        <td>
-                                            <a class="btn btn-info" href="/coordinadorUpdateAutoevaluacionView/<%= realizadas[i].autoevaluation_id %>">Update</a>
-                                            <form method="post" action="/enviarNotificacion/<%= realizadas[i].user_identification %>/<%= realizadas[i].autoevaluation_id %>">
-                                                <button type="submit" class="btn btn-info">Notificar</button>
-                                            </form>                                        
-                                        </td>
-                                    </tr>
-                                <% } %>
-                            </tbody>
-                        </table>
-                    <% } %>
-                    <% if (pendientes.length > 0) { %>
-                        <h3>Pendientes</h3>
-                        <table class="table table-bordered table-hover">
-                            <thead>
-                                <th>N</th>
-                                <th>nombre labor</th>
-                                <th>tipo labor</th>
-                                <th>horas</th>
-                                <th>descripcion</th>
-                                <th>acto</th>
-                                <th>fecha inicio</th>
-                                <th>fecha fin</th>
-                                <th>estado</th>
-                                <th>resultados</th>
-                                <th>evaluacion</th>
-                                <th>docente</th>
-                                <th>periodo</th>
-                                <th>recomendaciones</th>
-                                <th>sugerencias</th>
-                            </thead>
-                            <tbody>
-                                <% for (var i = 0; i < pendientes.length ; i++){ %>
-                                    <tr>
-                                        <td><%= pendientes[i].autoevaluation_id %></td>
-                                        <td><%= pendientes[i].labor_name %></td>
-                                        <td><%= pendientes[i].type_labor_name %></td>
-                                        <td><%= pendientes[i].labor_hours %></td>
-                                        <td><%= pendientes[i].labor_descripcion %></td>
-                                        <td><%= pendientes[i].acto %></td>
-                                        <% if (pendientes[i].date_init && typeof pendientes[i].date_init === 'object' && pendientes[i].date_init instanceof Date) { %>
-                                            <td><%= pendientes[i].date_init.toISOString().substring(0, 10) %></td>
-                                        <% } else { %>
-                                            <td></td>
-                                        <% } %>
-                                        
-                                        <% if (pendientes[i].date_finish && typeof pendientes[i].date_finish === 'object' && pendientes[i].date_finish instanceof Date) { %>
-                                            <td><%= pendientes[i].date_finish.toISOString().substring(0, 10) %></td>
-                                        <% } else { %>
-                                            <td></td>
-                                        <% } %>
-                                        
-                                        <td><%= pendientes[i].state %></td>
-                                        <td><%= pendientes[i].resultados %></td>
-                                        <td><%= pendientes[i].evaluacion %></td>
-                                        <td><%= pendientes[i].user_name + ' ' + pendientes[i].user_lastname%></td>
-                                        <td><%= pendientes[i].period_name %></td>
-                                        <td> 
-                                            <% if (pendientes[i].recomendaciones !== undefined && pendientes[i].recomendaciones !== '') { %>
-                                              <%= pendientes[i].recomendaciones %>
-                                            <% } %>
-                                        </td>
-                                        <td> 
-                                        <% if (pendientes[i].sugerencias !== undefined && pendientes[i].sugerencias !== '') { %>
-                                            <%= pendientes[i].sugerencias %>
-                                        <% } %>
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-info" href="/coordinadorUpdateAutoevaluacionView/<%= pendientes[i].autoevaluation_id %>">Update</a>
-                                            <form method="post" action="/enviarNotificacion/<%= pendientes[i].user_identification %>/<%= pendientes[i].autoevaluation_id %>">
-                                                <button type="submit" class="btn btn-info">Notificar</button>
-                                            </form>                                        
-                                        </td>
-                                    </tr>
-                                <% } %>
-                            </tbody>
-                        </table>
-                    <% } %>
-                <% } %>
-                
+                    
+                </div>
             </div>
         </div>
     </div>

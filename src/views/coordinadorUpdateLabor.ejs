@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actualizar Labor</title>
+    <link rel="preload" href="css/style.css" as=" style">
+    <link href="css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-******************************" crossorigin="anonymous">
 </head>
@@ -13,6 +15,7 @@
     .navbar {
         display: flex;
         justify-content: space-between;
+        background-color: #1d1281;
     }
     
     .navbar-brand {
@@ -99,11 +102,23 @@
     details[open] ul {
         display: block;
     }
+    .fondo{
+            background-image: url(../img/fondo2.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin-top: -46px;
+            height: 1200px;
+        }
+        .form-group p{
+        color: black;
+        font-size: 17px;
+    }
+</style>
   </style>
 
 <body>
     
-    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+    <nav class="navbar navbar-dark  navbar-expand-lg">
         <div class="navbar-brand"> 
             <a>Actualizar labor</a>
             <details>
@@ -126,45 +141,47 @@
             </li>
         </ul>
     </nav>
+    <div class="fondo">
 
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-5">
-                <div class="card">
-                    <div class="card-body">
-                        <form action="/coordinadorUpdateLabor/<%= data.labor_code %>" method="post">
-                            <div class="form-group">
-                                <label for="labor_name">Nombre del Labor</label>
-                                <input type="text" id="labor_name" name="labor_name" value="<%= data.labor_name %>" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="type_labor_code">Código del Tipo de Labor</label>
-                                <select id="type_labor_code" name="type_labor_code" class="form-control">
-                                    <option value="AD" <%= data.type_labor_code === 'AD' ? 'selected' : '' %>>Administración</option>
-                                    <option value="AS" <%= data.type_labor_code === 'AS' ? 'selected' : '' %>>Asesoría</option>
-                                    <option value="C" <%= data.type_labor_code === 'C' ? 'selected' : '' %>>Capacitación</option>
-                                    <option value="D" <%= data.type_labor_code === 'D' ? 'selected' : '' %>>Docencia</option>
-                                    <option value="E" <%= data.type_labor_code === 'E' ? 'selected' : '' %>>Extensión</option>
-                                    <option value="OS" <%= data.type_labor_code === 'OS' ? 'selected' : '' %>>Otros Servicios</option>
-                                    <option value="PI" <%= data.type_labor_code === 'PI' ? 'selected' : '' %>>Proyectos Investigación</option>
-                                    <option value="S" <%= data.type_labor_code === 'S' ? 'selected' : '' %>>Servicios</option>
-                                    <option value="TD" <%= data.type_labor_code === 'TD' ? 'selected' : '' %>>Trabajos Docencia</option>
-                                    <option value="TI" <%= data.type_labor_code === 'TI' ? 'selected' : '' %>>Trabajos Investigación</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="labor_hours">Horas del Labor</label>
-                                <input type="text" id="labor_hours" name="labor_hours" value="<%= data.labor_hours %>" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="activo">Estado</label>
-                                <select id="activo" name="activo" class="form-control">
-                                    <option value="1" <%= data.activo === 1 ? 'selected' : '' %>>Activo</option>
-                                    <option value="-1" <%= data.activo === -1 ? 'selected' : '' %>>Inactivo</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Actualizar</button>
-                        </form>
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="/coordinadorUpdateLabor/<%= data.labor_code %>" method="post">
+                                <div class="form-group">
+                                    <p for="labor_name">Nombre del Labor</p>
+                                    <input type="text" id="labor_name" name="labor_name" value="<%= data.labor_name %>" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <p for="type_labor_code">Código del Tipo de Labor</p>
+                                    <select id="type_labor_code" name="type_labor_code" class="form-control">
+                                        <option value="AD" <%= data.type_labor_code === 'AD' ? 'selected' : '' %>>Administración</option>
+                                        <option value="AS" <%= data.type_labor_code === 'AS' ? 'selected' : '' %>>Asesoría</option>
+                                        <option value="C" <%= data.type_labor_code === 'C' ? 'selected' : '' %>>Capacitación</option>
+                                        <option value="D" <%= data.type_labor_code === 'D' ? 'selected' : '' %>>Docencia</option>
+                                        <option value="E" <%= data.type_labor_code === 'E' ? 'selected' : '' %>>Extensión</option>
+                                        <option value="OS" <%= data.type_labor_code === 'OS' ? 'selected' : '' %>>Otros Servicios</option>
+                                        <option value="PI" <%= data.type_labor_code === 'PI' ? 'selected' : '' %>>Proyectos Investigación</option>
+                                        <option value="S" <%= data.type_labor_code === 'S' ? 'selected' : '' %>>Servicios</option>
+                                        <option value="TD" <%= data.type_labor_code === 'TD' ? 'selected' : '' %>>Trabajos Docencia</option>
+                                        <option value="TI" <%= data.type_labor_code === 'TI' ? 'selected' : '' %>>Trabajos Investigación</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <p for="labor_hours">Horas del Labor</p>
+                                    <input type="text" id="labor_hours" name="labor_hours" value="<%= data.labor_hours %>" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <p for="activo">Estado</p>
+                                    <select id="activo" name="activo" class="form-control">
+                                        <option value="1" <%= data.activo === 1 ? 'selected' : '' %>>Activo</option>
+                                        <option value="-1" <%= data.activo === -1 ? 'selected' : '' %>>Inactivo</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Actualizar</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

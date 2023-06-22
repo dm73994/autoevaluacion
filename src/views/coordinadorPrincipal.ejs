@@ -6,36 +6,93 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vista principal coordinador</title>
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
+    <link rel="preload" href="css/style.css" as=" style">
+    <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
+<style>
+    .contprinci{
+        background-image: url(img/fondo2.jpg);
+        background-size: cover;
+    background-repeat: no-repeat;
+    }
+    .subcont{
+        margin-top: -150px;
+        margin-left: -350px;
+    }
+    
+    .contenedor {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      
+      align-items: center;
+    }
 
-    <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand">Vista principal coordinador</a>
-        <a class="btn btn-info" href="/coordinadorBandejaEntrada">Bandeja de entrada</a>
-    </nav>
-    <h3>usuario: <%= user %></h3>
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-5">
-                <div class="card">
-                    <div class="card-body">
-                        <a class="btn btn-info" href="/coordinadorListPeriods">Crear periodo academico</a>
-                        <br>
-                        <a class="btn btn-info" href="/coordinadorCrudAutoevaluacion">Gestion autoevaluacion</a>
-                        <br>
-                        <a class="btn btn-info" href="/coordinadorCRUDuser">Gestión docente</a>
-                        <br>
-                        <a class="btn btn-info" href="/coordinadorCrudLabor">Gestion labor</a>
-                        <br>
-                        <a class="btn btn-info" href="/coordinadorDiligenciarAutoevaluaciones">Realizar autoevaluacion</a>
-                        <br>
-                        <a href="/logout" class="btn btn-primary"> cerrar sesion </a>
-                    </div>
-                </div>
-            </div>
-        </div>
 
+    .cuadro {
+      text-align: center;
+      padding: 20px;
+    
+    }
+
+    .btns {
+      display: inline-block;
+      width: 300px;
+      height: 55px;
+      padding: 10px 20px;
+      background-color: #c01c1c;
+      color: #fff;
+      border: 2px solid #fff;
+    
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s;
+      cursor: pointer;
+      font-size: 17px;
+      margin-bottom: 10px;
+    }
+
+    .btns:hover {
+      background-color: #a81b1b;
+      color: white;
+      text-decoration: none;
+      font-size: 20px;
+    }
+    .navbar{
+        background-color: #1d1281;
+    }
+</style>
+<nav class="navbar navbar-dark ">
+    <a class="navbar-brand">Vista principal coordinador</a>
+    <a class="btn btn-info" href="/coordinadorBandejaEntrada">Bandeja de entrada</a>
+</nav>
+    <div class="contprinci">
+        <h3>usuario: <%= user %></h3>
+         <div class="contenedor">
+             <div class="subcont">
+                 <div class="cuadro">
+                     <a class="btns btn-infor " href="/coordinadorListPeriods">Crear periodo academico</a>
+                     <br>
+                     <a class="btns btn-infor " href="/coordinadorCrudAutoevaluacion">Gestion autoevaluacion</a>
+                     <br>
+                     <a class="btns btn-infor" href="/coordinadorCRUDuser">Gestión docente</a>
+                     <br>
+                     <a class="btns btn-infor" href="/coordinadorCrudLabor">Gestion labor</a>
+                     <br>
+                     <a class="btns btn-infor" href="/coordinadorDiligenciarAutoevaluaciones">Realizar autoevaluacion</a>
+                     <br>
+                     <a href="/logout" class="btns btn-infor"> Cerrar sesion </a>
+                     <br>
+
+                 </div>
+             </div>
+         
+         </div>
     </div>
+   
+    
+    
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <% if(typeof alert != "undefined") { %>

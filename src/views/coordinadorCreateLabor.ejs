@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create labor</title>
+    <link rel="preload" href="css/style.css" as=" style">
+    <link href="css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-******************************" crossorigin="anonymous">
 </head>
@@ -81,11 +83,27 @@
     details[open] ul {
         display: block;
     }
+    .fondo{
+            background-image: url(img/fondo2.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin-top: -50px;
+            height: 730px;
+        }
+    .mover{
+        margin-left: -100px;
+      
+    }
+    .form-group p{
+        color: black;
+        font-size: 17px;
+    }
+ 
 </style>
 
 <body>
     
-    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+    <nav class="navbar navbar-dark  navbar-expand-lg">
         <div class="navbar-brand"> 
             <a>create labor</a>
             <details>
@@ -108,54 +126,57 @@
             </li>
         </ul>
     </nav>
+    <div class="fondo">
 
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <form action="/createLabor" method="post">
-                            <div class="form-group">
-                                <label>Digite el codigo:</label>
-                                <input type="text" name="labor_code" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Digite el nombre:</label>
-                                <input type="text" name="labor_name" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Digite el tipo labor:</label>
-                                <select name="type_labor_code" class="form-control" required>
-                                    <option value="">Seleccionar opción</option>
-                                    <option value="AD">Administracion</option>
-                                    <option value="AS">Asesoria</option>
-                                    <option value="C">Capacitacion</option>
-                                    <option value="D">Docencia</option>
-                                    <option value="E">Extension</option>
-                                    <option value="OS">Otros Servicios</option>
-                                    <option value="PI">Proyectos Investigacion</option>
-                                    <option value="S">Servicios</option>
-                                    <option value="TD">Trabajos Docencia</option>
-                                    <option value="TI">Trabajos Investigacion</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Ingrese la descripcion:</label>
-                                <input type="text" name="labor_descripcion" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Digite las horas:</label>
-                                <input type="text" name="labor_hours" class="form-control" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary">
-                                Create 
-                            </button>
-                        </form>
+        <div class="container mt-5">
+            <div class="mover">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="/createLabor" method="post">
+                                <div class="form-group">
+                                    <p>Digite el codigo:</p>
+                                    <input type="text" name="labor_code" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <p>Digite el nombre:</p>
+                                    <input type="text" name="labor_name" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <p>Digite el tipo labor:</p>
+                                    <select name="type_labor_code" class="form-control" required>
+                                        <option value="">Seleccionar opción</option>
+                                        <option value="AD">Administracion</option>
+                                        <option value="AS">Asesoria</option>
+                                        <option value="C">Capacitacion</option>
+                                        <option value="D">Docencia</option>
+                                        <option value="E">Extension</option>
+                                        <option value="OS">Otros Servicios</option>
+                                        <option value="PI">Proyectos Investigacion</option>
+                                        <option value="S">Servicios</option>
+                                        <option value="TD">Trabajos Docencia</option>
+                                        <option value="TI">Trabajos Investigacion</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <p>Ingrese la descripcion:</p>
+                                    <input type="text" name="labor_descripcion" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <p>Digite las horas:</p>
+                                    <input type="text" name="labor_hours" class="form-control" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    Create 
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <% if(typeof alert != "undefined") { %>

@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>periods</title>
+    <link rel="preload" href="css/style.css" as=" style">
+    <link href="css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-******************************" crossorigin="anonymous">
     <style>
@@ -111,11 +113,22 @@
         details[open] ul {
             display: block;
         }
+        .fondo{
+            background-image: url(img/fondo2.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin-top: -50px;
+        }
+        .row{
+            margin-left: -470px;
+        }
+        
     </style>
 </head>
 <body>
     
-    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+    
+    <nav class="navbar navbar-dark  navbar-expand-lg">
         <div class="navbar-brand"> 
             <a>periods</a>
             <details>
@@ -142,35 +155,38 @@
     </nav>
     
 
-
-
-
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-12 table-container">
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <th>Id</th>
-                        <th>Nombre</th>
-                        <th>Fecha de inicio</th>
-                        <th>Fecha de fin</th>
-                    </thead>
-                    <tbody>
-                        <% if(data) { %>
-                            <% for (var i = 0; i < data.length; i++) { %>
-                                <tr>
-                                    <td><%= data[i].period_id %></td>
-                                    <td><%= data[i].period_name %></td>
-                                    <td><%= data[i].period_dateStart.toISOString().substring(0, 10) %></td>
-                                    <td><%= data[i].period_dateFinish.toISOString().substring(0, 10) %></td>
-                                </tr>
+    <div class="fondo">
+        
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-12 table-container">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Fecha de inicio</th>
+                            <th>Fecha de fin</th>
+                        </thead>
+                        <tbody>
+                            <% if(data) { %>
+                                <% for (var i = 0; i < data.length; i++) { %>
+                                    <tr>
+                                        <td><%= data[i].period_id %></td>
+                                        <td><%= data[i].period_name %></td>
+                                        <td><%= data[i].period_dateStart.toISOString().substring(0, 10) %></td>
+                                        <td><%= data[i].period_dateFinish.toISOString().substring(0, 10) %></td>
+                                    </tr>
+                                <% } %>
                             <% } %>
-                        <% } %>
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
+
+
+
 
 </body>
 </html>

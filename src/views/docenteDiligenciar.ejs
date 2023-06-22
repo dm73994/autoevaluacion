@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diligenciar autoevaluacion</title>
+    <link rel="preload" href="css/style.css" as=" style">
+    <link href="css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-******************************" crossorigin="anonymous">
     <style>
@@ -22,7 +24,6 @@
             margin-right: auto;
             margin-top: 0px; 
             overflow: auto;
-            height: calc(100vh - 70px); 
             overflow-y: hidden;
             width: 250%;
         }
@@ -111,12 +112,20 @@
         details[open] ul {
             display: block;
         }
+        .fondo{
+            background-image: url(img/fondo2.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin-top: -20px;
+            height: 740px;
+        }
+       
 
     </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+    <nav class="navbar navbar-dark  navbar-expand-lg">
         <div class="navbar-brand"> 
             <a>realizar autoevaluacion</a>
             <details>
@@ -137,63 +146,66 @@
         </ul>
     </nav>
     <br>
-    <% if(data && data.length > 0) { %>
-        <h3>nombre: <%= data[0].user_name + ' ' + data[0].user_lastname %></h3>
-        <h3>identificacion: <%= data[0].user_identification %></h3>
-    <% } %>
+    
     <h3></h3>
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-12 table-container">
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <th>N</th>
-                        <th>nombre labor</th>
-                        <th>tipo labor</th>
-                        <th>horas</th>
-                        <th>descripcion</th>
-                        <th>acto</th>
-                        <th>fecha inicio</th>
-                        <th>fecha fin</th>
-                        <th>estado</th>
-                        <th>resultados</th>
-                        <th>evaluacion</th>
-                        <th>periodo</th>
-                        <th>recomendaciones</th>
-                    </thead>
-                    <tbody>
-                        <% let totalLaborHours = 0; %>
-                        <% if(data) { %>
-                            <% for (var i = 0; i < data.length ; i++){ %>
-                                <% if(data[i].activo !== 1) { continue; } %> 
-                        
-                                <tr>
-                                    <td><%= data[i].autoevaluation_id %></td>
-                                    <td><%= data[i].labor_name %></td>
-                                    <td><%= data[i].type_labor_name %></td>
-                                    <td><%= data[i].labor_hours %></td>
-                                    <td><%= data[i].labor_descripcion %></td>
-                                    <td><%= data[i].acto %></td>
-                                    <td><%= data[i].date_init.toISOString().substring(0, 10) %></td>
-                                    <td><%= data[i].date_finish.toISOString().substring(0, 10) %></td>
-                                    <td><%= data[i].state %></td>
-                                    <td><%= data[i].resultados %></td>
-                                    <td><%= data[i].evaluacion %></td>
-                                    <td><%= data[i].period_name %></td>
-                                    <td><%= data[i].recomendaciones %></td>
-                                    <td>
-                                        <% if (data[i].state === 'suspendido' || data[i].state === 'terminado') { %>
-                                            <a class="btn btn-info disabled" href="/docenteDiligenciarAutoevaluacionView/<%= data[i].autoevaluation_id %>">Realizar autoevaluación</a>
-                                        <% } else { %>
-                                            <a class="btn btn-info" href="/docenteDiligenciarAutoevaluacionView/<%= data[i].autoevaluation_id %>">Realizar autoevaluación</a>
-                                        <% } %>
-                                    </td>
-                                </tr>
-                                <% totalLaborHours += parseInt(data[i].labor_hours, 10); %>
-                            <% }%>   
-                        <% } %>
-                    </tbody>
-                </table>
+    <div class="fondo">
+        <% if(data && data.length > 0) { %>
+            <h3>nombre: <%= data[0].user_name + ' ' + data[0].user_lastname %></h3>
+            <h3>identificacion: <%= data[0].user_identification %></h3>
+        <% } %>
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-12 table-container">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <th>N</th>
+                            <th>nombre labor</th>
+                            <th>tipo labor</th>
+                            <th>horas</th>
+                            <th>descripcion</th>
+                            <th>acto</th>
+                            <th>fecha inicio</th>
+                            <th>fecha fin</th>
+                            <th>estado</th>
+                            <th>resultados</th>
+                            <th>evaluacion</th>
+                            <th>periodo</th>
+                            <th>recomendaciones</th>
+                        </thead>
+                        <tbody>
+                            <% let totalLaborHours = 0; %>
+                            <% if(data) { %>
+                                <% for (var i = 0; i < data.length ; i++){ %>
+                                    <% if(data[i].activo !== 1) { continue; } %> 
+                            
+                                    <tr>
+                                        <td><%= data[i].autoevaluation_id %></td>
+                                        <td><%= data[i].labor_name %></td>
+                                        <td><%= data[i].type_labor_name %></td>
+                                        <td><%= data[i].labor_hours %></td>
+                                        <td><%= data[i].labor_descripcion %></td>
+                                        <td><%= data[i].acto %></td>
+                                        <td><%= data[i].date_init.toISOString().substring(0, 10) %></td>
+                                        <td><%= data[i].date_finish.toISOString().substring(0, 10) %></td>
+                                        <td><%= data[i].state %></td>
+                                        <td><%= data[i].resultados %></td>
+                                        <td><%= data[i].evaluacion %></td>
+                                        <td><%= data[i].period_name %></td>
+                                        <td><%= data[i].recomendaciones %></td>
+                                        <td>
+                                            <% if (data[i].state === 'suspendido' || data[i].state === 'terminado') { %>
+                                                <a class="btn btn-info disabled" href="/docenteDiligenciarAutoevaluacionView/<%= data[i].autoevaluation_id %>">Realizar autoevaluación</a>
+                                            <% } else { %>
+                                                <a class="btn btn-info" href="/docenteDiligenciarAutoevaluacionView/<%= data[i].autoevaluation_id %>">Realizar autoevaluación</a>
+                                            <% } %>
+                                        </td>
+                                    </tr>
+                                    <% totalLaborHours += parseInt(data[i].labor_hours, 10); %>
+                                <% }%>   
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

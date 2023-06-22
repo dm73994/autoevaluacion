@@ -6,31 +6,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vista principal decano</title>
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
+    <link rel="preload" href="css/style.css" as=" style">
+    <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
+    <style>
+        .contprinci{
+    background-image: url(img/fondo2.jpg);
+    background-size: cover;
+background-repeat: no-repeat;
+}
+.subcont{
+    margin-top: -150px;
+    margin-left: -350px;
+}
 
-    <nav class="navbar navbar-dark bg-dark">
+.contenedor {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  
+  align-items: center;
+}
+
+
+.cuadro {
+  text-align: center;
+  padding: 20px;
+
+}
+
+.btns {
+  display: inline-block;
+  width: 300px;
+  height: 80px;
+  padding: 10px 20px;
+  background-color: #c01c1c;
+  color: #fff;
+  border: 2px solid #fff;
+
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  cursor: pointer;
+  font-size: 17px;
+  margin-bottom: 10px;
+}
+
+.btns:hover {
+  background-color: #a81b1b;
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+}
+    </style>
+
+    <nav class="navbar navbar-dark ">
         <a class="navbar-brand">Vista principal decano</a>
         <a class="btn btn-info" href="/decanoBandejaEntrada">Bandeja de entrada</a>
     </nav>
-    <h3>usuario: <%= user %></h3>
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-5">
-                <div class="card">
-                    <div class="card-body">
-                        <a class="btn btn-info" href="/decanoAutoevaluaciones">Consultar autoevaluaciones</a>
+    <div class="contprinci">
+        <h3>usuario: <%= user %></h3>
+         <div class="contenedor">
+             <div class="subcont">
+                 <div class="cuadro">
+                    <a class="btns " href="/decanoAutoevaluaciones">Consultar autoevaluaciones</a>
                         <br>
-                        <a class="btn btn-info" href="/decanoAutoevaluacionCoordinador">Consultar autoevaluacion coordinador</a>
+                        <a class="btns " href="/decanoAutoevaluacionCoordinador">Consultar autoevaluacion coordinador</a>
                         <br>
-                        <a href="/logout" class="btn btn-primary"> cerrar sesion </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+                        <a href="/logout" class="btns"> cerrar sesion </a>
+                 </div>
+             </div>
+         
+         </div>
     </div>
 
+
+
+    
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <% if(typeof alert != "undefined") { %>
         <script>

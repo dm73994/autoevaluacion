@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create user</title>
+    <link rel="preload" href="css/style.css" as=" style">
+    <link href="css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-******************************" crossorigin="anonymous">
@@ -90,13 +92,25 @@
     details[open] ul {
         display: block;
     }
+    .form-group p{
+        color: black;
+        font-size: 17px;
+    }
+    .fondo{
+            background-image: url(img/fondo2.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin-top: -50px;
+            height: 740px;
+        }
+   
 
 </style>
 
 
 <body>
     
-    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+    <nav class="navbar navbar-dark navbar-expand-lg">
         <div class="navbar-brand"> 
             <a>crud user</a>
             <details>
@@ -119,100 +133,103 @@
             </li>
         </ul>
     </nav>
+    <div class="fondo">
 
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <form action="/coordinadorCreateUser" method="post">
-                            <div class="form-group">
-                                <label>Digite la identificacion:</label>
-                                <input type="text" name="user_identification" class="form-control" required>
-                            </div>
-                            <div class="form-row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label>Digite el nombre:</label>
-                                        <input type="text" name="user_name" class="form-control" required>
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="/coordinadorCreateUser" method="post">
+                                <div class="form-group">
+                                    <p>Digite la identificacion:</p>
+                                    <input type="text" name="user_identification" class="form-control" required>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <p>Digite el nombre:</p>
+                                            <input type="text" name="user_name" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <p>Digite el apellido:</p>
+                                            <input type="text" name="user_lastname" class="form-control" required>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label>Digite el apellido:</label>
-                                        <input type="text" name="user_lastname" class="form-control" required>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <p>Digite el correo:</p>
+                                            <input type="text" name="user_email" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <p>Digite la contraseña:</p>
+                                            <input type="password" name="user_password" class="form-control" required>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label>Digite el correo:</label>
-                                        <input type="text" name="user_email" class="form-control" required>
+                                <div class="form-row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <p>Digite los estudios:</p>
+                                            <input type="text" name="user_studies" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <p>Seleccione tipo docente:</p>
+                                            <select name="user_tipoDocente" class="form-control">
+                                                <option value="catedra">catedra</option>
+                                                <option value="tiempo completo">tiempo completo</option>
+                                                <option value="planta">planta</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label>Digite la contraseña:</label>
-                                        <input type="password" name="user_password" class="form-control" required>
-                                    </div>
+                                <div class="form-group">
+                                    <p>Seleccione el género:</p>
+                                    <select name="user_gender" class="form-control" required>
+                                        <option value="masculino">Masculino</option>
+                                        <option value="femenino">Femenino</option>
+                                    </select>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label>Digite los estudios:</label>
-                                        <input type="text" name="user_studies" class="form-control" required>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label>Seleccione el tipo de docente:</label>
-                                        <select name="user_tipoDocente" class="form-control">
-                                            <option value="catedra">catedra</option>
-                                            <option value="tiempo completo">tiempo completo</option>
-                                            <option value="planta">planta</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Seleccione el género:</label>
-                                <select name="user_gender" class="form-control" required>
-                                    <option value="masculino">Masculino</option>
-                                    <option value="femenino">Femenino</option>
-                                </select>
                             </div>
                         </div>
                     </div>
-                </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label>Seleccione el rol:</label>
-                            <select name="role_id" class="form-control" required>
-                                <option value="1">Docente</option>
-                                <option value="2">Decano</option>
-                                <option value="3">Coordinador</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Digite la fecha de inicio:</label>
-                            <input type="text" id="date_start" name="date_start" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Digite la fecha fin:</label>
-                            <input type="text" id="date_finish" name="date_finish" class="form-control" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">
-                            Create
-                        </button>
-                    </form>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <p>Seleccione el rol:</p>
+                                <select name="role_id" class="form-control" required>
+                                    <option value="1">Docente</option>
+                                    <option value="2">Decano</option>
+                                    <option value="3">Coordinador</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <p>Digite la fecha de inicio:</p>
+                                <input type="text" id="date_start" name="date_start" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <p>Digite la fecha fin:</p>
+                                <input type="text" id="date_finish" name="date_finish" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                Create
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <% if(typeof alert != "undefined") { %>

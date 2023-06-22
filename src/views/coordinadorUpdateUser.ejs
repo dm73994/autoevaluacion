@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Actualizar Usuario</title>
+    <link rel="preload" href="css/style.css" as=" style">
+    <link href="css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-******************************" crossorigin="anonymous">
@@ -13,6 +15,7 @@
     .navbar {
         display: flex;
         justify-content: space-between;
+        background-color: #1d1281;
     }
     
     .navbar-brand {
@@ -99,11 +102,23 @@
     details[open] ul {
         display: block;
     }
+    .fondo{
+            background-image: url(../img/fondo2.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin-top: -46px;
+            height: 1160px;
+        }
+        .form-group p{
+        color: black;
+        font-size: 17px;
+    }
+</style>
 </style>
 
 <body>
     
-    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+    <nav class="navbar navbar-dark  navbar-expand-lg">
         <div class="navbar-brand"> 
             <a>Actualizar usuario</a>
             <details>
@@ -127,75 +142,78 @@
         </ul>
     </nav>
 
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-5">
-                <div class="card">
-                    <div class="card-body">
-                        <form action="/coordinadorUpdateUser/<%= data.user_id %>/<%= data.user_role_id %>" method="post">
-                            <div class="form-group">
-                                <label for="user_name">Nombre</label>
-                                <input type="text" id="user_name" name="user_name" value="<%= data.user_name %>" class="form-control" >
-                            </div>
-                            <div class="form-group">
-                                <label for="user_lastname">Apellido</label>
-                                <input type="text" id="user_lastname" name="user_lastname" value="<%= data.user_lastname %>" class="form-control" >
-                            </div>
-                            <div class="form-group">
-                                <label for="user_gender">Género</label>
-                                <select id="user_gender" name="user_gender" class="form-control">
-                                    <option value="masculino" <%= data.user_gender === 'masculino' ? 'selected' : '' %>>Masculino</option>
-                                    <option value="femenino" <%= data.user_gender === 'femenino' ? 'selected' : '' %>>Femenino</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="user_email">Correo Electrónico</label>
-                                <input type="text" id="user_email" name="user_email" value="<%= data.user_email %>" class="form-control" >
-                            </div>
-                            <div class="form-group">
-                                <label for="user_studies">Estudios</label>
-                                <input type="text" id="user_studies" name="user_studies" value="<%= data.user_studies %>" class="form-control" >
-                            </div>
-                            <div class="form-group">
-                                <label for="user_tipoDocente">Tipo de Docente</label>
-                                <select id="user_tipoDocente" name="user_tipoDocente" class="form-control">
-                                    <option value="catedra" <%= data.user_tipoDocente === 'catedra' ? 'selected' : '' %>>Cátedra</option>
-                                    <option value="tiempo completo" <%= data.user_tipoDocente === 'tiempo completo' ? 'selected' : '' %>>Tiempo Completo</option>
-                                    <option value="planta" <%= data.user_tipoDocente === 'planta' ? 'selected' : '' %>>Planta</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="role_id">Rol</label>
-                                <select id="role_id" name="role_id" class="form-control">
-                                    <option value="1" <%= data.role_id === 1 ? 'selected' : '' %>>Docente</option>
-                                    <option value="2" <%= data.role_id === 2 ? 'selected' : '' %>>Decano</option>
-                                    <option value="3" <%= data.role_id === 3 ? 'selected' : '' %>>Coordinador</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="date_start">Fecha de Inicio</label>
-                                <input type="text" id="date_start" name="date_start" value="<%= data.date_start %>" class="form-control" >
-                            </div>
-                            <div class="form-group">
-                                <label for="date_finish">Fecha de Finalización</label>
-                                <input type="text" id="date_finish" name="date_finish" value="<%= data.date_finish%>" class="form-control" >
-                            </div>
-                            <div class="form-group">
-                                <label for="activo">Estado</label>
-                                <select id="activo" name="activo" class="form-control">
-                                    <option value="1" <%= data.activo === 1 ? 'selected' : '' %>>Activo</option>
-                                    <option value="-1" <%= data.activo === -1 ? 'selected' : '' %>>Inactivo</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-primary">
-                                Actualizar
-                            </button>
-                        </form>
+    <div class="fondo">
+
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="/coordinadorUpdateUser/<%= data.user_id %>/<%= data.user_role_id %>" method="post">
+                                <div class="form-group">
+                                    <p for="user_name">Nombre</p>
+                                    <input type="text" id="user_name" name="user_name" value="<%= data.user_name %>" class="form-control" >
+                                </div>
+                                <div class="form-group">
+                                    <p for="user_lastname">Apellido</p>
+                                    <input type="text" id="user_lastname" name="user_lastname" value="<%= data.user_lastname %>" class="form-control" >
+                                </div>
+                                <div class="form-group">
+                                    <p for="user_gender">Género</p>
+                                    <select id="user_gender" name="user_gender" class="form-control">
+                                        <option value="masculino" <%= data.user_gender === 'masculino' ? 'selected' : '' %>>Masculino</option>
+                                        <option value="femenino" <%= data.user_gender === 'femenino' ? 'selected' : '' %>>Femenino</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <p for="user_email">Correo Electrónico</p>
+                                    <input type="text" id="user_email" name="user_email" value="<%= data.user_email %>" class="form-control" >
+                                </div>
+                                <div class="form-group">
+                                    <p for="user_studies">Estudios</p>
+                                    <input type="text" id="user_studies" name="user_studies" value="<%= data.user_studies %>" class="form-control" >
+                                </div>
+                                <div class="form-group">
+                                    <p for="user_tipoDocente">Tipo de Docente</p>
+                                    <select id="user_tipoDocente" name="user_tipoDocente" class="form-control">
+                                        <option value="catedra" <%= data.user_tipoDocente === 'catedra' ? 'selected' : '' %>>Cátedra</option>
+                                        <option value="tiempo completo" <%= data.user_tipoDocente === 'tiempo completo' ? 'selected' : '' %>>Tiempo Completo</option>
+                                        <option value="planta" <%= data.user_tipoDocente === 'planta' ? 'selected' : '' %>>Planta</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <p for="role_id">Rol</p>
+                                    <select id="role_id" name="role_id" class="form-control">
+                                        <option value="1" <%= data.role_id === 1 ? 'selected' : '' %>>Docente</option>
+                                        <option value="2" <%= data.role_id === 2 ? 'selected' : '' %>>Decano</option>
+                                        <option value="3" <%= data.role_id === 3 ? 'selected' : '' %>>Coordinador</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <p for="date_start">Fecha de Inicio</p>
+                                    <input type="text" id="date_start" name="date_start" value="<%= data.date_start %>" class="form-control" >
+                                </div>
+                                <div class="form-group">
+                                    <p for="date_finish">Fecha de Finalización</p>
+                                    <input type="text" id="date_finish" name="date_finish" value="<%= data.date_finish%>" class="form-control" >
+                                </div>
+                                <div class="form-group">
+                                    <p for="activo">Estado</p>
+                                    <select id="activo" name="activo" class="form-control">
+                                        <option value="1" <%= data.activo === 1 ? 'selected' : '' %>>Activo</option>
+                                        <option value="-1" <%= data.activo === -1 ? 'selected' : '' %>>Inactivo</option>
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    Actualizar
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
+    
         </div>
-
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

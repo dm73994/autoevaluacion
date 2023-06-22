@@ -1,0 +1,159 @@
+.contprinci{
+    background-image: url(img/fondo2.jpg);
+    background-size: cover;
+background-repeat: no-repeat;
+}
+.subcont{
+    margin-top: -150px;
+    margin-left: -350px;
+}
+
+.contenedor {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  
+  align-items: center;
+}
+
+
+.cuadro {
+  text-align: center;
+  padding: 20px;
+
+}
+
+.btns {
+  display: inline-block;
+  width: 300px;
+  height: 55px;
+  padding: 10px 20px;
+  background-color: #c01c1c;
+  color: #fff;
+  border: 2px solid #fff;
+
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  cursor: pointer;
+  font-size: 17px;
+  margin-bottom: 10px;
+}
+
+.btns:hover {
+  background-color: #a81b1b;
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+}
+.navbar{
+    background-color: #1d1281;
+}
+table.table th {
+    background-color:  #1d1281;
+    font-weight: bold;
+    color: white;
+    border: 1px solid #070707;
+    
+  }
+  table.table td {
+    background-color:  #cbc9e0;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    border: 1px solid #000000;
+    
+  }
+  .fondo{
+    background-image: url(img/fondo2.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-top: -50px;
+}
+  
+.contenedorl{
+    display:grid;
+    grid-template-columns: 55% 45%;
+    height: 100vh;
+    margin-top: -10px;
+  
+  }
+  .izquierdo{
+    margin-left: 100px;
+    background-image: url(../img/logo.jpg); 
+    background-size: cover;
+  }
+  .principal{
+    margin-right: 120px;
+    background-color: rgb(255, 250, 250);
+  }
+  .usuario{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+    width: 300px;
+   
+    text-align: center;
+    background-color: rgb(250, 250, 250);
+  }
+  
+  .legend-center {
+    font-size: 22px;
+    text-align: center;
+    font-family: 'Roboto Slab', serif;
+    color: rgb(71, 70, 70);
+    font-style: italic;
+  }
+  
+  .cont-camp {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    border-radius: 5px;
+  }
+  
+  .input-text {
+    
+    width: 200px;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid black;
+  }
+  
+  /* Opcionalmente, puedes agregar estilos adicionales para los campos específicos */
+  .campos label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-family: 'Roboto Slab', serif;
+    font-size: 20px;
+  }
+  .campos label{
+    font-weight: 700;
+  }
+  
+  .boton{
+    margin-top: 20px;
+    background-color: rgb(0, 0, 0);
+    font-family: 'Roboto Slab', serif;
+    text-decoration: none;
+    color: white;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    padding-right: 7px;
+    border: none;
+    text-align: center;
+    border-radius: 5px;
+  }
+  .boton:hover{
+    cursor: pointer;
+  }
+  .welcome{
+  
+      text-align: center;
+      font-size: 35px;
+  }
+  

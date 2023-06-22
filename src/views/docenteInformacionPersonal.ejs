@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Informacion docente</title>
+    <link rel="preload" href="css/style.css" as=" style">
+    <link href="css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-******************************" crossorigin="anonymous">
     <style>
@@ -90,12 +92,34 @@
         details[open] ul {
             display: block;
         }
+        .fondo{
+            background-image: url(img/fondo2.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin-top: -50px;
+            height: 740px;
+        }
+        .card-title{
+            color: black;
+            font-size: 25px;
+        }
+        .pe{
+            color: black;
+            font-size: 20px;
+        }
+        .card{
+            width: 500px;
+        }
+        .card-body{
+            margin-top: 30px;
+        }
+       
 
     </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+    <nav class="navbar navbar-dark  navbar-expand-lg">
         <div class="navbar-brand"> 
             <a>informacion personal</a>
             <details>
@@ -117,24 +141,27 @@
     </nav>
 
 
-    <div class="container mt-5">
-        <div class="row">
-            <% for(let i = 0; i < data.length; i++) { %>
-            <div class="col-md-5">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Información del usuario</h5>
-                        <p><strong>Identificación:</strong> <%= data[i].user_identification %></p>
-                        <p><strong>Nombre:</strong> <%= data[i].user_name %></p>
-                        <p><strong>Apellido:</strong> <%= data[i].user_lastname %></p>
-                        <p><strong>Género:</strong> <%= data[i].user_gender %></p>
-                        <p><strong>Email:</strong> <%= data[i].user_email %></p>
-                        <p><strong>Tipo docente:</strong> <%= data[i].user_tipoDocente %></p>
-                        <p><strong>Estudios:</strong> <%= data[i].user_studies %></p>
+    <div class="fondo">
+
+        <div class="container mt-5">
+            <div class="row">
+                <% for(let i = 0; i < data.length; i++) { %>
+                <div class="col-md-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Información del usuario</h5>
+                            <p class="pe" ><strong>Identificación:</strong> <%= data[i].user_identification %></p>
+                            <p class="pe"><strong>Nombre:</strong> <%= data[i].user_name %></p>
+                            <p class="pe"><strong>Apellido:</strong> <%= data[i].user_lastname %></p>
+                            <p class="pe"><strong>Género:</strong> <%= data[i].user_gender %></p>
+                            <p class="pe"><strong>Email:</strong> <%= data[i].user_email %></p>
+                            <p class="pe"><strong>Tipo docente:</strong> <%= data[i].user_tipoDocente %></p>
+                            <p class="pe"><strong>Estudios:</strong> <%= data[i].user_studies %></p>
+                        </div>
                     </div>
                 </div>
+                <% } %>
             </div>
-            <% } %>
         </div>
     </div>
 
