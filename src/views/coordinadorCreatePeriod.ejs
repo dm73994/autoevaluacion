@@ -183,6 +183,19 @@
             dateFormat: "Y-m-d"
         });
     </script>
+    <script>
+    var dateStartInput = document.getElementById("period_dateStart");
+    var dateFinishInput = document.getElementById("period_dateFinish");
 
+    document.querySelector("form").addEventListener("submit", function(event) {
+        var dateStartValue = dateStartInput.value;
+        var dateFinishValue = dateFinishInput.value;
+
+        if (dateStartValue === "" || dateFinishValue === "") {
+            event.preventDefault();
+            alert("Por favor, seleccione ambas fechas.");
+        }
+    });
+    </script>
 </body>
 </html>

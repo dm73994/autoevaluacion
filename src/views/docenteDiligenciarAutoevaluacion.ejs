@@ -118,6 +118,18 @@
             display: block;
         }
 
+        .fondo{
+            background-image: url(../img/fondo2.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin-top: -46px;
+            height: 1200px;
+        }
+        .form-group p{
+        color: black;
+        font-size: 17px;
+    }
+
     </style>
 </head>
 <body>
@@ -144,87 +156,90 @@
         </ul>
     </nav>
 
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-7">
-                <div class="card">
-                    <div class="card-body">
-                        <form action="/docenteDiligenciarAutoevaluacion/<%= data.autoevaluation_id %>" method="post">
-                            <table class="table">
-                                <tbody>
-                                    <tr>
-                                        <th>Identificación de Usuario</th>
-                                        <td><%= data.user_identification %></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Código de Labor</th>
-                                        <td><%= data.labor_code %></td>
-                                    </tr>
-                                    <tr>
-                                        <th>ID del Período</th>
-                                        <td><%= data.period_id %></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Acto</th>
-                                        <td>
-                                            <% if (data.acto === 'si') { %>
-                                                Si
-                                            <% } else { %>
-                                                No
-                                            <% } %>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Estado</th>
-                                        <td><%= data.state %></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Fecha de Inicio</th>
-                                        <td><%= data && data.date_init ? data.date_init.toISOString().substring(0, 10) : '' %></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Fecha de Finalización</th>
-                                        <td><%= data && data.date_finish ? data.date_finish.toISOString().substring(0, 10) : '' %></td>
-                                    </tr>
-                                    <tr>
-                                        <th>Activo</th>
-                                        <td>
-                                            <% if (data.activo === 1) { %>
-                                                Activo
-                                            <% } else { %>
-                                                Inactivo
-                                            <% } %>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Resultados</th>
-                                        <td>
-                                            <textarea name="resultados" class="form-control" rows="8"><%= data.resultados %></textarea>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>Evaluación</th>
-                                        <td>
-                                            <input type="number" name="evaluacion" value="<%= data.evaluacion %>" class="form-control" min="0" max="100">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>sugerencias</th>
-                                        <td>
-                                            <textarea name="sugerencias" class="form-control" rows="8"><%= data.sugerencias %></textarea>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <button type="submit" class="btn btn-primary mx-auto d-block">
-                                Enviar
-                            </button>
-                        </form>
+    <div class="fondo">
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="/docenteDiligenciarAutoevaluacion/<%= data.autoevaluation_id %>" method="post">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <th>Identificación de Usuario</th>
+                                            <td><%= data.user_identification %></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Código de Labor</th>
+                                            <td><%= data.labor_code %></td>
+                                        </tr>
+                                        <tr>
+                                            <th>ID del Período</th>
+                                            <td><%= data.period_id %></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Acto</th>
+                                            <td>
+                                                <% if (data.acto === 'si') { %>
+                                                    Si
+                                                <% } else { %>
+                                                    No
+                                                <% } %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Estado</th>
+                                            <td><%= data.state %></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Fecha de Inicio</th>
+                                            <td><%= data && data.date_init ? data.date_init.toISOString().substring(0, 10) : '' %></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Fecha de Finalización</th>
+                                            <td><%= data && data.date_finish ? data.date_finish.toISOString().substring(0, 10) : '' %></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Activo</th>
+                                            <td>
+                                                <% if (data.activo === 1) { %>
+                                                    Activo
+                                                <% } else { %>
+                                                    Inactivo
+                                                <% } %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Resultados</th>
+                                            <td>
+                                                <textarea name="resultados" class="form-control" rows="8"><%= data.resultados %></textarea>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Evaluación</th>
+                                            <td>
+                                                <input type="number" name="evaluacion" value="<%= data.evaluacion %>" class="form-control" min="0" max="100">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>sugerencias</th>
+                                            <td>
+                                                <textarea name="sugerencias" class="form-control" rows="8"><%= data.sugerencias %></textarea>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <button type="submit" class="btn btn-primary mx-auto d-block">
+                                    Enviar
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <% if(typeof alert != "undefined") { %>
         <script>
