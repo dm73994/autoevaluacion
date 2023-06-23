@@ -2,7 +2,7 @@ import { connection } from '../database/db';
 
 export const getUsers = (currentUser, callback) => {
     connection.query(
-        'SELECT u.*, r.*, ur.date_start, ur.date_finish FROM user u JOIN user_role ur ON u.user_identification = ur.user_identification JOIN role r ON ur.role_id = r.role_id WHERE user_email != ?',
+        'SELECT u.*, r.*, ur.date_start, ur.date_finish FROM user u JOIN user_role ur ON u.user_identification = ur.user_identification JOIN role r ON ur.role_id = r.role_id WHERE user_email != ? ORDER BY u.user_identification',
         [currentUser],
         (err, users) => {
             if (err) {

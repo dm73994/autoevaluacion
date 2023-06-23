@@ -1,7 +1,7 @@
 import { connection } from '../database/db';
 
 export const getPeriods = (callback) => {
-    connection.query('SELECT * FROM period', (err, result) => {
+    connection.query('SELECT * FROM period ORDER BY period_name', (err, result) => {
       if (err) {
         callback(err, null);
       } else {

@@ -304,7 +304,7 @@ export const diligenciarDocenteAutoevaluation = (req, res) => {
       notificarRelizacionAutoevaluacionDocente(req,res,autoevaluation_id);
       getAutoevaluaciones((err,autoevaluaciones) =>{
         console.log(autoevaluaciones);
-        res.render('docenteDiligenciar', {
+        res.render('docenteDiligenciarAutoevaluacion', {
           data:autoevaluaciones,
           alert: true,
           alertTitle: "Registro completado",

@@ -137,7 +137,7 @@ export const notificarRelizacionAutoevaluacionDocente = (req,res,autoevaluacion_
               console.log(err)
             }
             else{
-                console.log(autoevaluaciones);
+              console.log(autoevaluaciones);
             }
         })}
       })

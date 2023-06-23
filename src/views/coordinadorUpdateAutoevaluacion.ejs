@@ -224,12 +224,12 @@
                                   <% } %>
                               </div>
                               <div class="form-group">
-                                  <p for="date_init">Fecha de Inicio</p>
-                                  <input type="text" id="date_init" name="date_init" value="<%= data.date_init %>" class="form-control" >
+                                <label for="date_init">Fecha de Inicio</label>
+                                <input type="date" id="date_init" name="date_init" <% if (data.date_init) { %> value="<%= data.date_init.toISOString().substring(0, 10) %>" <% } %> class="form-control">
                               </div>
                               <div class="form-group">
-                                  <p for="date_finish">Fecha de Finalización</p>
-                                  <input type="text" id="date_finish" name="date_finish" value="<%= data.date_finish %>" class="form-control" >
+                                <label for="date_finish">Fecha de Finalización</label>
+                                <input type="date" id="date_finish" name="date_finish" <% if (data.date_finish) { %> value="<%= data.date_finish.toISOString().substring(0, 10) %>" <% } %> class="form-control">
                               </div>
                               <div class="form-group">
                                   <p for="activo">Activo</p>
